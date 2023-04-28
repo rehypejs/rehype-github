@@ -1,0 +1,42 @@
+{
+  "name": "viewscreen-stl",
+  "version": "0.0.0",
+  "private": true,
+  "description": "viewscreen component for STL files (3D geometry)",
+  "license": "MIT",
+  "keywords": [],
+  "repository": "rehypejs/rehype-github",
+  "bugs": "https://github.com/rehypejs/rehype-github/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
+  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "types": "./index.d.ts",
+    "default": "./index.js"
+  },
+  "files": [
+    "lib/",
+    "index.d.ts",
+    "index.js"
+  ],
+  "dependencies": {
+    "@types/three": "^0.150.0",
+    "three": "^0.152.0"
+  },
+  "scripts": {
+    "test-api": "node --conditions development test/index.js"
+  },
+  "xo": false,
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "strict": true
+  }
+}

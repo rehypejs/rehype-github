@@ -1,0 +1,14 @@
+Sanitize:
+
+Implement name/id prefixing:
+
+```html
+<span id="x">1</span>
+<span name="y">2</span>
+<span id="user-content-x">3</span>
+<span name="user-content-y">4</span>
+<span id="user-contentx">5</span>
+<span name="user-contenty">6</span>
+<span id="user-content-">7</span>
+<span name="user-content">8</span>
+```

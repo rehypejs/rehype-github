@@ -1,0 +1,46 @@
+{
+  "name": "rehype-github-emoji",
+  "version": "0.0.0",
+  "private": true,
+  "description": "rehype plugin to enhance emoji and gemoji",
+  "license": "MIT",
+  "keywords": [],
+  "repository": "rehypejs/rehype-github",
+  "bugs": "https://github.com/rehypejs/rehype-github/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
+  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "types": "./index.d.ts",
+    "default": "./index.js"
+  },
+  "files": [
+    "lib/",
+    "index.d.ts",
+    "index.js"
+  ],
+  "dependencies": {
+    "@types/hast": "^2.0.0",
+    "escape-string-regexp": "^5.0.0",
+    "gemoji": "~7.1.0",
+    "hast-util-find-and-replace": "^4.0.0",
+    "hast-util-is-element": "^2.1.3"
+  },
+  "scripts": {
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api"
+  },
+  "xo": false,
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "strict": true
+  }
+}

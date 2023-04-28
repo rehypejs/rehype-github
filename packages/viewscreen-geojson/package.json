@@ -1,0 +1,48 @@
+{
+  "name": "viewscreen-geojson",
+  "version": "0.0.0",
+  "private": true,
+  "description": "viewscreen component for geojson and topojson",
+  "license": "MIT",
+  "keywords": [],
+  "repository": "rehypejs/rehype-github",
+  "bugs": "https://github.com/rehypejs/rehype-github/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
+  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "types": "./index.d.ts",
+    "default": "./index.js"
+  },
+  "files": [
+    "lib/",
+    "index.d.ts",
+    "index.js"
+  ],
+  "dependencies": {
+    "@types/geojson": "^7946.0.10",
+    "@types/leaflet": "~1.9.0",
+    "@types/topojson-client": "^3.0.0",
+    "@types/topojson-specification": "^1.0.0",
+    "leaflet": "~1.9.0",
+    "leaflet.markercluster": "^1.0.0",
+    "topojson-client": "^3.0.0"
+  },
+  "scripts": {
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api"
+  },
+  "xo": false,
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "strict": true
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "rehype-github-dir",
+  "version": "0.0.0",
+  "private": true,
+  "description": "rehype plugin to add `dir=auto` to elements",
+  "license": "MIT",
+  "keywords": [],
+  "repository": "rehypejs/rehype-github",
+  "bugs": "https://github.com/rehypejs/rehype-github/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
+  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "types": "./index.d.ts",
+    "default": "./index.js"
+  },
+  "files": [
+    "lib/",
+    "index.d.ts",
+    "index.js"
+  ],
+  "dependencies": {
+    "@types/hast": "^2.0.0",
+    "hast-util-to-string": "^2.0.0",
+    "unist-util-visit": "^4.0.0"
+  },
+  "scripts": {
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api"
+  },
+  "xo": false,
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "strict": true
+  }
+}

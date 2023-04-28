@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang=en>
+<meta content=width=device-width,initial-scale=1 name=viewport>
+<meta charset=utf8>
+<title>viewscreen: mermaid</title>
+<style>
+  :root {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans',
+      Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    color-scheme: light;
+
+    --color-accent-fg: #0969da;
+    --color-btn-active-bg: hsl(220, 14%, 93%);
+    --color-btn-active-border: rgba(31, 35, 40, 0.15);
+    --color-btn-bg: #f6f8fa;
+    --color-btn-border: rgba(31, 35, 40, 0.15);
+    --color-btn-hover-bg: #f3f4f6;
+    --color-btn-hover-border: rgba(31, 35, 40, 0.15);
+    --color-btn-inset-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    --color-btn-shadow: 0 1px 0 rgba(31, 35, 40, 0.04);
+    --color-btn-text: #24292f;
+    --color-primer-fg-disabled: #8c959f;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+
+      --color-accent-fg: #2f81f7;
+      --color-btn-active-bg: hsl(212, 12%, 18%);
+      --color-btn-active-border: #6e7681;
+      --color-btn-bg: #21262d;
+      --color-btn-border: rgba(240, 246, 252, 0.1);
+      --color-btn-hover-bg: #30363d;
+      --color-btn-hover-border: #8b949e;
+      --color-btn-inset-shadow: 0 0 transparent;
+      --color-btn-shadow: 0 0 transparent;
+      --color-btn-text: #c9d1d9;
+      --color-primer-fg-disabled: #484f58;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  button {
+    position: relative;
+    display: inline-block;
+    padding: 5px 7px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid;
+    border-radius: 6px;
+    appearance: none;
+
+    color: var(--color-btn-text);
+    background-color: var(--color-btn-bg);
+    border-color: var(--color-btn-border);
+    box-shadow: var(--color-btn-shadow), var(--color-btn-inset-shadow);
+    transition: 80ms cubic-bezier(0.33, 1, 0.68, 1);
+    transition-property: color, background-color, box-shadow, border-color;
+  }
+
+  button:disabled {
+    color: var(--color-primer-fg-disabled);
+    background-color: var(--color-btn-bg);
+    border-color: var(--color-btn-border);
+  }
+
+  button:hover {
+    background-color: var(--color-btn-hover-bg);
+    border-color: var(--color-btn-hover-border);
+    transition-duration: 0.1s;
+  }
+
+  button:focus {
+    outline: 2px solid var(--color-accent-fg);
+    outline-offset: -2px;
+    box-shadow: none;
+  }
+
+  button:active {
+    background-color: var(--color-btn-active-bg);
+    border-color: var(--color-btn-active-border);
+    transition: none;
+  }
+
+  .octicon:only-child {
+    margin-right: 0;
+  }
+
+  .octicon {
+    margin-right: 4px;
+    fill: currentColor; /* Inherit from (disabled) buttons. */
+    vertical-align: text-bottom;
+  }
+
+  .panel {
+    position: absolute;
+    z-index: 1;
+    bottom: 0.5ex;
+    right: 0.5ex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5ex;
+  }
+
+  .up { grid-column: 2; grid-row: 1; }
+  .zoom-in { grid-column: 3; grid-row: 1; }
+  .left { grid-column: 1; grid-row: 2; }
+  .reset { grid-column: 2; grid-row: 2; }
+  .right { grid-column: 3; grid-row: 2; }
+  .down { grid-column: 2; grid-row: 3; }
+  .zoom-out { grid-column: 3; grid-row: 3; }
+</style>
+<script type=module>
+  import {viewscreenMermaid} from './viewscreen-mermaid.min.js'
+
+  const id = window.location.hash.slice(1)
+  if (!id) throw new Error('Expected `id` in hash')
+  const parent = window.parent
+  if (!parent) throw new Error('Expected parent window')
+
+  const viewer = viewscreenMermaid(document.body, {
+    onSizeSuggestion(width, height) {
+      parent.postMessage({type: 'resize', id, value: {width, height}})
+    }
+  })
+
+  window.addEventListener('message', async function (event) {
+    if (event.data.type === 'content') {
+      await viewer.change(event.data.value)
+    }
+  })
+</script>

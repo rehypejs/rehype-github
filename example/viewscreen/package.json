@@ -1,0 +1,49 @@
+{
+  "name": "view",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "license": "MIT",
+  "keywords": [],
+  "repository": "rehypejs/rehype-github",
+  "bugs": "https://github.com/rehypejs/rehype-github/issues",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
+  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "types": "./index.d.ts",
+    "default": "./index.js"
+  },
+  "files": [
+    "lib/",
+    "index.d.ts",
+    "index.js"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "esbuild": "^0.17.0",
+    "viewscreen-geojson": "0.0.0",
+    "viewscreen-mermaid": "0.0.0",
+    "viewscreen-stl": "0.0.0"
+  },
+  "scripts": {
+    "generate:viewscreen-geojson": "esbuild viewscreen-geojson --bundle --minify --target=es2020 --format=esm --outfile=viewscreen-geojson.min.js",
+    "generate:viewscreen-mermaid": "esbuild viewscreen-mermaid --bundle --minify --target=es2020 --format=esm --outfile=viewscreen-mermaid.min.js",
+    "generate:viewscreen-stl": "esbuild viewscreen-stl --bundle --minify --target=es2020 --format=esm --outfile=viewscreen-stl.min.js",
+    "generate:outside": "esbuild lib/outside.js --bundle --minify --target=es2020 --format=esm --outfile=outside.min.js",
+    "generate": "npm run generate:viewscreen-geojson && npm run generate:viewscreen-mermaid && npm run generate:viewscreen-stl && npm run generate:outside"
+  },
+  "xo": false,
+  "typeCoverage": {
+    "atLeast": 100,
+    "detail": true,
+    "strict": true
+  }
+}
