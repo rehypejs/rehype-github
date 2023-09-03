@@ -38,7 +38,33 @@
     "test-api": "node --conditions development test/index.js",
     "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api"
   },
-  "xo": false,
+  "prettier": {
+    "bracketSpacing": false,
+    "singleQuote": true,
+    "semi": false,
+    "tabWidth": 2,
+    "trailingComma": "none",
+    "useTabs": false
+  },
+  "xo": {
+    "overrides": [
+      {
+        "files": [
+          "**/test/**/*.js"
+        ],
+        "rules": {
+          "no-await-in-loop": 0
+        }
+      }
+    ],
+    "prettier": true,
+    "#": "`n` is wrong",
+    "rules": {
+      "n/file-extension-in-import": "off",
+      "unicorn/prefer-at": "off",
+      "unicorn/prefer-string-replace-all": "off"
+    }
+  },
   "typeCoverage": {
     "atLeast": 100,
     "detail": true,

@@ -146,9 +146,7 @@ function sanitizeSvg(value) {
  * @type {Array<Button>}
  */
 const buttons = [
-  // @ts-expect-error: types are out of date: `zoom-in` exists.
   {className: 'zoom-in', icon: 'zoom-in', action: zoomIn},
-  // @ts-expect-error: types are out of date: `zoom-out` exists.
   {className: 'zoom-out', icon: 'zoom-out', action: zoomOut},
   {className: 'reset', icon: 'sync', action: reset},
   {className: 'up', icon: 'chevron-up', action: up},

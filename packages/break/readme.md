@@ -28,6 +28,7 @@
 *   [Security](#security)
 *   [Related](#related)
 *   [Contribute](#contribute)
+*   [Notice](#notice)
 *   [License](#license)
 
 ## What is this?
