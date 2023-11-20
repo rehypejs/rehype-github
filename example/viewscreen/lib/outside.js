@@ -28,7 +28,7 @@ window.addEventListener(
    *
    * @param {MessageEvent<FromViewscreenMessage>} event
    */
-  function (event) {
+  (event) => {
     // eslint-disable-next-line unicorn/prefer-switch
     if (event.data.type === 'resize') {
       // We use unique names, but not bad to handle arrays.
@@ -39,7 +39,10 @@ window.addEventListener(
       }
     } else if (event.data.type === 'resolve') {
       const viewscreen = viewscreens.get(event.data.id)
-      if (!viewscreen) throw new Error('Expected viewscreen')
+      if (!viewscreen) {
+        throw new Error('Expected viewscreen')
+      }
+
       // Note: this never happens.
       // When `reject` is added to the DOM, it replaces the frame, which
       // offloads it, so `resolve` will never happen.
@@ -48,9 +51,15 @@ window.addEventListener(
       }
     } else if (event.data.type === 'reject') {
       const viewscreen = viewscreens.get(event.data.id)
-      if (!viewscreen) throw new Error('Expected viewscreen')
+      if (!viewscreen) {
+        throw new Error('Expected viewscreen')
+      }
+
       const body = viewscreen.reject.querySelector('.flash-body')
-      if (!body) throw new Error('Expected body')
+      if (!body) {
+        throw new Error('Expected body')
+      }
+
       body.textContent = event.data.value
       if (viewscreen.resolve.parentElement) {
         viewscreen.resolve.replaceWith(viewscreen.reject)
@@ -66,12 +75,17 @@ const prefix = 'language-'
 
 for (const node of nodes) {
   const className = Array.from(node.classList).find((d) => d.startsWith(prefix))
-  if (!className) continue
+  if (!className) {
+    continue
+  }
+
   const name = className.slice(prefix.length)
 
   const specifier = hasOwn.call(types, name) ? types[name] : undefined
 
-  if (!specifier) continue
+  if (!specifier) {
+    continue
+  }
 
   const value = node.textContent || ''
   const id = crypto.randomUUID()
@@ -92,9 +106,12 @@ for (const node of nodes) {
   // Hide for now.
   iframe.setAttribute('style', 'opacity:0')
 
-  iframe.addEventListener('load', function () {
+  iframe.addEventListener('load', () => {
     const otherWindow = iframe.contentWindow
-    if (!otherWindow) throw new Error('Expected `contentWindow`')
+    if (!otherWindow) {
+      throw new Error('Expected `contentWindow`')
+    }
+
     /** @type {ToViewscreenMessage} */
     const message = {type: 'content', id, value}
     iframe.setAttribute('style', '')

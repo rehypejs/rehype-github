@@ -206,7 +206,7 @@ export function create(node, options) {
     const node = document.createElement('button')
     node.classList.add(button.className)
     node.innerHTML = octicons[button.icon].toSVG()
-    node.addEventListener('click', function () {
+    node.addEventListener('click', () => {
       button.action(context)
     })
     context.panel.append(node)
@@ -219,7 +219,10 @@ export function create(node, options) {
 
   window.matchMedia(query).addEventListener('change', ondarkmode)
   context.zoomAreaSelection.call(context.zoomBehavior)
-  if (observer) observer.observe(node)
+  if (observer) {
+    observer.observe(node)
+  }
+
   updateDarkmode(state)
 
   context.zoomArea.append(context.zoomedArea)
@@ -334,20 +337,33 @@ async function updateValue(context, state, options) {
   const resetZoom = config.resetZoom || false
 
   if (state.value === undefined) {
-    if (context.diagram) context.diagram.remove()
+    if (context.diagram) {
+      context.diagram.remove()
+    }
+
     context.diagram = undefined
   } else {
     const previousSvg = context.diagram
     const result = await mermaid.render('diagram', state.value)
     const fragment = sanitizeSvg(result.svg)
     const nextSvg = fragment.querySelector('svg')
-    if (!nextSvg) throw new Error('Expected svg')
+    if (!nextSvg) {
+      throw new Error('Expected svg')
+    }
 
-    if (result.bindFunctions) result.bindFunctions(nextSvg)
-    if (previousSvg) previousSvg.remove()
+    if (result.bindFunctions) {
+      result.bindFunctions(nextSvg)
+    }
+
+    if (previousSvg) {
+      previousSvg.remove()
+    }
 
     context.diagram = nextSvg
-    if (resetZoom) reset(context)
+    if (resetZoom) {
+      reset(context)
+    }
+
     context.zoomedArea.append(nextSvg)
   }
 }

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-test('viewscreenMermaid', async function () {
+test('viewscreenMermaid', async () => {
   assert.deepEqual(
     Object.keys(await import('viewscreen-mermaid')).sort(),
     ['viewscreenMermaid'],

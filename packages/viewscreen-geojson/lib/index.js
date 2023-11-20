@@ -56,7 +56,9 @@ export function create(node, options) {
   /* c8 ignore next 3 */
   const observer =
     'ResizeObserver' in window ? new ResizeObserver(onresize) : undefined
-  if (observer) observer.observe(node)
+  if (observer) {
+    observer.observe(node)
+  }
 
   // `unicorn` is wrong, this is not an array.
   // eslint-disable-next-line unicorn/no-array-callback-reference
@@ -73,7 +75,9 @@ export function create(node, options) {
   const geoJsonLayer = L.geoJSON(undefined, {
     onEachFeature(feature, layer) {
       const description = createFeatureDescription(feature)
-      if (description) layer.bindPopup(description)
+      if (description) {
+        layer.bindPopup(description)
+      }
     }
   })
   // @ts-expect-error: untyped.
@@ -122,7 +126,10 @@ export function create(node, options) {
 
     geoJsonLayer.addTo(clusterGroup)
     map.fitBounds(geoJsonLayer.getBounds())
-    if (options && options.onResolve) options.onResolve()
+    if (options && options.onResolve) {
+      options.onResolve()
+    }
+
     onresize([])
   }
 
@@ -170,7 +177,9 @@ function createFeatureDescription(feature) {
     }
   }
 
-  if (buf) buf = '<table>' + buf + '</table>'
+  if (buf) {
+    buf = '<table>' + buf + '</table>'
+  }
 
   return buf
 }

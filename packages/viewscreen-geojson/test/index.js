@@ -29,7 +29,7 @@ const geojsonExample = {
   properties: {name: 'Dinagat Islands'}
 }
 
-test('viewscreenGeojson', async function (t) {
+test('viewscreenGeojson', async (t) => {
   assert.deepEqual(
     Object.keys(await import('viewscreen-geojson')).sort(),
     ['viewscreenGeojson'],

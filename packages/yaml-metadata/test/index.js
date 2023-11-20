@@ -163,7 +163,7 @@ test('remarkGithubYamlMetadata', async () => {
   )
 })
 
-test('fixtures', async function () {
+test('fixtures', async () => {
   const base = new URL('fixtures/', import.meta.url)
 
   await createGfmFixtures(base, {
@@ -214,21 +214,21 @@ test('fixtures', async function () {
 
     // To do: use `starry-night`?
     const re = /<span class="pl-.+?">(.+?)<\/span>/g
-    actual = actual.replace(re, '$1').replace(re, '$1')
-    expected = expected.replace(re, '$1').replace(re, '$1')
+    actual = actual.replaceAll(re, '$1').replaceAll(re, '$1')
+    expected = expected.replaceAll(re, '$1').replaceAll(re, '$1')
 
     // Undo GH-specific highlighting.
 
     expected = expected
       // To do: fix `rehype-raw` in fragment mode w/ whitespace in tables, then add whitespace.
-      .replace(/\n {2}</g, '<')
+      .replaceAll(/\n {2}</g, '<')
       // GH adds a weird amount of blank lines.
-      .replace(/\n{2}/g, '\n')
-      .replace(/<\/tbody>\n<\/table>/g, '</tbody></table>')
+      .replaceAll(/\n{2}/g, '\n')
+      .replaceAll('</tbody>\n</table>', '</tbody></table>')
       // GH uses a custom parser that mostly follows YAML 1.1 but not exactly.
       // In YAML 1.1, `y` and `n` should transform to `true` and `false`, but they don’t.
-      .replace(/<td><div>y<\/div><\/td>/g, '<td><div>true</div></td>')
-      .replace(/<td><div>n<\/div><\/td>/g, '<td><div>false</div></td>')
+      .replaceAll('<td><div>y</div></td>', '<td><div>true</div></td>')
+      .replaceAll('<td><div>n</div></td>', '<td><div>false</div></td>')
       // GH sometimes does or doesn’t an eol after YAML code blocks.
       .replace('---\n</pre>', '---</pre>')
 
@@ -252,8 +252,8 @@ test('fixtures', async function () {
       // We can’t do that.
       const looksLikeADate =
         /\d{4}-\d{2}-\d{2}( \d{2}:\d{2}:\d{2}( [-+]\d{1,4})?)?/g
-      actual = actual.replace(looksLikeADate, 'xxxx:yy:zz')
-      expected = expected.replace(looksLikeADate, 'xxxx:yy:zz')
+      actual = actual.replaceAll(looksLikeADate, 'xxxx:yy:zz')
+      expected = expected.replaceAll(looksLikeADate, 'xxxx:yy:zz')
     }
 
     assert.equal(actual, expected, name)

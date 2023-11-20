@@ -97,7 +97,7 @@ test('rehypeGithubColor', async () => {
   )
 })
 
-test('fixtures', async function () {
+test('fixtures', async () => {
   const base = new URL('fixtures/', import.meta.url)
 
   await createGfmFixtures(base, {
@@ -134,7 +134,7 @@ test('fixtures', async function () {
 
     // To do: add to `create-gfm-fixtures`.
     // GH adds `notranslate`, this should be (optionally) removed by `crate-gfm-fixtures`.
-    expected = expected.replace(/ class="notranslate"/g, '')
+    expected = expected.replaceAll(' class="notranslate"', '')
 
     assert.equal(actual, expected, name)
   }

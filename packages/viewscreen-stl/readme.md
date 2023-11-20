@@ -30,6 +30,7 @@ Viewscreen component for STL files (3D geometry).
 *   [Security](#security)
 *   [Related](#related)
 *   [Contribute](#contribute)
+*   [Notice](#notice)
 *   [License](#license)
 
 ## What is this?

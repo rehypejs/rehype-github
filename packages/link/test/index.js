@@ -73,7 +73,7 @@ test('rehypeGithubLink', async () => {
   )
 
   assert.throws(
-    function () {
+    () => {
       unified()
         .use(rehypeGithubLink, {internal: 'https://example.com'})
         .freeze()
@@ -83,7 +83,7 @@ test('rehypeGithubLink', async () => {
   )
 
   assert.throws(
-    function () {
+    () => {
       unified().use(rehypeGithubLink, {internal: 'example.com/asd'}).freeze()
     },
     /Expected valid hostname for URL/,
@@ -115,7 +115,7 @@ test('rehypeGithubLink', async () => {
   )
 
   assert.throws(
-    function () {
+    () => {
       unified().use(rehypeGithubLink, {rel: 'ugc nofollow'}).freeze()
     },
     /Expected valid `rel` value, without space/,
@@ -123,7 +123,7 @@ test('rehypeGithubLink', async () => {
   )
 })
 
-test('fixtures', async function () {
+test('fixtures', async () => {
   const base = new URL('fixtures/', import.meta.url)
 
   await createGfmFixtures(base, {keep: {link: true}})
@@ -159,16 +159,19 @@ test('fixtures', async function () {
 
     // To do: use an improved `rehype-sanitize` to check this?
     actual = actual
-      .replace(/<a href="(?:htt|xxx|file|tel):[^"]*"[^>]*>([^<]*)<\/a>/g, '$1')
-      .replace(/<a>1<\/a>/g, '1')
-      .replace(/<a title="">2<\/a>/g, '2')
+      .replaceAll(
+        /<a href="(?:htt|xxx|file|tel):[^"]*"[^>]*>([^<]*)<\/a>/g,
+        '$1'
+      )
+      .replaceAll('<a>1</a>', '1')
+      .replaceAll('<a title="">2</a>', '2')
       // To do: `rehype-sanitize` should drop rels.
-      .replace(/ rel="author"/g, '')
-      .replace(/ rel="author /g, ' rel="')
+      .replaceAll(' rel="author"', '')
+      .replaceAll(' rel="author ', ' rel="')
 
     // To do: add to `create-gfm-fixtures`.
     // GH adds `notranslate`, this should be (optionally) removed by `crate-gfm-fixtures`.
-    expected = expected.replace(/ class="notranslate"/g, '')
+    expected = expected.replaceAll(' class="notranslate"', '')
 
     assert.equal(actual, expected, name)
   }

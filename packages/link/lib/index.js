@@ -65,7 +65,7 @@ export default function rehypeGithubLink(options) {
   }
 
   return function (tree) {
-    visit(tree, 'element', function (node, index, parent) {
+    visit(tree, 'element', (node, index, parent) => {
       if (
         node.type === 'element' &&
         node.tagName === 'a' &&
@@ -106,7 +106,9 @@ export default function rehypeGithubLink(options) {
             : (node.properties.rel = [])
 
           for (const relation of relations) {
-            if (!rel.includes(relation)) rel.push(relation)
+            if (!rel.includes(relation)) {
+              rel.push(relation)
+            }
           }
         }
       }

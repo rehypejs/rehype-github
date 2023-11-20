@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-test('viewscreenStl', async function () {
+test('viewscreenStl', async () => {
   assert.deepEqual(
     Object.keys(await import('viewscreen-stl')).sort(),
     ['viewscreenStl'],
