@@ -289,13 +289,13 @@ This project is not affiliated with **GitHub**.
 
 [coverage]: https://codecov.io/github/rehypejs/rehype-github
 
-[downloads-badge]: https://img.shields.io/npm/dm/rehype-github-color.svg
+[downloads-badge]: https://img.shields.io/npm/dm/rehype-github-image.svg
 
-[downloads]: https://www.npmjs.com/package/rehype-github-color
+[downloads]: https://www.npmjs.com/package/rehype-github-image
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/rehype-github-color.svg
+[size-badge]: https://img.shields.io/bundlephobia/minzip/rehype-github-image.svg
 
-[size]: https://bundlephobia.com/result?p=rehype-github-color
+[size]: https://bundlephobia.com/result?p=rehype-github-image
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
