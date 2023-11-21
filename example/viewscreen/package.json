@@ -40,7 +40,6 @@
     "generate:outside": "esbuild lib/outside.js --bundle --minify --target=es2020 --format=esm --outfile=outside.min.js",
     "generate": "npm run generate:viewscreen-geojson && npm run generate:viewscreen-mermaid && npm run generate:viewscreen-stl && npm run generate:outside"
   },
-  "xo": false,
   "typeCoverage": {
     "atLeast": 100,
     "detail": true,

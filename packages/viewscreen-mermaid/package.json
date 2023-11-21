@@ -42,7 +42,6 @@
   "scripts": {
     "test-api": "node --conditions development test/index.js"
   },
-  "xo": false,
   "typeCoverage": {
     "atLeast": 100,
     "detail": true,

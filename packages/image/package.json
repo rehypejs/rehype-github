@@ -38,7 +38,6 @@
     "test-api": "node --conditions development test/index.js",
     "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api"
   },
-  "xo": false,
   "typeCoverage": {
     "atLeast": 100,
     "detail": true,
