@@ -107,7 +107,7 @@ test('rehypeGithubImage', async () => {
   }
 
   assert.throws(
-    function () {
+    () => {
       unified()
         .use(rehypeGithubImage, {
           toProxyUrl: camo('https://camo.potatos.com', 'potato'),
@@ -120,7 +120,7 @@ test('rehypeGithubImage', async () => {
   )
 
   assert.throws(
-    function () {
+    () => {
       unified()
         .use(rehypeGithubImage, {
           toProxyUrl: camo('https://camo.potatos.com', 'potato'),
@@ -159,7 +159,7 @@ test('rehypeGithubImage', async () => {
   )
 
   assert.throws(
-    function () {
+    () => {
       unified()
         .use(rehypeGithubImage, {rel: 'nofollow noopener noreferrer ugc'})
         .freeze()
@@ -181,7 +181,7 @@ test('rehypeGithubImage', async () => {
   )
 })
 
-test('fixtures', async function () {
+test('fixtures', async () => {
   const base = new URL('fixtures/', import.meta.url)
 
   await createGfmFixtures(base, {keep: {camo: true, image: true}})
@@ -223,11 +223,11 @@ test('fixtures', async function () {
 
     const camoRe = /camo\.githubusercontent\.com\/[\da-f]{32,64}\//g
     const camoRepl = 'camo.githubusercontent.com/xxxyyyzzz/'
-    actual = actual.replace(camoRe, camoRepl)
-    expected = expected.replace(camoRe, camoRepl)
+    actual = actual.replaceAll(camoRe, camoRepl)
+    expected = expected.replaceAll(camoRe, camoRepl)
 
     // To do: `rehype-github-sanitize`?
-    actual = actual.replace(/ rel="author"/g, '')
+    actual = actual.replaceAll(' rel="author"', '')
 
     if (name === 'urls') {
       // GitHub does not see uppercased domains as themselves.

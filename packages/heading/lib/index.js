@@ -95,7 +95,7 @@ export default function rehypeGithubHeading(options) {
   const slugger = new GithubSlugger()
 
   return function (tree) {
-    visit(tree, 'element', function (node) {
+    visit(tree, 'element', (node) => {
       if (node.type === 'element' && node.properties) {
         // Do not enter the footnote section.
         if (

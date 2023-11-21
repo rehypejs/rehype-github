@@ -96,12 +96,15 @@ export function defaultBuild(info, value) {
   for (const cpString of info.emoji) {
     const codePoint = cpString.codePointAt(0)
     /* c8 ignore next */
-    if (codePoint === undefined) throw new Error('Cannot happen')
+    if (codePoint === undefined) {
+      throw new Error('Cannot happen')
+    }
+
     codePoints.push(codePoint.toString(16).padStart(4, '0'))
   }
 
   // See: <https://github.com/github/gemoji/blob/55bb37a/lib/emoji/character.rb#L84>
-  const hexName = codePoints.join('-').replace(/-(fe0f|200d)\b/g, '')
+  const hexName = codePoints.join('-').replaceAll(/-(fe0f|200d)\b/g, '')
 
   return {
     type: 'element',
@@ -205,7 +208,9 @@ export default function rehypeGithubEmoji(options) {
     )
 
     /* c8 ignore next */
-    if (!info) throw new Error('Cannot happen')
+    if (!info) {
+      throw new Error('Cannot happen')
+    }
 
     return build(info, $0)
   }

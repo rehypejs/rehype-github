@@ -31,7 +31,7 @@ test('remarkGithubBreak', async () => {
   )
 })
 
-test('fixtures', async function () {
+test('fixtures', async () => {
   const base = new URL('fixtures/', import.meta.url)
 
   await createGfmFixtures(base, {
@@ -78,41 +78,41 @@ test('fixtures', async function () {
       // CommonMark doesn’t seem to do that.
       .replace(/(alt="im)\n(age")/, '$1 $2')
       // GitHub drops HTML comments.
-      .replace(/<!--[\s\S]*?-->/g, '')
+      .replaceAll(/<!--[\s\S]*?-->/g, '')
       // Elements that GH drops the tags of.
-      .replace(/<\/?article>/g, '')
+      .replaceAll(/<\/?article>/g, '')
       // GitHub uses weird code.
       // To do: `create-github-fixtures` should support this.
-      .replace(
-        /<pre><code class="language-markdown">a\nb\.\n<\/code><\/pre>/g,
+      .replaceAll(
+        '<pre><code class="language-markdown">a\nb.\n</code></pre>',
         '<div class="highlight highlight-source-gfm"><pre>a\nb.</pre></div>'
       )
       // Elements that GitHub cleans (To do: implemment tagfilter somewhere?)
-      .replace(/<(\/?script>)/g, '&#x3C;$1')
+      .replaceAll(/<(\/?script>)/g, '&#x3C;$1')
       // To do: `remark-rehype` should change the order.
-      .replace(/checked disabled/g, 'disabled checked')
-      .replace(
-        /class="sr-only" id="footnote-label"/g,
+      .replaceAll('checked disabled', 'disabled checked')
+      .replaceAll(
+        'class="sr-only" id="footnote-label"',
         'id="footnote-label" class="sr-only"'
       )
       // To do: `remark-rehype` should implement new labels.
-      .replace(
-        /class="data-footnote-backref" aria-label="Back to content"/g,
+      .replaceAll(
+        'class="data-footnote-backref" aria-label="Back to content"',
         'aria-label="Back to reference 1" class="data-footnote-backref"'
       )
       // To do: `create-github-fixtures` should remove this on `ol`s too.
-      .replace(/ class="contains-task-list"/g, '')
+      .replaceAll(' class="contains-task-list"', '')
       // To do: `create-github-fixtures` should support this.
-      .replace(/ class="task-list-item"/g, '')
+      .replaceAll(' class="task-list-item"', '')
 
     expected = expected
       // To do: add to `create-gfm-fixtures`.
       // GH adds `notranslate`, this should be (optionally) removed by `crate-gfm-fixtures`.
-      .replace(/ class="notranslate"/g, '')
+      .replaceAll(' class="notranslate"', '')
       // To do: `create-github-fixtures` should remove this on `ol`s too.
-      .replace(/ class="contains-task-list"/g, '')
+      .replaceAll(' class="contains-task-list"', '')
       // To do: `create-github-fixtures` should support this.
-      .replace(/ class="task-list-item"/g, '')
+      .replaceAll(' class="task-list-item"', '')
 
     assert.equal(actual, expected, name)
   }

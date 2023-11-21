@@ -231,9 +231,14 @@ export default function remarkGithubYamlMetadata(options) {
       result = Array.isArray(result)
         ? {type: 'element', tagName: 'div', properties: {}, children: result}
         : result.type === 'element'
-        ? result
-        : /* c8 ignore next -- comment/text/raw shouldn’t occur, but good to handle them. */
-          {type: 'element', tagName: 'div', properties: {}, children: [result]}
+          ? result
+          : /* c8 ignore next -- comment/text/raw shouldn’t occur, but good to handle them. */
+            {
+              type: 'element',
+              tagName: 'div',
+              properties: {},
+              children: [result]
+            }
 
       const data = node.data || (node.data = {})
       data.hName = result.tagName
@@ -268,9 +273,9 @@ function transformValue(value) {
     return 'toISOString' in value
       ? transformDate(/** @type {Date} */ (value))
       : Array.isArray(value)
-      ? transformArray(/** @type {Array<unknown>} */ (value))
-      : // @ts-expect-error: fine
-        transformObjectOrMap(value)
+        ? transformArray(/** @type {Array<unknown>} */ (value))
+        : // @ts-expect-error: fine
+          transformObjectOrMap(value)
   }
 
   return transformRest(value)

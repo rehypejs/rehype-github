@@ -40,6 +40,7 @@
  *   Whether to open images in a new window (`boolean`, default: `true`).
  */
 
+import {ok} from 'devlop'
 import {visitParents} from 'unist-util-visit-parents'
 
 /**
@@ -114,7 +115,10 @@ export default function rehypeGithubImage(options) {
         const raw = node.properties.src
         const [source, proxy] = sanitizeSource(raw, toProxyUrl, internal)
 
-        if (proxy) node.properties.dataCanonicalSrc = raw
+        if (proxy) {
+          node.properties.dataCanonicalSrc = raw
+        }
+
         node.properties.src = ''
         node.properties.style = 'max-width: 100%;'
 
@@ -142,7 +146,8 @@ export default function rehypeGithubImage(options) {
         // ```
         //
         // This doesn’t happen when directly in list items or block quotes.
-        const parent = parents[parents.length - 1]
+        const parent = parents.at(-1)
+        ok(parent, '`parent` can never be nil')
         if (parent.type === 'root') {
           fragment = {
             type: 'element',

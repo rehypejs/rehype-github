@@ -135,9 +135,14 @@ export function create(node, options) {
     geometry.computeBoundingSphere()
     geometry.computeBoundingBox()
     const sphere = geometry.boundingSphere
-    if (!sphere) throw new Error('Impossible')
+    if (!sphere) {
+      throw new Error('Impossible')
+    }
+
     const bounds = geometry.boundingBox
-    if (!bounds) throw new Error('Impossible')
+    if (!bounds) {
+      throw new Error('Impossible')
+    }
 
     const center = bounds.getCenter(negate).negate()
     const min = bounds.min.negate()
@@ -157,7 +162,10 @@ export function create(node, options) {
     const distance = sphere.radius * 5
     camera.position.set(0, (distance / 2) * -1, distance)
 
-    if (options && options.onResolve) options.onResolve()
+    if (options && options.onResolve) {
+      options.onResolve()
+    }
+
     onresize([], observer)
   }
 
@@ -168,7 +176,9 @@ export function create(node, options) {
     if (spin) {
       move((orbitIncrement / 2) * spin, 0)
       // Spin faster.
-      if (spin < 0.5) spin *= 1.01
+      if (spin < 0.5) {
+        spin *= 1.01
+      }
     }
 
     light.position.set(camera.position.x, camera.position.y, camera.position.z)
@@ -242,7 +252,10 @@ export function create(node, options) {
    * @param {MouseEvent} event
    */
   function onmousemove(event) {
-    if (spin) return
+    if (spin) {
+      return
+    }
+
     move(
       -1 * orbitIncrement * 0.4 * (event.clientX - previousX),
       orbitIncrement * 0.4 * (event.clientY - previousY)

@@ -54,7 +54,7 @@ test('rehypeGithubEmoji', async () => {
   )
 
   assert.throws(
-    function () {
+    () => {
       String(
         unified()
           .use(rehypeParse, {fragment: true})
@@ -107,7 +107,7 @@ test('rehypeGithubEmoji', async () => {
   )
 })
 
-test('fixtures', async function () {
+test('fixtures', async () => {
   const base = new URL('fixtures/', import.meta.url)
 
   await createGfmFixtures(base, {
@@ -145,14 +145,14 @@ test('fixtures', async function () {
     if (name === 'html') {
       // Elements that GH drops the tags of.
       actual = actual
-        .replace(
+        .replaceAll(
           /<\/?(?:a|abbr|acronym|address|applet|article|aside|audio|bdi|bdo|big|blink|button|canvas|center|cite|content|data|datalist|dfn|dialog|dir|element|fieldset|figcaption|figure|font|footer|form|header|hgroup|label|legend|listing|main|map|mark|marquee|math|menu|meter|multicol|nav|nobr|noscript|object|optgroup|option|output|progress|rb|rbc|rtc|search|select|shadow|slot|small|spacer|svg|template|time|u)>/g,
           ''
         )
         // Elements that GitHub drops entirely
-        .replace(/<video>.*?<\/video>/g, '')
+        .replaceAll(/<video>.*?<\/video>/g, '')
         // Elements that GitHub cleans (To do: implemment tagfilter somewhere?)
-        .replace(
+        .replaceAll(
           /<(\/?(?:iframe|noembed|noframes|plaintext|script|style|textarea|title|xmp)>)/g,
           '&#x3C;$1'
         )

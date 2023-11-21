@@ -99,7 +99,7 @@ export default function rehypeGithubColor(options) {
   const behavior = config.behavior || 'append'
 
   return function (tree) {
-    visit(tree, 'element', function (node, index, parent) {
+    visit(tree, 'element', (node, index, parent) => {
       if (
         node.tagName === 'code' &&
         node.properties &&

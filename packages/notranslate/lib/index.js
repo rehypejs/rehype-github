@@ -33,7 +33,7 @@ export default function rehypeGithubNoTranslate(options) {
   const include = config.include || defaultInclude
 
   return function (tree) {
-    visit(tree, 'element', function (node) {
+    visit(tree, 'element', (node) => {
       if (
         node.type === 'element' &&
         include.includes(node.tagName) &&

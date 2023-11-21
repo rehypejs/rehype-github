@@ -81,7 +81,7 @@ test('rehypeGithubHeading', async () => {
   )
 })
 
-test('fixtures', async function () {
+test('fixtures', async () => {
   const base = new URL('fixtures/', import.meta.url)
 
   await createGfmFixtures(base, {keep: {heading: true}})
@@ -113,23 +113,26 @@ test('fixtures', async function () {
 
     actual = actual
       // To do: `remark-rehype` should change the order.
-      .replace(
-        /class="sr-only" id="footnote-label"/g,
+      .replaceAll(
+        'class="sr-only" id="footnote-label"',
         'id="footnote-label" class="sr-only"'
       )
       // To do: `remark-rehype` should implement new labels.
-      .replace(
-        /class="data-footnote-backref" aria-label="Back to content"/g,
+      .replaceAll(
+        'class="data-footnote-backref" aria-label="Back to content"',
         'aria-label="Back to reference 1" class="data-footnote-backref"'
       )
       // Emoji, not supported in this transform, see `rehype-github-emoji`.
       // To do: use it?
-      .replace(/:smile:/g, '😄')
-      .replace(/:ok_hand:/g, '👌')
-      .replace(/:hatched_chick:/g, '🐥')
+      .replaceAll(':smile:', '😄')
+      .replaceAll(':ok_hand:', '👌')
+      .replaceAll(':hatched_chick:', '🐥')
       // To do: consolidate all the tools that add `user-content-`?
-      .replace(/id="(?!user-content-|footnote-label|")/g, 'id="user-content-')
-      .replace(
+      .replaceAll(
+        /id="(?!user-content-|footnote-label|")/g,
+        'id="user-content-'
+      )
+      .replaceAll(
         /name="(?!user-content-|footnote-label|")/g,
         'name="user-content-'
       )
@@ -140,7 +143,7 @@ test('fixtures', async function () {
 
     // To do: add to `create-gfm-fixtures`.
     // GH adds `notranslate`, this should be (optionally) removed by `crate-gfm-fixtures`.
-    expected = expected.replace(/ class="notranslate"/g, '')
+    expected = expected.replaceAll(' class="notranslate"', '')
 
     assert.equal(actual, expected, name)
   }

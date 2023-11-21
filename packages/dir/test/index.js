@@ -18,7 +18,7 @@ test('rehypeGithubDir', async () => {
   )
 })
 
-test('fixtures', async function () {
+test('fixtures', async () => {
   const base = new URL('fixtures/', import.meta.url)
 
   await createGfmFixtures(base, {keep: {dir: true}})
@@ -55,20 +55,20 @@ test('fixtures', async function () {
     // To do: add to `create-gfm-fixtures`.
     // GH adds `notranslate`, this should be (optionally) removed by `crate-gfm-fixtures`.
     expected = expected
-      .replace(/ class="notranslate"/g, '')
+      .replaceAll(' class="notranslate"', '')
       // To do: `create-github-fixtures` should remove this on `ol`s too.
-      .replace(/ class="contains-task-list"/g, '')
+      .replaceAll(' class="contains-task-list"', '')
       // To do: `create-github-fixtures` should support this.
-      .replace(/ class="task-list-item"/g, '')
+      .replaceAll(' class="task-list-item"', '')
 
     if (name === 'markdown') {
       // There’s something weird about line endings. Perhaps related to `rehype-raw`?
       // To do: investigate.
-      actual = actual.replace(
+      actual = actual.replaceAll(
         /\n*(<\/?(?:table|thead|tbody|tr|th|td)>)\n*/g,
         '$1'
       )
-      expected = expected.replace(
+      expected = expected.replaceAll(
         /\n*(<\/?(?:table|thead|tbody|tr|th|td)>)\n*/g,
         '$1'
       )
@@ -76,24 +76,24 @@ test('fixtures', async function () {
 
     actual = actual
       // To do: `create-github-fixtures` should remove this on `ol`s too.
-      .replace(/ class="contains-task-list"/g, '')
+      .replaceAll(' class="contains-task-list"', '')
       // To do: `create-github-fixtures` should support this.
-      .replace(/ class="task-list-item"/g, '')
+      .replaceAll(' class="task-list-item"', '')
       // To do: `remark-rehype` should change the order.
-      .replace(/checked disabled/g, 'disabled checked')
-      .replace(
-        /class="sr-only" id="footnote-label"/g,
+      .replaceAll('checked disabled', 'disabled checked')
+      .replaceAll(
+        'class="sr-only" id="footnote-label"',
         'id="footnote-label" class="sr-only"'
       )
       // To do: `remark-rehype` should implement new labels.
-      .replace(
-        /class="data-footnote-backref" aria-label="Back to content"/g,
+      .replaceAll(
+        'class="data-footnote-backref" aria-label="Back to content"',
         'aria-label="Back to reference 1" class="data-footnote-backref"'
       )
       // GitHub uses weird code.
       // To do: `create-github-fixtures` should support this.
-      .replace(
-        /<pre><code class="language-markdown">a\nb\.\n<\/code><\/pre>/g,
+      .replaceAll(
+        '<pre><code class="language-markdown">a\nb.\n</code></pre>',
         '<div class="highlight highlight-source-gfm" dir="auto"><pre>a\nb.</pre></div>'
       )
 
@@ -101,14 +101,14 @@ test('fixtures', async function () {
       // Elements that GH drops the tags of.
       // To do: improve `rehype-sanitize`?
       actual = actual
-        .replace(
+        .replaceAll(
           /<\/?(?:a|abbr|acronym|address|applet|article|aside|audio|bdi|bdo|big|blink|button|canvas|center|cite|content|data|datalist|dfn|dialog|dir|element|fieldset|figcaption|figure|font|footer|form|header|hgroup|label|legend|listing|main|map|mark|marquee|math|menu|meter|multicol|nav|nobr|noscript|object|optgroup|option|output|progress|rb|rbc|rtc|search|select|shadow|slot|small|spacer|svg|template|time|u)>/g,
           ''
         )
         // Elements that GitHub drops entirely
-        .replace(/<video>.*?<\/video>/g, '')
+        .replaceAll(/<video>.*?<\/video>/g, '')
         // Elements that GitHub cleans (To do: implemment tagfilter somewhere?)
-        .replace(
+        .replaceAll(
           /<(\/?(?:iframe|noembed|noframes|plaintext|script|style|textarea|title|xmp)>)/g,
           '&#x3C;$1'
         )
