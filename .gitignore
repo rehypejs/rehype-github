@@ -1,7 +1,8 @@
-.DS_Store
 *.d.ts
 *.log
+*.min.js
+*.tsbuildinfo
+.DS_Store
 coverage/
 node_modules/
 yarn.lock
-**/*.min.js
