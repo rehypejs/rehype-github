@@ -22,9 +22,10 @@
     "default": "./index.js"
   },
   "files": [
-    "lib/",
+    "index.d.ts.map",
     "index.d.ts",
-    "index.js"
+    "index.js",
+    "lib/"
   ],
   "dependencies": {
     "@types/mdast": "^4.0.0",

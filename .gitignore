@@ -1,5 +1,6 @@
 *.d.ts
 *.log
+*.map
 *.min.js
 *.tsbuildinfo
 .DS_Store

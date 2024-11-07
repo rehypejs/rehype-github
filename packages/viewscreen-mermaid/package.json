@@ -22,9 +22,10 @@
     "default": "./index.js"
   },
   "files": [
-    "lib/",
+    "index.d.ts.map",
     "index.d.ts",
-    "index.js"
+    "index.js",
+    "lib/"
   ],
   "dependencies": {
     "@primer/octicons": "^19.0.0",

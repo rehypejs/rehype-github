@@ -25,9 +25,10 @@
     "./lib/camo.js": "./lib/camo.dom.js"
   },
   "files": [
-    "lib/",
+    "index.d.ts.map",
     "index.d.ts",
-    "index.js"
+    "index.js",
+    "lib/"
   ],
   "dependencies": {
     "@types/hast": "^3.0.0",
