@@ -126,10 +126,15 @@ export const defaultParseOptions = {
 /**
  * Plugin to show frontmatter as a table.
  *
- * @this {import('unified').Processor}
- * @type {import('unified').Plugin<[(Options | null | undefined)?], Root>}
+ * @param {Options | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
  */
 export default function remarkGithubYamlMetadata(options) {
+  // @ts-expect-error: TypeScript doesn’t understand `this`.
+  // eslint-disable-next-line unicorn/no-this-assignment
+  const self = /** @type {import('unified').Processor} */ (this)
   const config = options || emptyOptions
   const parseOptions = config.parseOptions || defaultParseOptions
   const createErrorMessage =
@@ -137,9 +142,7 @@ export default function remarkGithubYamlMetadata(options) {
   const allowArrayAtRoot = config.allowArrayAtRoot || false
   const allowPrimitiveAtRoot = config.allowPrimitiveAtRoot || false
 
-  const extensions = /** @type {Array<MicromarkExtension>} */ (
-    this.data('micromarkExtensions') || []
-  )
+  const extensions = self.data('micromarkExtensions') || []
   /** @type {FromMdastOptions} */
   const fromMdastOptions = {
     extensions: extensions.filter((d) => {
@@ -162,11 +165,20 @@ export default function remarkGithubYamlMetadata(options) {
       // Remove YAML.
       return false
     }),
+
     mdastExtensions: /** @type {Array<FromMdastExtension>} */ (
-      this.data('fromMarkdownExtensions') || []
+      self.data('fromMarkdownExtensions') || []
     )
   }
 
+  /**
+   * Transform.
+   *
+   * @param {Root} tree
+   *   Tree.
+   * @returns {undefined}
+   *   Nothing.
+   */
   return function (tree) {
     const node = tree.children[0]
 
@@ -231,9 +243,14 @@ export default function remarkGithubYamlMetadata(options) {
       result = Array.isArray(result)
         ? {type: 'element', tagName: 'div', properties: {}, children: result}
         : result.type === 'element'
-        ? result
-        : /* c8 ignore next -- comment/text/raw shouldn’t occur, but good to handle them. */
-          {type: 'element', tagName: 'div', properties: {}, children: [result]}
+          ? result
+          : /* c8 ignore next 6 -- comment/text/raw shouldn’t occur, but good to handle them. */
+            {
+              type: 'element',
+              tagName: 'div',
+              properties: {},
+              children: [result]
+            }
 
       const data = node.data || (node.data = {})
       data.hName = result.tagName
@@ -268,9 +285,9 @@ function transformValue(value) {
     return 'toISOString' in value
       ? transformDate(/** @type {Date} */ (value))
       : Array.isArray(value)
-      ? transformArray(/** @type {Array<unknown>} */ (value))
-      : // @ts-expect-error: fine
-        transformObjectOrMap(value)
+        ? transformArray(/** @type {Array<unknown>} */ (value))
+        : // @ts-expect-error: fine
+          transformObjectOrMap(value)
   }
 
   return transformRest(value)

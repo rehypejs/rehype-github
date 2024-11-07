@@ -12,29 +12,29 @@
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`defaultBuild(info, value)`](#defaultbuildinfo-value)
-    *   [`defaultCustom`](#defaultcustom)
-    *   [`defaultIgnore`](#defaultignore)
-    *   [`rehypeGithubEmoji(options?)`](#rehypegithubemojioptions)
-    *   [`Build`](#build)
-    *   [`Gemoji`](#gemoji)
-    *   [`Options`](#options)
-*   [Authoring](#authoring)
-*   [HTML](#html)
-*   [CSS](#css)
-*   [Syntax](#syntax)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [Notice](#notice)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`defaultBuild(info, value)`](#defaultbuildinfo-value)
+  * [`defaultCustom`](#defaultcustom)
+  * [`defaultIgnore`](#defaultignore)
+  * [`rehypeGithubEmoji(options?)`](#rehypegithubemojioptions)
+  * [`Build`](#build)
+  * [`Gemoji`](#gemoji)
+  * [`Options`](#options)
+* [Authoring](#authoring)
+* [HTML](#html)
+* [CSS](#css)
+* [Syntax](#syntax)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Related](#related)
+* [Contribute](#contribute)
+* [Notice](#notice)
+* [License](#license)
 
 ## What is this?
 
@@ -114,10 +114,10 @@ The default builder to turn an emoji or gemoji into rich content.
 
 ###### Parameters
 
-*   `info` ([`Gemoji`][api-gemoji] or `string`)
-    — info on the known emoji or gemoji, or the custom gemoji name
-*   `value` (`string`)
-    — literal match the way it was written
+* `info` ([`Gemoji`][api-gemoji] or `string`)
+  — info on the known emoji or gemoji, or the custom gemoji name
+* `value` (`string`)
+  — literal match the way it was written
 
 ###### Returns
 
@@ -137,8 +137,8 @@ Plugin to enhance emoji and gemoji.
 
 ###### Parameters
 
-*   `options` ([`Options`][api-options], optional)
-    — configuration
+* `options` ([`Options`][api-options], optional)
+  — configuration
 
 ### `Build`
 
@@ -146,10 +146,10 @@ Make rich content from an emoji or a gemoji (TypeScript type).
 
 ###### Parameters
 
-*   `info` ([`Gemoji`][api-gemoji] or `string`)
-    — info on the known emoji or gemoji, or the custom gemoji name
-*   `value` (`string`)
-    — literal match the way it was written
+* `info` ([`Gemoji`][api-gemoji] or `string`)
+  — info on the known emoji or gemoji, or the custom gemoji name
+* `value` (`string`)
+  — literal match the way it was written
 
 ###### Returns
 
@@ -161,16 +161,16 @@ Info on an emoji (TypeScript type).
 
 ###### Fields
 
-*   `emoji` (`string`)
-    — example: `'😀'`
-*   `names` (`Array<string>`)
-    — example: `['grinning']`
-*   `tags` (`Array<string>`)
-    — example: `['smile', 'happy']`
-*   `description` (`string`)
-    — example: `'grinning face'`
-*   `category` (`string`)
-    — example: `'Smileys & Emotion'`
+* `emoji` (`string`)
+  — example: `'😀'`
+* `names` (`Array<string>`)
+  — example: `['grinning']`
+* `tags` (`Array<string>`)
+  — example: `['smile', 'happy']`
+* `description` (`string`)
+  — example: `'grinning face'`
+* `category` (`string`)
+  — example: `'Smileys & Emotion'`
 
 ### `Options`
 
@@ -178,15 +178,15 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-*   `build` ([`Build`][api-build], default: [`defaultBuild`][api-default-build])
-    — make rich content from an emoji or a gemoji
-*   `custom` (`Array<string>`, default: [`defaultCustom`][api-default-custom])
-    — custom gemoji names to enable without colons, such as `['shipit']`; the
-    default is to enable ±20 custom GitHub-specific shortcodes
-*   `ignore` ([`Test`][test], default:
-    [`defaultIgnore`][api-default-ignore])
-    — custom test for elements to not enhance; the default is to ignore `pre`,
-    `code`, `tt`, and `g-emoji`
+* `build` ([`Build`][api-build], default: [`defaultBuild`][api-default-build])
+  — make rich content from an emoji or a gemoji
+* `custom` (`Array<string>`, default: [`defaultCustom`][api-default-custom])
+  — custom gemoji names to enable without colons, such as `['shipit']`; the
+  default is to enable ±20 custom GitHub-specific shortcodes
+* `ignore` ([`Test`][test], default:
+  [`defaultIgnore`][api-default-ignore])
+  — custom test for elements to not enhance; the default is to ignore `pre`,
+  `code`, `tt`, and `g-emoji`
 
 ## Authoring
 
@@ -266,8 +266,8 @@ arbitrary HTML.
 
 ## Related
 
-*   [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
-    — support GFM in remark
+* [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
+  — support GFM in remark
 
 ## Contribute
 

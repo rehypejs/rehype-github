@@ -65,6 +65,7 @@ const wireframeMaterial = new MeshPhongMaterial({
 })
 
 const materials = [normalMaterial, solidMaterial, wireframeMaterial]
+/** @type {MeshNormalMaterial | MeshPhongMaterial} */
 let shapeMaterial = normalMaterial
 const query = '(prefers-color-scheme: dark)'
 

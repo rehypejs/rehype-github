@@ -28,7 +28,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "esbuild": "^0.17.0",
+    "esbuild": "^0.24.0",
     "viewscreen-geojson": "0.0.0",
     "viewscreen-mermaid": "0.0.0",
     "viewscreen-stl": "0.0.0"

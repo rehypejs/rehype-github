@@ -12,27 +12,27 @@
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`camo(path, secret)`](#camopath-secret)
-    *   [`rehypeGithubImage(options?)`](#rehypegithubimageoptions)
-    *   [`Options`](#options)
-    *   [`ToProxyUrl`](#toproxyurl)
-*   [Bugs](#bugs)
-*   [Authoring](#authoring)
-*   [HTML](#html)
-*   [CSS](#css)
-*   [Syntax](#syntax)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [Notice](#notice)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`camo(path, secret)`](#camopath-secret)
+  * [`rehypeGithubImage(options?)`](#rehypegithubimageoptions)
+  * [`Options`](#options)
+  * [`ToProxyUrl`](#toproxyurl)
+* [Bugs](#bugs)
+* [Authoring](#authoring)
+* [HTML](#html)
+* [CSS](#css)
+* [Syntax](#syntax)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Related](#related)
+* [Contribute](#contribute)
+* [Notice](#notice)
+* [License](#license)
 
 ## What is this?
 
@@ -114,15 +114,15 @@ Create a `toProxyUrl` for a camo server.
 
 See for example:
 
-*   [`camo`][camo]
-*   [`go-camo`][go-camo]
+* [`camo`][camo]
+* [`go-camo`][go-camo]
 
 ###### Parameters
 
-*   `path` (`string`, **required**)
-    — where the camo server runs (such as `https://camo.githubusercontent.com`)
-*   `secret` (`string`, **required**)
-    — shared secret with your camo server (such as `myVerySecretSecret`)
+* `path` (`string`, **required**)
+  — where the camo server runs (such as `https://camo.githubusercontent.com`)
+* `secret` (`string`, **required**)
+  — shared secret with your camo server (such as `myVerySecretSecret`)
 
 ###### Returns
 
@@ -135,8 +135,8 @@ Plugin to enhance images.
 
 ###### Parameters
 
-*   `options` ([`Options`][api-options], optional)
-    — configuration
+* `options` ([`Options`][api-options], optional)
+  — configuration
 
 ### `Options`
 
@@ -144,17 +144,17 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-*   `toProxyUrl` ([`ToProxyUrl`][api-to-proxy-url], optional)
-    — change external URLs to go through an image proxy
-*   `internal` (`Array<string>` or `string`, optional)
-    — hostname or hostnames to not mark as external; URLs to these hostnames
-    will not be passed through the image proxy
-*   `rel` (`Array<string>` or `string`, default: `['noopener', 'noreferrer']`)
-    — relationship(s) of your site to external content, used in `rel` on `a`s
-    wrapping the images; no `rel` field is set on URLs that go to your image
-    proxy
-*   `targetBlank` (`boolean`, default: `true`)
-    — whether to open images in a new window
+* `toProxyUrl` ([`ToProxyUrl`][api-to-proxy-url], optional)
+  — change external URLs to go through an image proxy
+* `internal` (`Array<string>` or `string`, optional)
+  — hostname or hostnames to not mark as external; URLs to these hostnames
+  will not be passed through the image proxy
+* `rel` (`Array<string>` or `string`, default: `['noopener', 'noreferrer']`)
+  — relationship(s) of your site to external content, used in `rel` on `a`s
+  wrapping the images; no `rel` field is set on URLs that go to your image
+  proxy
+* `targetBlank` (`boolean`, default: `true`)
+  — whether to open images in a new window
 
 ###### Notes
 
@@ -174,8 +174,8 @@ Create a URL to a proxy from an external URL (TypeScript type).
 
 ###### Parameters
 
-*   `url` (`string`)
-    — URL to hash
+* `url` (`string`)
+  — URL to hash
 
 ###### Returns
 
@@ -257,10 +257,10 @@ This package is safe.
 
 ## Related
 
-*   [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
-    — support GFM in remark
-*   [`rehype-external-links`](https://github.com/rehypejs/rehype-external-links)
-    — similar plugin
+* [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
+  — support GFM in remark
+* [`rehype-external-links`](https://github.com/rehypejs/rehype-external-links)
+  — similar plugin
 
 ## Contribute
 

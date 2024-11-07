@@ -2,10 +2,12 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs/promises'
 import test from 'node:test'
 import {createGfmFixtures} from 'create-gfm-fixtures'
+import {gfmTagfilterFromMarkdown} from 'mdast-util-gfm-tagfilter'
 import rehypeGithubEmoji from 'rehype-github-emoji'
 import rehypeParse from 'rehype-parse'
 import rehypeRaw from 'rehype-raw'
 import rehypeStringify from 'rehype-stringify'
+import remarkGfm from 'remark-gfm'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import {unified} from 'unified'
@@ -25,7 +27,7 @@ test('rehypeGithubEmoji', async () => {
         .use(rehypeStringify)
         .process('🤗')
     ),
-    '<g-emoji class="g-emoji" alias="hugs" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f917.png">🤗</g-emoji>',
+    '🤗',
     'should support an emoji'
   )
 
@@ -37,7 +39,7 @@ test('rehypeGithubEmoji', async () => {
         .use(rehypeStringify)
         .process(':hugs:')
     ),
-    '<g-emoji class="g-emoji" alias="hugs" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f917.png">🤗</g-emoji>',
+    '🤗',
     'should support a gemoji'
   )
 
@@ -110,9 +112,7 @@ test('rehypeGithubEmoji', async () => {
 test('fixtures', async function () {
   const base = new URL('fixtures/', import.meta.url)
 
-  await createGfmFixtures(base, {
-    keep: {gemoji: true}
-  })
+  await createGfmFixtures(base)
 
   const files = await fs.readdir(base)
   const extension = '.md'
@@ -131,6 +131,14 @@ test('fixtures', async function () {
 
     const processor = unified()
       .use(remarkParse)
+      .use(remarkGfm)
+      .use(function () {
+        const data = this.data()
+        const fromMarkdownExtensions =
+          // eslint-disable-next-line logical-assignment-operators
+          data.fromMarkdownExtensions || (data.fromMarkdownExtensions = [])
+        fromMarkdownExtensions.push(gfmTagfilterFromMarkdown())
+      })
       .use(remarkRehype, {allowDangerousHtml: true})
       .use(rehypeRaw)
       .use(rehypeGithubEmoji, {})
@@ -142,31 +150,42 @@ test('fixtures', async function () {
       actual += '\n'
     }
 
+    expected = expected
+      // Drop their custom element.
+      .replace(/<themed-picture data-catalyst-inline="true">/, '')
+      .replace(/<\/themed-picture>/, '')
+      .replace(/<\/?markdown-accessiblity-table>/g, '')
+
     if (name === 'html') {
       // Elements that GH drops the tags of.
       actual = actual
         .replace(
-          /<\/?(?:a|abbr|acronym|address|applet|article|aside|audio|bdi|bdo|big|blink|button|canvas|center|cite|content|data|datalist|dfn|dialog|dir|element|fieldset|figcaption|figure|font|footer|form|header|hgroup|label|legend|listing|main|map|mark|marquee|math|menu|meter|multicol|nav|nobr|noscript|object|optgroup|option|output|progress|rb|rbc|rtc|search|select|shadow|slot|small|spacer|svg|template|time|u)>/g,
+          /<\/?(?:a|abbr|acronym|address|applet|article|aside|audio|bdi|bdo|big|blink|button|canvas|center|cite|content|data|datalist|dfn|dialog|dir|element|fieldset|figcaption|figure|font|footer|form|header|hgroup|label|legend|listing|main|map|marquee|math|menu|meter|multicol|nav|nobr|noscript|object|optgroup|option|output|progress|rb|rbc|rtc|search|select|shadow|slot|small|spacer|svg|template|time|u)>/g,
           ''
         )
         // Elements that GitHub drops entirely
         .replace(/<video>.*?<\/video>/g, '')
         // Elements that GitHub cleans (To do: implemment tagfilter somewhere?)
         .replace(
-          /<(\/?(?:iframe|noembed|noframes|plaintext|script|style|textarea|title|xmp)>)/g,
-          '&#x3C;$1'
+          /(&#x3C;(?:iframe|noembed|noframes|plaintext|script|style|textarea|title|xmp)>)👍/g,
+          '$1:+1:'
         )
-
-      expected = expected
-        // Drop their custom element.
-        .replace(/<themed-picture data-catalyst-inline="true">/, '')
-        .replace(/<\/themed-picture>/, '')
 
       // Don’t test `template`, they drop the tags first, so they transform the contents.
       // We see `template` and don’t transform its `element.content`.
       const re = /<code>template<\/code>: .+?<\/li>/
       actual = actual.replace(re, 'xxx')
       expected = expected.replace(re, 'xxx')
+    }
+
+    // For some reason,
+    // GH still returns a `g-emoji` for a typically textual `☹️` when with VS16.
+    // It doesn’t for anything else as far as I see.
+    if (name === 'variant-selector') {
+      expected = expected.replace(
+        /<g-emoji class="g-emoji" alias="frowning_face">☹️<\/g-emoji>/,
+        '☹️'
+      )
     }
 
     assert.equal(actual, expected, name)

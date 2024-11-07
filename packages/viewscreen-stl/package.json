@@ -27,8 +27,8 @@
     "index.js"
   ],
   "dependencies": {
-    "@types/three": "^0.155.0",
-    "three": "^0.156.0"
+    "@types/three": "^0.169.0",
+    "three": "^0.170.0"
   },
   "scripts": {
     "test-api": "node --conditions development test/index.js"

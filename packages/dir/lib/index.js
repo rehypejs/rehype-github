@@ -36,14 +36,24 @@ export const defaultInclude = [
 /**
  * Plugin to add `dir=auto` to elements.
  *
- * @type {import('unified').Plugin<[(Options | null | undefined)?], Root>}
- * @param options
- *   Configuration.
+ * @param {Options | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
  */
+// eslint-disable-next-line unicorn/prevent-abbreviations
 export default function rehypeGithubDir(options) {
   const config = options || emptyOptions
   const include = config.include || defaultInclude
 
+  /**
+   * Transform.
+   *
+   * @param {Root} tree
+   *   Tree.
+   * @returns {undefined}
+   *   Nothing.
+   */
   return function (tree) {
     visit(tree, 'element', function (node) {
       if (

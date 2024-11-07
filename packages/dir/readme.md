@@ -12,26 +12,26 @@
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`defaultInclude`](#defaultinclude)
-    *   [`rehypeGithubDir(options?)`](#rehypegithubdiroptions)
-    *   [`Options`](#options)
-*   [Bugs](#bugs)
-*   [Authoring](#authoring)
-*   [HTML](#html)
-*   [CSS](#css)
-*   [Syntax](#syntax)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [Notice](#notice)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`defaultInclude`](#defaultinclude)
+  * [`rehypeGithubDir(options?)`](#rehypegithubdiroptions)
+  * [`Options`](#options)
+* [Bugs](#bugs)
+* [Authoring](#authoring)
+* [HTML](#html)
+* [CSS](#css)
+* [Syntax](#syntax)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Related](#related)
+* [Contribute](#contribute)
+* [Notice](#notice)
+* [License](#license)
 
 ## What is this?
 
@@ -163,8 +163,8 @@ Plugin to add `dir=auto` to elements.
 
 ###### Parameters
 
-*   `options` ([`Options`][api-options])
-    — configuration
+* `options` ([`Options`][api-options])
+  — configuration
 
 ### `Options`
 
@@ -172,10 +172,10 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-*   `include` (`Array<string>`, default:
-    [`defaultInclude`][api-default-include])
-    — elements to enhance; the default behavior is to add `dir` to `div`, `h1`,
-    `h2`, `h3`, `h4`, `h5`, `h6`, `ol`, `p`, and `ul`
+* `include` (`Array<string>`, default:
+  [`defaultInclude`][api-default-include])
+  — elements to enhance; the default behavior is to add `dir` to `div`, `h1`,
+  `h2`, `h3`, `h4`, `h5`, `h6`, `ol`, `p`, and `ul`
 
 ## Bugs
 
@@ -225,8 +225,8 @@ This package is safe.
 
 ## Related
 
-*   [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
-    — support GFM in remark
+* [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
+  — support GFM in remark
 
 ## Contribute
 

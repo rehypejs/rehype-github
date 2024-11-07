@@ -231,6 +231,8 @@ test('fixtures', async function () {
       .replace(/<td><div>n<\/div><\/td>/g, '<td><div>false</div></td>')
       // GH sometimes does or doesn’t an eol after YAML code blocks.
       .replace('---\n</pre>', '---</pre>')
+      // Drop their custom element.
+      .replace(/<\/?markdown-accessiblity-table>/g, '')
 
     actual = actual
       // Different YAML parser has different error messages.

@@ -1,6 +1,8 @@
 /**
  * @typedef {import('hast').Element} Element
  * @typedef {import('hast').Root} Root
+ * @typedef {import('unified').TransformCallback} TransformCallback
+ * @typedef {import('vfile').VFile} VFile
  */
 
 /**
@@ -53,20 +55,22 @@ const magicDefaultHostname = 'example.com'
 /** @type {Options} */
 const emptyOptions = {}
 /** @type {[]} */
-const emptySrc = []
+const emptySource = []
 
 /**
  * Plugin to enhance images.
  *
- * @type {import('unified').Plugin<[(Options | null | undefined)?], Root>}
- * @param options
- *   Configuration.
+ * @param {Options | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
  */
 export default function rehypeGithubImage(options) {
   const config = options || emptyOptions
   const toProxyUrl = config.toProxyUrl || undefined
   const blank =
     typeof config.targetBlank === 'boolean' ? config.targetBlank : true
+  // eslint-disable-next-line unicorn/prevent-abbreviations
   const rel =
     typeof config.rel === 'string'
       ? [config.rel]
@@ -88,6 +92,18 @@ export default function rehypeGithubImage(options) {
     }
   }
 
+  /**
+   * Transform.
+   *
+   * @param {Root} tree
+   *   Tree.
+   * @param {VFile} _
+   *   File.
+   * @param {TransformCallback} next
+   *   Callback.
+   * @returns {undefined}
+   *   Nothing.
+   */
   return function (tree, _, next) {
     /** @type {Array<Promise<void>>} */
     const promises = []
@@ -179,14 +195,11 @@ export default function rehypeGithubImage(options) {
  */
 function set(nodes, source) {
   for (const node of nodes) {
-    /* c8 ignore next */
-    const props = node.properties || (node.properties = {})
-
     // Either links or images.
     if (node.tagName === 'a') {
-      props.href = source || ''
+      node.properties.href = source || ''
     } else {
-      props.src = source
+      node.properties.src = source
     }
   }
 }
@@ -205,7 +218,7 @@ function set(nodes, source) {
 function sanitizeSource(value, toProxyUrl, internal) {
   // Ignore when `src` is not defined.
   if (value === undefined || value === null) {
-    return emptySrc
+    return emptySource
   }
 
   const source = String(value).replace(/^(?:\?[^#]*)?(?:#[\s\S]*)?$/, '')
@@ -218,12 +231,12 @@ function sanitizeSource(value, toProxyUrl, internal) {
     url = new URL(source, 'https://' + defaultHostname)
   } catch {
     // Do not allow invalid URLs.
-    return emptySrc
+    return emptySource
   }
 
   // Do not allow non-http protocols.
   if (url.protocol !== 'https:' && url.protocol !== 'http:') {
-    return emptySrc
+    return emptySource
   }
 
   // For some reason GH uses `src=""` for this instead of

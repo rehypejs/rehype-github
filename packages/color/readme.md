@@ -12,29 +12,29 @@
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`defaultBuild(value)`](#defaultbuildvalue)
-    *   [`defaultExpression`](#defaultexpression)
-    *   [`rehypeGithubColor(options?)`](#rehypegithubcoloroptions)
-    *   [`Behavior`](#behavior)
-    *   [`Build`](#build)
-    *   [`Options`](#options)
-*   [Bugs](#bugs)
-*   [Authoring](#authoring)
-*   [HTML](#html)
-*   [CSS](#css)
-*   [Syntax](#syntax)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [Notice](#notice)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`defaultBuild(value)`](#defaultbuildvalue)
+  * [`defaultExpression`](#defaultexpression)
+  * [`rehypeGithubColor(options?)`](#rehypegithubcoloroptions)
+  * [`Behavior`](#behavior)
+  * [`Build`](#build)
+  * [`Options`](#options)
+* [Bugs](#bugs)
+* [Authoring](#authoring)
+* [HTML](#html)
+* [CSS](#css)
+* [Syntax](#syntax)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Related](#related)
+* [Contribute](#contribute)
+* [Notice](#notice)
+* [License](#license)
 
 ## What is this?
 
@@ -115,8 +115,8 @@ The default builder to turn a color into rich content.
 
 ###### Parameters
 
-*   `value` (`string`)
-    — color matched by expression
+* `value` (`string`)
+  — color matched by expression
 
 ###### Returns
 
@@ -138,8 +138,8 @@ Plugin to enhance code for colors.
 
 ###### Parameters
 
-*   `options` ([`Options`][api-options], optional)
-    — configuration
+* `options` ([`Options`][api-options], optional)
+  — configuration
 
 ### `Behavior`
 
@@ -159,8 +159,8 @@ Make rich content from a color (TypeScript type).
 
 ###### Parameters
 
-*   `value` (`string`)
-    — color matched by expression
+* `value` (`string`)
+  — color matched by expression
 
 ###### Returns
 
@@ -172,13 +172,13 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-*   `behavior` ([`Behavior`][api-behavior], default: `'append'`)
-    — what to do with the existing code and the built content
-*   `build` ([`Build`][api-build], default: [`defaultBuild`][api-default-build])
-    — make rich content from a color
-*   `expression` (`RegExp`, default:
-    [`defaultExpression`][api-default-expression])
-    — match colors
+* `behavior` ([`Behavior`][api-behavior], default: `'append'`)
+  — what to do with the existing code and the built content
+* `build` ([`Build`][api-build], default: [`defaultBuild`][api-default-build])
+  — make rich content from a color
+* `expression` (`RegExp`, default:
+  [`defaultExpression`][api-default-expression])
+  — match colors
 
 ## Bugs
 
@@ -280,8 +280,8 @@ arbitrary HTML.
 
 ## Related
 
-*   [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
-    — support GFM in remark
+* [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
+  — support GFM in remark
 
 ## Contribute
 

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs/promises'
 import test from 'node:test'
 import {createGfmFixtures} from 'create-gfm-fixtures'
+import {gfmTagfilterFromMarkdown} from 'mdast-util-gfm-tagfilter'
 import rehypeGithubNoTranslate from 'rehype-github-notranslate'
 import rehypeParse from 'rehype-parse'
 import rehypeRaw from 'rehype-raw'
@@ -67,6 +68,13 @@ test('fixtures', async function () {
     const processor = unified()
       .use(remarkParse)
       .use(remarkGfm)
+      .use(function () {
+        const data = this.data()
+        const fromMarkdownExtensions =
+          // eslint-disable-next-line logical-assignment-operators
+          data.fromMarkdownExtensions || (data.fromMarkdownExtensions = [])
+        fromMarkdownExtensions.push(gfmTagfilterFromMarkdown())
+      })
       .use(name.endsWith('.comment') ? [remarkGithubBreak] : [])
       .use(remarkRehype, {allowDangerousHtml: true})
       .use(rehypeRaw)
@@ -84,6 +92,8 @@ test('fixtures', async function () {
       .replace(/ class="contains-task-list"/g, '')
       // To do: `create-github-fixtures` should support this.
       .replace(/ class="task-list-item"/g, '')
+      // Drop their custom element.
+      .replace(/<\/?markdown-accessiblity-table>/g, '')
 
     actual = actual
       // To do: `create-github-fixtures` should remove this on `ol`s too.
@@ -106,12 +116,12 @@ test('fixtures', async function () {
       // File form:
       .replace(
         /<pre><code class="language-markdown">a\nb\.\n<\/code><\/pre>/g,
-        '<div class="highlight highlight-source-gfm"><pre>a\nb.</pre></div>'
+        '<div class="highlight highlight-text-md"><pre>a\nb.</pre></div>'
       )
       // Comment form:
       .replace(
         /<pre class="notranslate"><code class="language-markdown notranslate">a\nb.\n<\/code><\/pre>/g,
-        '<div class="highlight highlight-source-gfm"><pre class="notranslate">a\nb.</pre></div>'
+        '<div class="highlight highlight-text-md"><pre class="notranslate">a\nb.</pre></div>'
       )
 
     if (name === 'html.comment') {
@@ -119,7 +129,7 @@ test('fixtures', async function () {
       // To do: improve `rehype-sanitize`?
       actual = actual
         .replace(
-          /<\/?(?:a|abbr|acronym|address|applet|article|aside|audio|bdi|bdo|big|blink|button|canvas|center|cite|content|data|datalist|dfn|dialog|dir|element|fieldset|figcaption|figure|font|footer|form|header|hgroup|label|legend|listing|main|map|mark|marquee|math|menu|meter|multicol|nav|nobr|noscript|object|optgroup|option|output|progress|rb|rbc|rtc|search|select|shadow|slot|small|spacer|svg|template|time|u)>/g,
+          /<\/?(?:a|abbr|acronym|address|applet|article|aside|audio|bdi|bdo|big|blink|button|canvas|center|cite|content|data|datalist|dfn|dialog|dir|element|fieldset|figcaption|figure|font|footer|form|header|hgroup|label|legend|listing|main|map|marquee|math|menu|meter|multicol|nav|nobr|noscript|object|optgroup|option|output|progress|rb|rbc|rtc|search|select|shadow|slot|small|spacer|svg|template|time|u)>/g,
           ''
         )
         // Elements that GitHub drops entirely

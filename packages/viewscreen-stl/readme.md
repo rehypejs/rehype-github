@@ -12,26 +12,26 @@ Viewscreen component for STL files (3D geometry).
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`viewscreenStl(node, options?)`](#viewscreenstlnode-options)
-    *   [`OnSizeSuggestion`](#onsizesuggestion)
-    *   [`OnResolve`](#onresolve)
-    *   [`Options`](#options)
-*   [Bugs](#bugs)
-*   [Authoring](#authoring)
-*   [HTML](#html)
-*   [CSS](#css)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [Notice](#notice)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`viewscreenStl(node, options?)`](#viewscreenstlnode-options)
+  * [`OnSizeSuggestion`](#onsizesuggestion)
+  * [`OnResolve`](#onresolve)
+  * [`Options`](#options)
+* [Bugs](#bugs)
+* [Authoring](#authoring)
+* [HTML](#html)
+* [CSS](#css)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Related](#related)
+* [Contribute](#contribute)
+* [Notice](#notice)
+* [License](#license)
 
 ## What is this?
 
@@ -275,17 +275,17 @@ Render 3D geometry in `node`.
 
 ###### Parameters
 
-*   `node` (`HTMLElement`, required)
-    — node to work in
-*   `options` ([`Options`][api-options], optional)
-    — configuration
+* `node` (`HTMLElement`, required)
+  — node to work in
+* `options` ([`Options`][api-options], optional)
+  — configuration
 
 ###### Returns
 
 Object with the following fields:
 
-*   `change` (`(value: string) => Promise<void>`)
-    — change the geometry
+* `change` (`(value: string) => Promise<void>`)
+  — change the geometry
 
 ### `OnSizeSuggestion`
 
@@ -294,10 +294,10 @@ Callback called when there’s a new size suggestion for the viewscreen
 
 ###### Parameters
 
-*   `width` (`number`)
-    — current width
-*   `height` (`number`)
-    — preferred height for `width`
+* `width` (`number`)
+  — current width
+* `height` (`number`)
+  — preferred height for `width`
 
 ###### Returns
 
@@ -321,10 +321,10 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-*   `onResolve` ([`OnResolve`][api-on-resolve], optional)
-    — callback called when resolving
-*   `onSizeSuggestion` ([`OnSizeSuggestion`][api-on-size-suggestion], optional)
-    — callback called on a size suggestion
+* `onResolve` ([`OnResolve`][api-on-resolve], optional)
+  — callback called when resolving
+* `onSizeSuggestion` ([`OnSizeSuggestion`][api-on-size-suggestion], optional)
+  — callback called on a size suggestion
 
 ## Bugs
 
@@ -473,8 +473,8 @@ This package is safe.
 
 ## Related
 
-*   [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
-    — support GFM in remark
+* [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
+  — support GFM in remark
 
 ## Contribute
 

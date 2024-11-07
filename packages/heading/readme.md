@@ -12,29 +12,29 @@
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`defaultBuild(id)`](#defaultbuildid)
-    *   [`defaultInclude`](#defaultinclude)
-    *   [`rehypeGithubHeading(options?)`](#rehypegithubheadingoptions)
-    *   [`Behavior`](#behavior)
-    *   [`Build`](#build)
-    *   [`Options`](#options)
-*   [Bugs](#bugs)
-*   [Authoring](#authoring)
-*   [HTML](#html)
-*   [CSS](#css)
-*   [Syntax](#syntax)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [Notice](#notice)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`defaultBuild(id)`](#defaultbuildid)
+  * [`defaultInclude`](#defaultinclude)
+  * [`rehypeGithubHeading(options?)`](#rehypegithubheadingoptions)
+  * [`Behavior`](#behavior)
+  * [`Build`](#build)
+  * [`Options`](#options)
+* [Bugs](#bugs)
+* [Authoring](#authoring)
+* [HTML](#html)
+* [CSS](#css)
+* [Syntax](#syntax)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Related](#related)
+* [Contribute](#contribute)
+* [Notice](#notice)
+* [License](#license)
 
 ## What is this?
 
@@ -116,8 +116,8 @@ Make rich content to link to a heading like github.com.
 
 ###### Parameters
 
-*   `id` (`string`)
-    — ID corresponding to heading
+* `id` (`string`)
+  — ID corresponding to heading
 
 ###### Returns
 
@@ -133,8 +133,8 @@ Plugin to enhance headings.
 
 ###### Parameters
 
-*   `options` ([`Options`][api-options], optional)
-    — configuration
+* `options` ([`Options`][api-options], optional)
+  — configuration
 
 ### `Behavior`
 
@@ -154,10 +154,10 @@ Make rich content to link to a heading (TypeScript type).
 
 ###### Parameters
 
-*   `id` (`string`)
-    — ID of heading
-*   `node` ([`Element`][element])
-    — heading
+* `id` (`string`)
+  — ID of heading
+* `node` ([`Element`][element])
+  — heading
 
 ###### Returns
 
@@ -169,14 +169,14 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-*   `behavior` ([`Behavior`][api-behavior], default: `'prepend'`)
-    — what to do with the new link to the existing heading
-*   `build` ([`Build`][api-build], default: [`defaultBuild`][api-default-build])
-    — make rich content to link to a heading
-*   `include` (`Array<string>`, default:
-    [`defaultInclude`][api-default-include])
-    — elements to link; the default behavior is to enhance `h1`, `h2`, `h3`,
-    `h4`, `h5`, and `h6`
+* `behavior` ([`Behavior`][api-behavior], default: `'prepend'`)
+  — what to do with the new link to the existing heading
+* `build` ([`Build`][api-build], default: [`defaultBuild`][api-default-build])
+  — make rich content to link to a heading
+* `include` (`Array<string>`, default:
+  [`defaultInclude`][api-default-include])
+  — elements to link; the default behavior is to enhance `h1`, `h2`, `h3`,
+  `h4`, `h5`, and `h6`
 
 ## Bugs
 
@@ -273,8 +273,8 @@ This package is unsafe.
 
 ## Related
 
-*   [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
-    — support GFM in remark
+* [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
+  — support GFM in remark
 
 ## Contribute
 

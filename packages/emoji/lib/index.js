@@ -67,7 +67,7 @@ const gemojiRegex = new RegExp(':(' + gemojiGroup + '):', 'g')
  *   Info on the known emoji or gemoji, or the custom gemoji name.
  * @param {string} value
  *   Literal match the way it was written.
- * @returns {Element}
+ * @returns {Element | string}
  *   Markup for the emoji or gemoji.
  */
 export function defaultBuild(info, value) {
@@ -89,34 +89,35 @@ export function defaultBuild(info, value) {
     }
   }
 
+  // .
   // Replace emoji/gemoji.
   /** @type {Array<string>} */
-  const codePoints = []
+  // const codePoints = []
 
-  for (const cpString of info.emoji) {
-    const codePoint = cpString.codePointAt(0)
-    /* c8 ignore next */
-    if (codePoint === undefined) throw new Error('Cannot happen')
-    codePoints.push(codePoint.toString(16).padStart(4, '0'))
-  }
-
+  // for (const cpString of info.emoji) {
+  //   const codePoint = cpString.codePointAt(0)
+  //   /* c8 ignore next */
+  //   if (codePoint === undefined) throw new Error('Cannot happen')
+  //   codePoints.push(codePoint.toString(16).padStart(4, '0'))
+  // }
   // See: <https://github.com/github/gemoji/blob/55bb37a/lib/emoji/character.rb#L84>
-  const hexName = codePoints.join('-').replace(/-(fe0f|200d)\b/g, '')
+  // . const hexName = codePoints.join('-').replace(/-(fe0f|200d)\b/g, '')
 
-  return {
-    type: 'element',
-    tagName: 'g-emoji',
-    properties: {
-      className: ['g-emoji'],
-      alias: info.names[0],
-      'fallback-src': base + 'unicode/' + hexName + '.png'
-    },
-    children: [
-      // Use the literal match the way it was written (with or without VS 16) if
-      // it is an emoji.
-      {type: 'text', value: value.charAt(0) === ':' ? info.emoji : value}
-    ]
-  }
+  return value.charAt(0) === ':' ? info.emoji : value
+  // Return {
+  //   type: 'element',
+  //   tagName: 'g-emoji',
+  //   properties: {
+  //     className: ['g-emoji'],
+  //     alias: info.names[0],
+  //     'fallback-src': base + 'unicode/' + hexName + '.png'
+  //   },
+  //   children: [
+  //     // Use the literal match the way it was written (with or without VS 16) if
+  //     // it is an emoji.
+  //     {type: 'text', value: value.charAt(0) === ':' ? info.emoji : value}
+  //   ]
+  // }
 }
 
 /**
@@ -158,9 +159,10 @@ export const defaultIgnore = ['pre', 'code', 'tt', 'g-emoji']
 /**
  * Plugin to enhance emoji and gemoji.
  *
- * @type {import('unified').Plugin<[(Options | null | undefined)?], Root>}
- * @param options
- *   Configuration.
+ * @param {Options | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
  */
 export default function rehypeGithubEmoji(options) {
   const config = options || emptyOptions
@@ -174,6 +176,14 @@ export default function rehypeGithubEmoji(options) {
     }
   }
 
+  /**
+   * Transform.
+   *
+   * @param {Root} tree
+   *   Tree.
+   * @returns {undefined}
+   *   Nothing.
+   */
   return function (tree) {
     findAndReplace(
       tree,
@@ -185,6 +195,7 @@ export default function rehypeGithubEmoji(options) {
     )
   }
 
+  // .
   /**
    * @type {ReplaceFunction}
    * @param {string} $0

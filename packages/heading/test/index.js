@@ -3,6 +3,7 @@ import fs from 'node:fs/promises'
 import test from 'node:test'
 import {createGfmFixtures} from 'create-gfm-fixtures'
 import {h} from 'hastscript'
+import rehypeGithubEmoji from 'rehype-github-emoji'
 import rehypeGithubHeading from 'rehype-github-heading'
 import rehypeParse from 'rehype-parse'
 import rehypeRaw from 'rehype-raw'
@@ -27,7 +28,7 @@ test('rehypeGithubHeading', async () => {
         .use(rehypeStringify)
         .process('<h1>hi</h1>')
     ),
-    '<h1><a id="hi" class="anchor" aria-hidden="true" href="#hi"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a>hi</h1>',
+    '<div class="markdown-heading"><h1 class="heading-element">hi</h1><a id="hi" class="anchor" aria-label="Permalink: hi" href="#hi"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>',
     'should transform a heading'
   )
 
@@ -36,8 +37,11 @@ test('rehypeGithubHeading', async () => {
       await unified()
         .use(rehypeParse, {fragment: true})
         .use(rehypeGithubHeading, {
-          build(id) {
-            return h('a', {href: '#' + id}, '!')
+          build(id, node) {
+            return {
+              ...node,
+              children: [h('a', {href: '#' + id}, '!'), ...node.children]
+            }
           }
         })
         .use(rehypeStringify)
@@ -52,32 +56,15 @@ test('rehypeGithubHeading', async () => {
       await unified()
         .use(rehypeParse, {fragment: true})
         .use(rehypeGithubHeading, {
-          build(id) {
-            return [h('a', {href: '#' + id}, '!'), h('span', '?')]
+          build(id, node) {
+            return [node, h('a', {href: '#' + id}, '!')]
           }
         })
         .use(rehypeStringify)
         .process('<h1>hi</h1>')
     ),
-    '<h1><a href="#hi">!</a><span>?</span>hi</h1>',
+    '<h1>hi</h1><a href="#hi">!</a>',
     'should support `build` yielding an array'
-  )
-
-  assert.equal(
-    String(
-      await unified()
-        .use(rehypeParse, {fragment: true})
-        .use(rehypeGithubHeading, {
-          behavior: 'append',
-          build(id) {
-            return h('a', {href: '#' + id}, '!')
-          }
-        })
-        .use(rehypeStringify)
-        .process('<h1>hi</h1>')
-    ),
-    '<h1>hi<a href="#hi">!</a></h1>',
-    'should support `behavior: append`'
   )
 })
 
@@ -107,6 +94,7 @@ test('fixtures', async function () {
       .use(remarkRehype, {allowDangerousHtml: true})
       .use(rehypeRaw)
       .use(rehypeGithubHeading)
+      .use(rehypeGithubEmoji)
       .use(rehypeStringify)
 
     let actual = String(await processor.process(input))
@@ -117,16 +105,6 @@ test('fixtures', async function () {
         /class="sr-only" id="footnote-label"/g,
         'id="footnote-label" class="sr-only"'
       )
-      // To do: `remark-rehype` should implement new labels.
-      .replace(
-        /class="data-footnote-backref" aria-label="Back to content"/g,
-        'aria-label="Back to reference 1" class="data-footnote-backref"'
-      )
-      // Emoji, not supported in this transform, see `rehype-github-emoji`.
-      // To do: use it?
-      .replace(/:smile:/g, '😄')
-      .replace(/:ok_hand:/g, '👌')
-      .replace(/:hatched_chick:/g, '🐥')
       // To do: consolidate all the tools that add `user-content-`?
       .replace(/id="(?!user-content-|footnote-label|")/g, 'id="user-content-')
       .replace(

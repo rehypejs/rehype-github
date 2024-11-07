@@ -12,30 +12,30 @@
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`defaultCreateErrorMessage(info)`](#defaultcreateerrormessageinfo)
-    *   [`defaultParseOptions`](#defaultparseoptions)
-    *   [`remarkGithubYamlMetadata(options?)`](#remarkgithubyamlmetadataoptions)
-    *   [`CreateErrorMessage`](#createerrormessage)
-    *   [`ErrorInfo`](#errorinfo)
-    *   [`Options`](#options)
-    *   [`ParseOptions`](#parseoptions)
-*   [Bugs](#bugs)
-*   [Authoring](#authoring)
-*   [HTML](#html)
-*   [CSS](#css)
-*   [Syntax](#syntax)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [Notice](#notice)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`defaultCreateErrorMessage(info)`](#defaultcreateerrormessageinfo)
+  * [`defaultParseOptions`](#defaultparseoptions)
+  * [`remarkGithubYamlMetadata(options?)`](#remarkgithubyamlmetadataoptions)
+  * [`CreateErrorMessage`](#createerrormessage)
+  * [`ErrorInfo`](#errorinfo)
+  * [`Options`](#options)
+  * [`ParseOptions`](#parseoptions)
+* [Bugs](#bugs)
+* [Authoring](#authoring)
+* [HTML](#html)
+* [CSS](#css)
+* [Syntax](#syntax)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Related](#related)
+* [Contribute](#contribute)
+* [Notice](#notice)
+* [License](#license)
 
 ## What is this?
 
@@ -135,8 +135,8 @@ Plugin to show frontmatter as a table.
 
 ###### Parameters
 
-*   `options` ([`Options`][api-options])
-    — configuration
+* `options` ([`Options`][api-options])
+  — configuration
 
 ### `CreateErrorMessage`
 
@@ -144,8 +144,8 @@ Create rich content to display an error message to the user (TypeScript type).
 
 ###### Parameters
 
-*   `info` ([`ErrorInfo`][api-error-info])
-    — info on what went wrong
+* `info` ([`ErrorInfo`][api-error-info])
+  — info on what went wrong
 
 ###### Returns
 
@@ -161,14 +161,14 @@ Info on what went wrong (TypeScript type).
 
 ###### Fields
 
-*   `message` (`string`)
-    — human readable parse error (from [`yaml`][yaml])
-*   `point` ([`Point`][unist-position] or `undefined`)
-    — where the error happened in the original file
-*   `summary` (`string` or `undefined`)
-    — summary with a pointer showing a codeframe of where the error happened
-*   `yaml` (`string`)
-    — original input YAML
+* `message` (`string`)
+  — human readable parse error (from [`yaml`][yaml])
+* `point` ([`Point`][unist-position] or `undefined`)
+  — where the error happened in the original file
+* `summary` (`string` or `undefined`)
+  — summary with a pointer showing a codeframe of where the error happened
+* `yaml` (`string`)
+  — original input YAML
 
 ### `Options`
 
@@ -183,17 +183,17 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-*   `allowArrayAtRoot` (`boolean`, default: `false`)
-    — whether to allow arrays at the top of the YAML
-*   `allowPrimitiveAtRoot` (`boolean`, default: `false`)
-    — whether to allow primitives (and dates) at the top of the YAML
-*   `createErrorMessage`
-    ([`CreateErrorMessage`][api-create-error-message], default:
-    [`defaultCreateErrorMessage`][api-default-create-error-message])
-    — options defining how to show YAML errors
-*   `parseOptions` ([`ParseOptions`][api-parse-options], default:
-    [`defaultParseOptions`][api-default-parse-options])
-    — options defining how to parse YAML
+* `allowArrayAtRoot` (`boolean`, default: `false`)
+  — whether to allow arrays at the top of the YAML
+* `allowPrimitiveAtRoot` (`boolean`, default: `false`)
+  — whether to allow primitives (and dates) at the top of the YAML
+* `createErrorMessage`
+  ([`CreateErrorMessage`][api-create-error-message], default:
+  [`defaultCreateErrorMessage`][api-default-create-error-message])
+  — options defining how to show YAML errors
+* `parseOptions` ([`ParseOptions`][api-parse-options], default:
+  [`defaultParseOptions`][api-default-parse-options])
+  — options defining how to parse YAML
 
 ### `ParseOptions`
 
@@ -304,10 +304,10 @@ This package is safe.
 
 ## Related
 
-*   [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
-    — support GFM in remark
-*   [`remark-frontmatter`](https://github.com/remarkjs/remark-frontmatter)
-    — support frontmatter syntax in remark
+* [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
+  — support GFM in remark
+* [`remark-frontmatter`](https://github.com/remarkjs/remark-frontmatter)
+  — support frontmatter syntax in remark
 
 ## Contribute
 

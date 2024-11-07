@@ -27,8 +27,8 @@
     "index.js"
   ],
   "dependencies": {
-    "@types/mdast": "^3.0.0",
-    "mdast-util-find-and-replace": "^2.0.0"
+    "@types/mdast": "^4.0.0",
+    "mdast-util-find-and-replace": "^3.0.0"
   },
   "scripts": {
     "test-api": "node --conditions development test/index.js",

@@ -12,25 +12,25 @@
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`rehypeGithubLink(options?)`](#rehypegithublinkoptions)
-    *   [`Options`](#options)
-*   [Bugs](#bugs)
-*   [Authoring](#authoring)
-*   [HTML](#html)
-*   [CSS](#css)
-*   [Syntax](#syntax)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [Notice](#notice)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`rehypeGithubLink(options?)`](#rehypegithublinkoptions)
+  * [`Options`](#options)
+* [Bugs](#bugs)
+* [Authoring](#authoring)
+* [HTML](#html)
+* [CSS](#css)
+* [Syntax](#syntax)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Related](#related)
+* [Contribute](#contribute)
+* [Notice](#notice)
+* [License](#license)
 
 ## What is this?
 
@@ -106,8 +106,8 @@ Plugin to enhance links.
 
 ###### Parameters
 
-*   `options` ([`Options`][api-options], optional)
-    — configuration
+* `options` ([`Options`][api-options], optional)
+  — configuration
 
 ### `Options`
 
@@ -115,11 +115,11 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-*   `internal` (`Array<string>` or `string`, default: `'github.com'`)
-    — hostname or hostnames to not mark as external
-*   `rel` (`Array<string>` or `string`, default: `'nofollow'`)
-    — relationship(s) of your site to external content, used in `rel`; You
-    should probably set `['nofollow', 'ugc']`
+* `internal` (`Array<string>` or `string`, default: `'github.com'`)
+  — hostname or hostnames to not mark as external
+* `rel` (`Array<string>` or `string`, default: `'nofollow'`)
+  — relationship(s) of your site to external content, used in `rel`; You
+  should probably set `['nofollow', 'ugc']`
 
 ## Bugs
 
@@ -167,10 +167,10 @@ This package is safe.
 
 ## Related
 
-*   [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
-    — support GFM in remark
-*   [`rehype-external-links`](https://github.com/rehypejs/rehype-external-links)
-    — similar plugin
+* [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
+  — support GFM in remark
+* [`rehype-external-links`](https://github.com/rehypejs/rehype-external-links)
+  — similar plugin
 
 ## Contribute
 

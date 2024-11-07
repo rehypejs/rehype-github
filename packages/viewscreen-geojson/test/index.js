@@ -12,7 +12,12 @@ const document = window.document
 // @ts-expect-error: fine
 globalThis.window = window
 globalThis.document = document
-globalThis.navigator = window.navigator
+
+try {
+  globalThis.navigator = window.navigator
+} catch {
+  // Newer Node has `navigator` on `globalThis`.
+}
 
 // Fix crash in `leaflet.markercluster`.
 const {default: L} = await import('leaflet')

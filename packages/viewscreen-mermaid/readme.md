@@ -12,25 +12,25 @@ Viewscreen component for mermaid.
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`viewscreenMermaid(node, options?)`](#viewscreenmermaidnode-options)
-    *   [`OnSizeSuggestion`](#onsizesuggestion)
-    *   [`Options`](#options)
-*   [Bugs](#bugs)
-*   [Authoring](#authoring)
-*   [HTML](#html)
-*   [CSS](#css)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [Notice](#notice)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`viewscreenMermaid(node, options?)`](#viewscreenmermaidnode-options)
+  * [`OnSizeSuggestion`](#onsizesuggestion)
+  * [`Options`](#options)
+* [Bugs](#bugs)
+* [Authoring](#authoring)
+* [HTML](#html)
+* [CSS](#css)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Related](#related)
+* [Contribute](#contribute)
+* [Notice](#notice)
+* [License](#license)
 
 ## What is this?
 
@@ -186,17 +186,17 @@ Render a mermaid graph in `node`.
 
 ###### Parameters
 
-*   `node` (`HTMLElement`, required)
-    — node to work in
-*   `options` ([`Options`][api-options], optional)
-    — configuration
+* `node` (`HTMLElement`, required)
+  — node to work in
+* `options` ([`Options`][api-options], optional)
+  — configuration
 
 ###### Returns
 
 Object with the following fields:
 
-*   `change` (`(value: string) => Promise<void>`)
-    — change the diagram
+* `change` (`(value: string) => Promise<void>`)
+  — change the diagram
 
 ### `OnSizeSuggestion`
 
@@ -205,10 +205,10 @@ Callback called when there’s a new size suggestion for the viewscreen
 
 ###### Parameters
 
-*   `width` (`number`)
-    — current width
-*   `height` (`number`)
-    — preferred height for `width`
+* `width` (`number`)
+  — current width
+* `height` (`number`)
+  — preferred height for `width`
 
 ###### Returns
 
@@ -220,8 +220,8 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-*   `onSizeSuggestion` ([`OnSizeSuggestion`][api-on-size-suggestion], optional)
-    — callback called on a size suggestion
+* `onSizeSuggestion` ([`OnSizeSuggestion`][api-on-size-suggestion], optional)
+  — callback called on a size suggestion
 
 ## Bugs
 
@@ -395,8 +395,8 @@ This package is safe.
 
 ## Related
 
-*   [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
-    — support GFM in remark
+* [`remark-gfm`](https://github.com/remarkjs/remark-gfm)
+  — support GFM in remark
 
 ## Contribute
 

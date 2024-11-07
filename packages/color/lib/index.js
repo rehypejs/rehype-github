@@ -88,9 +88,10 @@ export const defaultExpression = new RegExp(
 /**
  * Plugin to enhance code for colors.
  *
- * @type {import('unified').Plugin<[(Options | null | undefined)?], Root>}
- * @param options
- *   Configuration.
+ * @param {Options | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
  */
 export default function rehypeGithubColor(options) {
   const config = options || emptyOptions
@@ -98,6 +99,14 @@ export default function rehypeGithubColor(options) {
   const build = config.build || defaultBuild
   const behavior = config.behavior || 'append'
 
+  /**
+   * Transform.
+   *
+   * @param {Root} tree
+   *   Tree.
+   * @returns {undefined}
+   *   Nothing.
+   */
   return function (tree) {
     visit(tree, 'element', function (node, index, parent) {
       if (

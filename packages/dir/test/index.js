@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs/promises'
 import test from 'node:test'
 import {createGfmFixtures} from 'create-gfm-fixtures'
+import {gfmTagfilterFromMarkdown} from 'mdast-util-gfm-tagfilter'
 import rehypeGithubDir from 'rehype-github-dir'
 import rehypeRaw from 'rehype-raw'
 import rehypeStringify from 'rehype-stringify'
@@ -41,6 +42,13 @@ test('fixtures', async function () {
     const processor = unified()
       .use(remarkParse)
       .use(remarkGfm)
+      .use(function () {
+        const data = this.data()
+        const fromMarkdownExtensions =
+          // eslint-disable-next-line logical-assignment-operators
+          data.fromMarkdownExtensions || (data.fromMarkdownExtensions = [])
+        fromMarkdownExtensions.push(gfmTagfilterFromMarkdown())
+      })
       .use(remarkRehype, {allowDangerousHtml: true})
       .use(rehypeRaw)
       .use(rehypeGithubDir)
@@ -60,6 +68,11 @@ test('fixtures', async function () {
       .replace(/ class="contains-task-list"/g, '')
       // To do: `create-github-fixtures` should support this.
       .replace(/ class="task-list-item"/g, '')
+      .replace(/<\/?markdown-accessiblity-table>/g, '')
+      // To do: add custom plugin.
+      // Drop their custom element.
+      .replace(/<themed-picture data-catalyst-inline="true">/, '')
+      .replace(/<\/themed-picture>/, '')
 
     if (name === 'markdown') {
       // There’s something weird about line endings. Perhaps related to `rehype-raw`?
@@ -94,7 +107,7 @@ test('fixtures', async function () {
       // To do: `create-github-fixtures` should support this.
       .replace(
         /<pre><code class="language-markdown">a\nb\.\n<\/code><\/pre>/g,
-        '<div class="highlight highlight-source-gfm" dir="auto"><pre>a\nb.</pre></div>'
+        '<div class="highlight highlight-text-md" dir="auto"><pre>a\nb.</pre></div>'
       )
 
     if (name === 'html') {
@@ -102,7 +115,7 @@ test('fixtures', async function () {
       // To do: improve `rehype-sanitize`?
       actual = actual
         .replace(
-          /<\/?(?:a|abbr|acronym|address|applet|article|aside|audio|bdi|bdo|big|blink|button|canvas|center|cite|content|data|datalist|dfn|dialog|dir|element|fieldset|figcaption|figure|font|footer|form|header|hgroup|label|legend|listing|main|map|mark|marquee|math|menu|meter|multicol|nav|nobr|noscript|object|optgroup|option|output|progress|rb|rbc|rtc|search|select|shadow|slot|small|spacer|svg|template|time|u)>/g,
+          /<\/?(?:a|abbr|acronym|address|applet|article|aside|audio|bdi|bdo|big|blink|button|canvas|center|cite|content|data|datalist|dfn|dialog|dir|element|fieldset|figcaption|figure|font|footer|form|header|hgroup|label|legend|listing|main|map|marquee|math|menu|meter|multicol|nav|nobr|noscript|object|optgroup|option|output|progress|rb|rbc|rtc|search|select|shadow|slot|small|spacer|svg|template|time|u)>/g,
           ''
         )
         // Elements that GitHub drops entirely
@@ -112,12 +125,6 @@ test('fixtures', async function () {
           /<(\/?(?:iframe|noembed|noframes|plaintext|script|style|textarea|title|xmp)>)/g,
           '&#x3C;$1'
         )
-
-      expected = expected
-        // To do: add custom plugin.
-        // Drop their custom element.
-        .replace(/<themed-picture data-catalyst-inline="true">/, '')
-        .replace(/<\/themed-picture>/, '')
     }
 
     assert.equal(actual, expected, name)

@@ -85,7 +85,7 @@ test('fixtures', async function () {
       // To do: `create-github-fixtures` should support this.
       .replace(
         /<pre><code class="language-markdown">a\nb\.\n<\/code><\/pre>/g,
-        '<div class="highlight highlight-source-gfm"><pre>a\nb.</pre></div>'
+        '<div class="highlight highlight-text-md"><pre>a\nb.</pre></div>'
       )
       // Elements that GitHub cleans (To do: implemment tagfilter somewhere?)
       .replace(/<(\/?script>)/g, '&#x3C;$1')
@@ -106,6 +106,11 @@ test('fixtures', async function () {
       .replace(/ class="task-list-item"/g, '')
 
     expected = expected
+      // GitHub performs line ending expansion into breaks when parsing,
+      // and does not consider character references.
+      // We could do this, if we operated in the parser.
+      // To do: consider `micromark-extension-github-break`?
+      .replace(/(<br>\n) {2}(reference (after|both)\.)/g, '$1$2')
       // To do: add to `create-gfm-fixtures`.
       // GH adds `notranslate`, this should be (optionally) removed by `crate-gfm-fixtures`.
       .replace(/ class="notranslate"/g, '')

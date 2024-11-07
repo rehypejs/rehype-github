@@ -2,12 +2,11 @@
  * @typedef {import('hast').Element} Element
  * @typedef {import('hast').ElementContent} ElementContent
  * @typedef {import('hast').Root} Root
+ *
+ * @import {VisitorResult} from 'unist-util-visit'
  */
 
 /**
- * @typedef {'append' | 'prepend'} Behavior
- *   What to do with the new link to the existing heading.
- *
  * @callback Build
  *   Make rich content to link to a heading.
  * @param {string} id
@@ -19,8 +18,6 @@
  *
  * @typedef Options
  *   Configuration.
- * @property {Behavior | null | undefined} [behavior='prepend']
- *   What to do with the new link to the existing heading.
  * @property {Build | null | undefined} [build]
  *   Make rich content to link to a heading.
  * @property {Array<string> | null | undefined} [include]
@@ -47,28 +44,61 @@ const d =
  *
  * @param {string} id
  *   ID corresponding to heading.
+ * @param {Element} node
+ *   Heading.
  * @returns {Element}
  *   Link with icon.
  */
-export function defaultBuild(id) {
+export function defaultBuild(id, node) {
+  let text = toString(node)
+  if (text.trim() === '') text = ''
+
+  const classes = node.properties.className || []
+
+  if (Array.isArray(classes)) {
+    classes.push('heading-element')
+  }
+
+  node.properties.className = classes
+
   return {
     type: 'element',
-    tagName: 'a',
-    properties: {id, className: ['anchor'], ariaHidden: 'true', href: '#' + id},
+    tagName: 'div',
+    properties: {className: ['markdown-heading']},
     children: [
+      node,
       {
         type: 'element',
-        tagName: 'svg',
+        tagName: 'a',
         properties: {
-          className: ['octicon', 'octicon-link'],
-          viewBox: '0 0 16 16',
-          version: '1.1',
-          width: '16',
-          height: '16',
-          ariaHidden: 'true'
+          id,
+          className: ['anchor'],
+          // To do: i18n.
+          // Note `'\t'` -> `''`.
+          ariaLabel: 'Permalink: ' + text,
+          href: '#' + id
         },
         children: [
-          {type: 'element', tagName: 'path', properties: {d}, children: []}
+          {
+            type: 'element',
+            tagName: 'svg',
+            properties: {
+              className: ['octicon', 'octicon-link'],
+              viewBox: '0 0 16 16',
+              version: '1.1',
+              width: '16',
+              height: '16',
+              ariaHidden: 'true'
+            },
+            children: [
+              {
+                type: 'element',
+                tagName: 'path',
+                properties: {d},
+                children: []
+              }
+            ]
+          }
         ]
       }
     ]
@@ -83,44 +113,56 @@ export const defaultInclude = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
 /**
  * Plugin to enhance headings.
  *
- * @type {import('unified').Plugin<[(Options | null | undefined)?], Root>}
- * @param options
- *   Configuration.
+ * @param {Options | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
  */
 export default function rehypeGithubHeading(options) {
   const config = options || emptyOptions
   const build = config.build || defaultBuild
-  const behavior = config.behavior || 'prepend'
   const include = config.include || defaultInclude
   const slugger = new GithubSlugger()
 
+  /**
+   * Transform.
+   *
+   * @param {Root} tree
+   *   Tree.
+   * @returns {undefined}
+   *   Nothing.
+   */
   return function (tree) {
-    visit(tree, 'element', function (node) {
-      if (node.type === 'element' && node.properties) {
-        // Do not enter the footnote section.
-        if (
-          node.tagName === 'section' &&
-          Array.isArray(node.properties.className) &&
-          node.properties.className.includes('footnotes')
-        ) {
-          return SKIP
-        }
+    visit(
+      tree,
+      'element',
+      /**
+       * @returns {VisitorResult | undefined}
+       */
+      function (node, index, parent) {
+        if (typeof index === 'number' && parent) {
+          // Do not enter the footnote section.
+          if (
+            node.tagName === 'section' &&
+            Array.isArray(node.properties.className) &&
+            node.properties.className.includes('footnotes')
+          ) {
+            return SKIP
+          }
 
-        if (include.includes(node.tagName)) {
-          const text = toString(node)
+          if (include.includes(node.tagName)) {
+            const text = toString(node)
 
-          if (text) {
-            const id = slugger.slug(text)
-            const result = build(id, node)
-            const fn = behavior === 'prepend' ? 'unshift' : 'push'
-            if (Array.isArray(result)) {
-              node.children[fn](...result)
-            } else {
-              node.children[fn](result)
+            if (text) {
+              const id = slugger.slug(text)
+              const result = build(id, node)
+              const nodes = Array.isArray(result) ? result : [result]
+              parent.children.splice(index, 1, ...nodes)
+              return [SKIP, index + nodes.length]
             }
           }
         }
       }
-    })
+    )
   }
 }

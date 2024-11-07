@@ -12,19 +12,19 @@
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Packages](#packages)
-*   [Examples](#examples)
-    *   [Example: To do](#example-to-do)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [Notice](#notice)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Packages](#packages)
+* [Examples](#examples)
+  * [Example: To do](#example-to-do)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Related](#related)
+* [Contribute](#contribute)
+* [Notice](#notice)
+* [License](#license)
 
 ## What is this?
 
@@ -36,62 +36,64 @@ to match your site, to process user content for safe use on the web.
 
 You can use these tools when you need to:
 
-1.  match GitHub in how it transforms markdown to HTML
-2.  build similar pipelines to bring user content to the masses
+1. match GitHub in how it transforms markdown to HTML
+2. build similar pipelines to bring user content to the masses
 
 ## Install
 
 Currently, install and use each package manually.
 
+<!-- To do: `mdast-util-gfm-tagfilter` -->
+
 ## Packages
 
-*   [`remark-github-break`](packages/break/)
-    — turn normal line endings into hard breaks (**comments**)
-*   [`remark-github-yaml-metadata`](packages/yaml-metadata/)
-    — show frontmatter as a table (**files**)
-*   [`rehype-github-color`](packages/color/)
-    — enhance code for colors (**comments**)
-*   [`rehype-github-dir`](packages/dir/)
-    — add `dir=auto` to elements (**everywhere**)
-*   [`rehype-github-emoji`](packages/emoji/)
-    — enhance emoji and gemoji (**everywhere**)
-*   [`rehype-github-heading`](packages/heading/)
-    — enhance headings (**files**)
-*   `rehype-github-highlight`
-    — perform syntax highlighting on code (**to do**)
-*   [`rehype-github-image`](packages/image/)
-    — enhance images (**everywhere**)
-*   [`rehype-github-link`](packages/link/)
-    — enhance links (**everywhere**)
-*   `rehype-github-mention`
-    — enhance mentions (**to do**)
-*   [`rehype-github-notranslate`](packages/notranslate/)
-    — enhance raw text with `notranslate` (**comments**)
-*   `rehype-github-reference`
-    — enhance references (**to do**)
-*   `rehype-github-sanitize`
-    — clean dangerous HTML (**to do**)
+* [`remark-github-break`](packages/break/)
+  — turn normal line endings into hard breaks (**comments**)
+* [`remark-github-yaml-metadata`](packages/yaml-metadata/)
+  — show frontmatter as a table (**files**)
+* [`rehype-github-color`](packages/color/)
+  — enhance code for colors (**comments**)
+* [`rehype-github-dir`](packages/dir/)
+  — add `dir=auto` to elements (**everywhere**)
+* [`rehype-github-emoji`](packages/emoji/)
+  — enhance emoji and gemoji (**everywhere**)
+* [`rehype-github-heading`](packages/heading/)
+  — enhance headings (**files**)
+* `rehype-github-highlight`
+  — perform syntax highlighting on code (**to do**)
+* [`rehype-github-image`](packages/image/)
+  — enhance images (**everywhere**)
+* [`rehype-github-link`](packages/link/)
+  — enhance links (**everywhere**)
+* `rehype-github-mention`
+  — enhance mentions (**to do**)
+* [`rehype-github-notranslate`](packages/notranslate/)
+  — enhance raw text with `notranslate` (**comments**)
+* `rehype-github-reference`
+  — enhance references (**to do**)
+* `rehype-github-sanitize`
+  — clean dangerous HTML (**to do**)
 
 GitHub additionally includes client side code to enhance certain code blocks
 by evaluating their contents.
 This behavior is performed by:
 
-*   [`viewscreen-geojson`](packages/viewscreen-geojson/)
-    — viewscreen component for geojson and topojson
-*   [`viewscreen-mermaid`](packages/viewscreen-mermaid/)
-    — viewscreen component for mermaid
-*   [`viewscreen-stl`](packages/viewscreen-stl/)
-    — viewscreen component for STL (3D geometry)
+* [`viewscreen-geojson`](packages/viewscreen-geojson/)
+  — viewscreen component for geojson and topojson
+* [`viewscreen-mermaid`](packages/viewscreen-mermaid/)
+  — viewscreen component for mermaid
+* [`viewscreen-stl`](packages/viewscreen-stl/)
+  — viewscreen component for STL (3D geometry)
 
 See [`example/viewscreen/`](example/viewscreen/) on how to use them together.
 
 To do:
 
-*   Change some things in `hast-util-to-mdast` to match current things
-    that GitHub does there
-*   Investigate task lists
-*   Investigate port of treelights
-*   Investigate linking to labels, issues, pulls, files, lines in files,
+* Change some things in `hast-util-to-mdast` to match current things
+  that GitHub does there
+* Investigate task lists
+* Investigate port of treelights
+* Investigate linking to labels, issues, pulls, files, lines in files,
 
 ## Examples
 

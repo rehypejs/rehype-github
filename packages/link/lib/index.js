@@ -21,9 +21,10 @@ const emptyOptions = {}
 /**
  * Plugin to enhance links.
  *
- * @type {import('unified').Plugin<[(Options | null | undefined)?], Root>}
- * @param options
- *   Configuration.
+ * @param {Options | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
  */
 export default function rehypeGithubLink(options) {
   const config = options || emptyOptions
@@ -64,6 +65,14 @@ export default function rehypeGithubLink(options) {
     }
   }
 
+  /**
+   * Transform.
+   *
+   * @param {Root} tree
+   *   Tree.
+   * @returns {undefined}
+   *   Nothing.
+   */
   return function (tree) {
     visit(tree, 'element', function (node, index, parent) {
       if (
@@ -101,6 +110,7 @@ export default function rehypeGithubLink(options) {
         if (known) {
           // Local or known.
         } else {
+          // eslint-disable-next-line unicorn/prevent-abbreviations
           const rel = Array.isArray(node.properties.rel)
             ? node.properties.rel
             : (node.properties.rel = [])

@@ -24,14 +24,23 @@ export const defaultInclude = ['code', 'pre']
 /**
  * Plugin to enhance raw text with `notranslate`.
  *
- * @type {import('unified').Plugin<[(Options | null | undefined)?], Root>}
- * @param options
- *   Configuration.
+ * @param {Options | null | undefined} [options]
+ *   Configuration (optional).
+ * @returns
+ *   Transform.
  */
 export default function rehypeGithubNoTranslate(options) {
   const config = options || emptyOptions
   const include = config.include || defaultInclude
 
+  /**
+   * Transform.
+   *
+   * @param {Root} tree
+   *   Tree.
+   * @returns {undefined}
+   *   Nothing.
+   */
   return function (tree) {
     visit(tree, 'element', function (node) {
       if (

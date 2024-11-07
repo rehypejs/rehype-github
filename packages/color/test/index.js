@@ -101,7 +101,7 @@ test('fixtures', async function () {
   const base = new URL('fixtures/', import.meta.url)
 
   await createGfmFixtures(base, {
-    rehypeStringify: {closeSelfClosing: true}
+    toHtml: {closeSelfClosing: true}
   })
 
   const files = await fs.readdir(base)
