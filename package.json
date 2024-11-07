@@ -33,6 +33,7 @@
     "packages/yaml-metadata/",
     "example/viewscreen/"
   ],
+  "devDependencies#": "`type-fest` is included because otherwise an old one is at the top whose types break.",
   "devDependencies": {
     "@types/jsdom": "^21.0.0",
     "@types/node": "^22.0.0",
@@ -54,6 +55,7 @@
     "remark-rehype": "^11.0.0",
     "semver": "^7.0.0",
     "type-coverage": "^2.0.0",
+    "type-fest": "^4.0.0",
     "typescript": "^5.0.0",
     "unified": "^11.0.0",
     "vfile": "^6.0.0",
