@@ -35,7 +35,7 @@
   "repository": "rehypejs/rehype-github",
   "scripts": {
     "test-api": "node --conditions development test/index.js",
-    "test-coverage": "c8 --100 --check-coverage --reporter lcov -- npm run test-api"
+    "test-coverage": "c8 --100 --reporter lcov -- npm run test-api"
   },
   "sideEffects": false,
   "typeCoverage": {
