@@ -1,22 +1,14 @@
 {
-  "name": "mdast-util-gfm-tagfilter",
-  "version": "0.0.0",
-  "private": true,
-  "description": "to do",
-  "license": "MIT",
-  "keywords": [],
-  "repository": "rehypejs/rehype-github",
-  "bugs": "https://github.com/rehypejs/rehype-github/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "bugs": "https://github.com/rehypejs/rehype-github/issues",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
-  "sideEffects": false,
-  "type": "module",
+  "dependencies": {
+    "devlop": "^1.0.0",
+    "mdast-util-from-markdown": "^2.0.0"
+  },
+  "description": "to do",
   "exports": "./index.js",
   "files": [
     "index.d.ts.map",
@@ -24,14 +16,13 @@
     "index.js",
     "lib/"
   ],
-  "dependencies": {
-    "devlop": "^1.0.0",
-    "mdast-util-from-markdown": "^2.0.0"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
   },
-  "scripts": {
-    "test-api": "node --conditions development test/index.js",
-    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api"
-  },
+  "keywords": [],
+  "license": "MIT",
+  "name": "mdast-util-gfm-tagfilter",
   "prettier": {
     "bracketSpacing": false,
     "singleQuote": true,
@@ -40,22 +31,20 @@
     "trailingComma": "none",
     "useTabs": false
   },
-  "xo": {
-    "overrides": [
-      {
-        "files": [
-          "**/test/**/*.js"
-        ],
-        "rules": {
-          "no-await-in-loop": 0
-        }
-      }
-    ],
-    "prettier": true
+  "private": true,
+  "repository": "rehypejs/rehype-github",
+  "scripts": {
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --100 --check-coverage --reporter lcov -- npm run test-api"
   },
+  "sideEffects": false,
   "typeCoverage": {
     "atLeast": 100,
-    "detail": true,
     "strict": true
+  },
+  "type": "module",
+  "version": "0.0.0",
+  "xo": {
+    "prettier": true
   }
 }

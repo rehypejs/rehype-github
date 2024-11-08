@@ -1,31 +1,8 @@
 {
-  "name": "viewscreen-mermaid",
-  "version": "0.0.0",
-  "private": true,
-  "description": "viewscreen component for mermaid",
-  "license": "MIT",
-  "keywords": [],
-  "repository": "rehypejs/rehype-github",
-  "bugs": "https://github.com/rehypejs/rehype-github/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "bugs": "https://github.com/rehypejs/rehype-github/issues",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
-  ],
-  "sideEffects": false,
-  "type": "module",
-  "exports": {
-    "types": "./index.d.ts",
-    "default": "./index.js"
-  },
-  "files": [
-    "index.d.ts.map",
-    "index.d.ts",
-    "index.js",
-    "lib/"
   ],
   "dependencies": {
     "@primer/octicons": "^19.0.0",
@@ -40,9 +17,21 @@
     "dompurify": "^3.0.0",
     "mermaid": "^11.0.0"
   },
-  "scripts": {
-    "test-api": "node --conditions development test/index.js"
+  "description": "viewscreen component for mermaid",
+  "exports": "./index.js",
+  "files": [
+    "index.d.ts.map",
+    "index.d.ts",
+    "index.js",
+    "lib/"
+  ],
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
   },
+  "keywords": [],
+  "license": "MIT",
+  "name": "viewscreen-mermaid",
   "prettier": {
     "bracketSpacing": false,
     "singleQuote": true,
@@ -51,28 +40,19 @@
     "trailingComma": "none",
     "useTabs": false
   },
-  "xo": {
-    "overrides": [
-      {
-        "files": [
-          "**/test/**/*.js"
-        ],
-        "rules": {
-          "no-await-in-loop": 0
-        }
-      }
-    ],
-    "prettier": true,
-    "#": "`n` is wrong",
-    "rules": {
-      "n/file-extension-in-import": "off",
-      "unicorn/prefer-at": "off",
-      "unicorn/prefer-string-replace-all": "off"
-    }
+  "private": true,
+  "repository": "rehypejs/rehype-github",
+  "scripts": {
+    "test-api": "node --conditions development test/index.js"
   },
+  "sideEffects": false,
   "typeCoverage": {
     "atLeast": 100,
-    "detail": true,
     "strict": true
+  },
+  "type": "module",
+  "version": "0.0.0",
+  "xo": {
+    "prettier": true
   }
 }

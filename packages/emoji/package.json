@@ -1,31 +1,8 @@
 {
-  "name": "rehype-github-emoji",
-  "version": "0.0.0",
-  "private": true,
-  "description": "rehype plugin to enhance emoji and gemoji",
-  "license": "MIT",
-  "keywords": [],
-  "repository": "rehypejs/rehype-github",
-  "bugs": "https://github.com/rehypejs/rehype-github/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "bugs": "https://github.com/rehypejs/rehype-github/issues",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
-  ],
-  "sideEffects": false,
-  "type": "module",
-  "exports": {
-    "types": "./index.d.ts",
-    "default": "./index.js"
-  },
-  "files": [
-    "index.d.ts.map",
-    "index.d.ts",
-    "index.js",
-    "lib/"
   ],
   "dependencies": {
     "@types/hast": "^3.0.0",
@@ -34,10 +11,21 @@
     "hast-util-find-and-replace": "^5.0.0",
     "hast-util-is-element": "^3.0.0"
   },
-  "scripts": {
-    "test-api": "node --conditions development test/index.js",
-    "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api"
+  "description": "rehype plugin to enhance emoji and gemoji",
+  "exports": "./index.js",
+  "files": [
+    "index.d.ts.map",
+    "index.d.ts",
+    "index.js",
+    "lib/"
+  ],
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
   },
+  "keywords": [],
+  "license": "MIT",
+  "name": "rehype-github-emoji",
   "prettier": {
     "bracketSpacing": false,
     "singleQuote": true,
@@ -46,6 +34,19 @@
     "trailingComma": "none",
     "useTabs": false
   },
+  "private": true,
+  "repository": "rehypejs/rehype-github",
+  "scripts": {
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --100 --check-coverage --reporter lcov -- npm run test-api"
+  },
+  "sideEffects": false,
+  "typeCoverage": {
+    "atLeast": 100,
+    "strict": true
+  },
+  "type": "module",
+  "version": "0.0.0",
   "xo": {
     "overrides": [
       {
@@ -53,21 +54,13 @@
           "**/test/**/*.js"
         ],
         "rules": {
-          "no-await-in-loop": 0
+          "no-await-in-loop": "off"
         }
       }
     ],
     "prettier": true,
-    "#": "`n` is wrong",
     "rules": {
-      "n/file-extension-in-import": "off",
-      "unicorn/prefer-at": "off",
       "unicorn/prefer-string-replace-all": "off"
     }
-  },
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true
   }
 }

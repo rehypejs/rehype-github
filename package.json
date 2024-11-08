@@ -1,38 +1,10 @@
 {
-  "name": "rehype-github",
-  "version": "0.0.0",
-  "private": true,
-  "description": "rehype plugins that match how GitHub transforms markdown on their site",
-  "license": "MIT",
-  "keywords": [],
-  "repository": "rehypejs/rehype-github",
-  "bugs": "https://github.com/rehypejs/rehype-github/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "bugs": "https://github.com/rehypejs/rehype-github/issues",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
-  "type": "module",
-  "files": [],
-  "workspaces": [
-    "packages/break/",
-    "packages/color/",
-    "packages/dir/",
-    "packages/emoji/",
-    "packages/heading/",
-    "packages/image/",
-    "packages/link/",
-    "packages/mdast-util-gfm-tagfilter/",
-    "packages/notranslate/",
-    "packages/viewscreen-geojson/",
-    "packages/viewscreen-mermaid/",
-    "packages/viewscreen-stl/",
-    "packages/yaml-metadata/",
-    "example/viewscreen/"
-  ],
+  "description": "rehype plugins that match how GitHub transforms markdown on their site",
   "devDependencies#": "`type-fest` is included because otherwise an old one is at the top whose types break.",
   "devDependencies": {
     "@types/jsdom": "^21.0.0",
@@ -61,14 +33,14 @@
     "vfile": "^6.0.0",
     "xo": "^0.59.0"
   },
-  "scripts": {
-    "prepack": "npm run build && npm run format",
-    "build": "tsc --build --clean && tsc --build && type-coverage",
-    "format": "remark . -qfo && prettier . -w --log-level warn && xo --fix",
-    "test-api": "npm run --workspaces --if-present test-api",
-    "test-coverage": "npm run --workspaces --if-present test-coverage",
-    "test": "npm run build && npm run format && npm run test-coverage"
+  "files": [],
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
   },
+  "keywords": [],
+  "license": "MIT",
+  "name": "rehype-github",
   "prettier": {
     "bracketSpacing": false,
     "singleQuote": true,
@@ -77,25 +49,7 @@
     "trailingComma": "none",
     "useTabs": false
   },
-  "xo": {
-    "overrides": [
-      {
-        "files": [
-          "**/test/**/*.js"
-        ],
-        "rules": {
-          "no-await-in-loop": 0
-        }
-      }
-    ],
-    "prettier": true,
-    "#": "`n` is wrong",
-    "rules": {
-      "n/file-extension-in-import": "off",
-      "unicorn/prefer-at": "off",
-      "unicorn/prefer-string-replace-all": "off"
-    }
-  },
+  "private": true,
   "remarkConfig": {
     "plugins": [
       "remark-preset-wooorm",
@@ -105,9 +59,37 @@
       ]
     ]
   },
+  "repository": "rehypejs/rehype-github",
+  "scripts": {
+    "build": "tsc --build --clean && tsc --build && type-coverage",
+    "format": "remark --frail --quiet --output -- . && prettier --log-level warn --write -- . && xo --fix",
+    "test-api": "npm run --if-present --workspaces -- test-api",
+    "test-coverage": "npm run --if-present --workspaces -- test-coverage",
+    "test": "npm run build && npm run format && npm run test-coverage"
+  },
   "typeCoverage": {
     "atLeast": 100,
-    "detail": true,
     "strict": true
+  },
+  "type": "module",
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/break/",
+    "packages/color/",
+    "packages/dir/",
+    "packages/emoji/",
+    "packages/heading/",
+    "packages/image/",
+    "packages/link/",
+    "packages/mdast-util-gfm-tagfilter/",
+    "packages/notranslate/",
+    "packages/viewscreen-geojson/",
+    "packages/viewscreen-mermaid/",
+    "packages/viewscreen-stl/",
+    "packages/yaml-metadata/",
+    "example/viewscreen/"
+  ],
+  "xo": {
+    "prettier": true
   }
 }

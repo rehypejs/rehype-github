@@ -1,39 +1,28 @@
 {
-  "name": "viewscreen-stl",
-  "version": "0.0.0",
-  "private": true,
-  "description": "viewscreen component for STL files (3D geometry)",
-  "license": "MIT",
-  "keywords": [],
-  "repository": "rehypejs/rehype-github",
-  "bugs": "https://github.com/rehypejs/rehype-github/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "bugs": "https://github.com/rehypejs/rehype-github/issues",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
-  "sideEffects": false,
-  "type": "module",
-  "exports": {
-    "types": "./index.d.ts",
-    "default": "./index.js"
+  "dependencies": {
+    "@types/three": "^0.169.0",
+    "three": "^0.170.0"
   },
+  "description": "viewscreen component for STL files (3D geometry)",
+  "exports": "./index.js",
   "files": [
     "index.d.ts.map",
     "index.d.ts",
     "index.js",
     "lib/"
   ],
-  "dependencies": {
-    "@types/three": "^0.169.0",
-    "three": "^0.170.0"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
   },
-  "scripts": {
-    "test-api": "node --conditions development test/index.js"
-  },
+  "keywords": [],
+  "license": "MIT",
+  "name": "viewscreen-stl",
   "prettier": {
     "bracketSpacing": false,
     "singleQuote": true,
@@ -42,28 +31,19 @@
     "trailingComma": "none",
     "useTabs": false
   },
-  "xo": {
-    "overrides": [
-      {
-        "files": [
-          "**/test/**/*.js"
-        ],
-        "rules": {
-          "no-await-in-loop": 0
-        }
-      }
-    ],
-    "prettier": true,
-    "#": "`n` is wrong",
-    "rules": {
-      "n/file-extension-in-import": "off",
-      "unicorn/prefer-at": "off",
-      "unicorn/prefer-string-replace-all": "off"
-    }
+  "private": true,
+  "repository": "rehypejs/rehype-github",
+  "scripts": {
+    "test-api": "node --conditions development test/index.js"
   },
+  "sideEffects": false,
   "typeCoverage": {
     "atLeast": 100,
-    "detail": true,
     "strict": true
+  },
+  "type": "module",
+  "version": "0.0.0",
+  "xo": {
+    "prettier": true
   }
 }
