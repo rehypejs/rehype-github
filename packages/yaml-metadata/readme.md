@@ -253,10 +253,10 @@ The following CSS is needed to make frontmatter tables look like GitHub.
 
 table {
   display: block;
-  width: 100%;
-  width: max-content;
   max-width: 100%;
   overflow: auto;
+  width: 100%;
+  width: max-content;
 }
 
 tr {
@@ -264,9 +264,9 @@ tr {
   border-top: 1px solid var(--color-border-muted);
 }
 
-th, td {
-  padding: 6px 13px;
+td, th {
   border: 1px solid var(--color-border-default);
+  padding: 6px 13px;
 }
 
 th {

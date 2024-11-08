@@ -1,17 +1,17 @@
 /**
- * @typedef {import('hast').Element} Element
- * @typedef {import('hast').ElementContent} ElementContent
- * @typedef {import('hast').Text} Text
- * @typedef {import('mdast').Root} Root
- * @typedef {import('mdast-util-from-markdown').Options} FromMdastOptions
- * @typedef {import('mdast-util-from-markdown').Extension} FromMdastExtension
- * @typedef {import('micromark-util-types').Extension} MicromarkExtension
- * @typedef {import('unist').Point} Point
- * @typedef {import('yaml').DocumentOptions} DocumentOptions
- * @typedef {import('yaml').ParseOptions} ParseOptions_
- * @typedef {import('yaml').SchemaOptions} SchemaOptions
- * @typedef {import('yaml').ToJSOptions} ToJSOptions
- * @typedef {import('yaml').YAMLParseError} ParseError
+ * @import {ElementContent, Element, Text} from 'hast'
+ * @import {Options as FromMdastOptions} from 'mdast-util-from-markdown'
+ * @import {Root} from 'mdast'
+ * @import {Extension as MicromarkExtension} from 'micromark-util-types'
+ * @import {Processor} from 'unified'
+ * @import {Point} from 'unist'
+ * @import {
+ *   DocumentOptions,
+ *   ParseOptions as ParseOptions_,
+ *   SchemaOptions,
+ *   ToJSOptions as ToJsOptions,
+ *   YAMLParseError as ParseError
+ * } from 'yaml'
  */
 
 /**
@@ -54,12 +54,12 @@
  * @property {ParseOptions | null | undefined} [parseOptions=defaultParseOptions]
  *   Options defining how to parse YAML.
  *
- * @typedef {ParseOptions_ & DocumentOptions & SchemaOptions & ToJSOptions} ParseOptions
+ * @typedef {ParseOptions_ & DocumentOptions & SchemaOptions & ToJsOptions} ParseOptions
  *   Options defining how to parse YAML.
  */
 
-import {parse} from 'yaml'
 import {fromMarkdown} from 'mdast-util-from-markdown'
+import {parse} from 'yaml'
 
 /** @type {Options} */
 const emptyOptions = {}
@@ -117,24 +117,25 @@ export function defaultCreateErrorMessage(info) {
 // See: <https://github.com/gjtorikian/html-pipeline/pull/83/files>
 // for more info on how this works.
 export const defaultParseOptions = {
-  // GH mostly seems to follow YAML 1.1.
-  version: '1.1',
   // GH allows duplicate keys.
-  uniqueKeys: false
+  uniqueKeys: false,
+  // GH mostly seems to follow YAML 1.1.
+  version: '1.1'
 }
 
 /**
  * Plugin to show frontmatter as a table.
  *
+ * @this {Processor}
+ *   Processor.
  * @param {Options | null | undefined} [options]
  *   Configuration (optional).
  * @returns
  *   Transform.
  */
 export default function remarkGithubYamlMetadata(options) {
-  // @ts-expect-error: TypeScript doesn’t understand `this`.
   // eslint-disable-next-line unicorn/no-this-assignment
-  const self = /** @type {import('unified').Processor} */ (this)
+  const self = this
   const config = options || emptyOptions
   const parseOptions = config.parseOptions || defaultParseOptions
   const createErrorMessage =
@@ -142,33 +143,34 @@ export default function remarkGithubYamlMetadata(options) {
   const allowArrayAtRoot = config.allowArrayAtRoot || false
   const allowPrimitiveAtRoot = config.allowPrimitiveAtRoot || false
 
-  const extensions = self.data('micromarkExtensions') || []
+  const allExtensions = self.data('micromarkExtensions') || []
+  /** @type {Array<MicromarkExtension>} */
+  const extensions = []
+
+  for (const extension of allExtensions) {
+    // To do: `micromark-extension-*` should support names on non-core
+    // constructs, so that YAML can more easily be turned off.
+    const keys = Object.keys(extension)
+    /* c8 ignore next -- always defined with markdown. */
+    const flowKeys = Object.keys(extension.flow || {})
+
+    // Keep anything else.
+    if (
+      keys.length !== 1 ||
+      keys[0] !== 'flow' ||
+      flowKeys.length !== 1 ||
+      flowKeys[0] !== '45'
+    ) {
+      extensions.push(extension)
+    } else {
+      // Remove YAML.
+    }
+  }
+
   /** @type {FromMdastOptions} */
   const fromMdastOptions = {
-    extensions: extensions.filter((d) => {
-      // To do: `micromark-extension-*` should support names on non-core
-      // constructs, so that YAML can more easily be turned off.
-      const keys = Object.keys(d)
-      /* c8 ignore next -- always defined with markdown. */
-      const flowKeys = Object.keys(d.flow || {})
-
-      // Keep anything else.
-      if (
-        keys.length !== 1 ||
-        keys[0] !== 'flow' ||
-        flowKeys.length !== 1 ||
-        flowKeys[0] !== '45'
-      ) {
-        return true
-      }
-
-      // Remove YAML.
-      return false
-    }),
-
-    mdastExtensions: /** @type {Array<FromMdastExtension>} */ (
-      self.data('fromMarkdownExtensions') || []
-    )
+    extensions,
+    mdastExtensions: self.data('fromMarkdownExtensions') || []
   }
 
   /**
@@ -225,17 +227,17 @@ export default function remarkGithubYamlMetadata(options) {
 
       if (match) {
         point = {
-          line: Number.parseInt(match[1], 10),
-          column: Number.parseInt(match[2], 10)
+          column: Number.parseInt(match[2], 10),
+          line: Number.parseInt(match[1], 10)
         }
         message = message.slice(0, message.length - match[0].length)
       }
 
       result = createErrorMessage({
         message,
+        point,
         summary: parts.length > 1 ? parts.slice(2, -1).join('\n') : undefined,
-        yaml: value,
-        point
+        yaml: value
       })
     }
 
@@ -274,7 +276,9 @@ export default function remarkGithubYamlMetadata(options) {
 
 /**
  * @param {unknown} value
+ *   Value to transform.
  * @returns {Element | Text | undefined}
+ *   Transformed value.
  */
 function transformValue(value) {
   if (value === null || value === undefined) {
@@ -286,21 +290,28 @@ function transformValue(value) {
       ? transformDate(/** @type {Date} */ (value))
       : Array.isArray(value)
         ? transformArray(/** @type {Array<unknown>} */ (value))
-        : // @ts-expect-error: fine
-          transformObjectOrMap(value)
+        : transformObjectOrMap(
+            /** @type {Record<string, unknown> | Map<unknown, unknown>} */ (
+              value
+            )
+          )
   }
 
   return transformRest(value)
 }
 
 /**
- * @param {Record<string, unknown> | Map<unknown, unknown>} value
+ * @param {Map<unknown, unknown> | Record<string, unknown>} value
+ *   Value to transform.
  * @returns {Element}
+ *   Transformed value.
  */
 function transformObjectOrMap(value) {
-  /** @type {Array<[string, unknown]>} */
-  // @ts-expect-error: TypeScript doesn’t understand ducktypes.
-  const entries = 'entries' in value ? value.entries() : Object.entries(value)
+  /** @type {Array<[key: string, value: unknown]>} */
+  const entries =
+    'entries' in value && typeof value.entries === 'function'
+      ? value.entries()
+      : Object.entries(value)
   /** @type {Array<Element>} */
   const head = []
   /** @type {Array<Element>} */
@@ -319,7 +330,9 @@ function transformObjectOrMap(value) {
 
 /**
  * @param {Array<unknown>} value
+ *   Value to transform.
  * @returns {Element}
+ *   Transformed value.
  */
 function transformArray(value) {
   /** @type {Array<Element>} */
@@ -334,16 +347,21 @@ function transformArray(value) {
 
 /**
  * @param {Array<ElementContent>} children
+ *   Children.
  * @returns {Element}
+ *   Element.
  */
 function createTable(children) {
   return {type: 'element', tagName: 'table', properties: {}, children}
 }
 
 /**
- * @param {'thead' | 'tbody'} tagName
+ * @param {'tbody' | 'thead'} tagName
+ *   Tag name.
  * @param {Array<ElementContent>} children
+ *   Children.
  * @returns {Element}
+ *   Element.
  */
 function createTableSection(tagName, children) {
   return {
@@ -355,9 +373,12 @@ function createTableSection(tagName, children) {
 }
 
 /**
- * @param {'th' | 'td'} tagName
+ * @param {'td' | 'th'} tagName
+ *   Tag name.
  * @param {Array<ElementContent>} children
+ *   Children.
  * @returns {Element}
+ *   Element.
  */
 function createTableCell(tagName, children) {
   return {
@@ -373,7 +394,9 @@ function createTableCell(tagName, children) {
 
 /**
  * @param {Date} value
+ *   Value to transform.
  * @returns {Text}
+ *   Transformed value.
  */
 function transformDate(value) {
   const offset = value.getTimezoneOffset()
@@ -406,7 +429,9 @@ function transformDate(value) {
 
 /**
  * @param {unknown} value
+ *   Value to transform.
  * @returns {Text}
+ *   Transformed value.
  */
 function transformRest(value) {
   return {type: 'text', value: String(value)}
@@ -414,7 +439,9 @@ function transformRest(value) {
 
 /**
  * @param {Element | Text | undefined} child
+ *   Child to wrap.
  * @returns {Array<Element | Text>}
+ *   Wrapped child.
  */
 function asChildren(child) {
   return child
@@ -425,10 +452,15 @@ function asChildren(child) {
 }
 
 /**
- * Format a number, padded with leading zeros.
+ * Format a number,
+ * padded with leading zeros.
  *
  * @param {number} value
+ *   Number to format.
  * @param {number} size
+ *   Minimum size of the string.
+ * @returns {string}
+ *   Padded number.
  */
 function s(value, size) {
   return value.toString().padStart(size, '0')

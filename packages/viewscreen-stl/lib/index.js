@@ -3,7 +3,8 @@
 /**
  * @callback OnResolve
  *   Callback called when resolving.
- * @returns {void}
+ * @returns {undefined}
+ *   Nothing.
  *
  * @callback OnSizeSuggestion
  *   Callback called when there’s a new size suggestion for the viewscreen.
@@ -11,7 +12,7 @@
  *   Current width.
  * @param {number} height
  *   Preferred height for `width`.
- * @returns {void}
+ * @returns {undefined}
  *   Nothing.
  *
  * @typedef Options
@@ -22,22 +23,22 @@
  *   Callback called on a size suggestion.
  */
 
+import {STLLoader} from 'three/addons/loaders/STLLoader.js'
 import {
   AmbientLight,
   Color,
   DirectionalLight,
   Matrix4,
-  Mesh,
   MeshBasicMaterial,
-  MeshPhongMaterial,
   MeshNormalMaterial,
+  MeshPhongMaterial,
+  Mesh,
   PerspectiveCamera,
   PlaneGeometry,
   Scene,
   Vector3,
   WebGLRenderer
 } from 'three'
-import {STLLoader} from 'three/addons/loaders/STLLoader.js'
 
 const stlLoader = new STLLoader()
 
@@ -92,14 +93,16 @@ export function create(node, options) {
   let previousY = 0
 
   const observer = new ResizeObserver(onresize)
+  /** @type {Array<HTMLButtonElement>} */
+  const buttons = []
 
-  const buttons = materials.map((d) => {
+  for (const material of materials) {
     const button = document.createElement('button')
-    button.textContent = d.name
-    button.disabled = d === shapeMaterial
+    button.disabled = material === shapeMaterial
+    button.textContent = material.name
     button.addEventListener('click', onclick)
-    return button
-  })
+    buttons.push(button)
+  }
 
   const panel = document.createElement('div')
 
@@ -120,9 +123,16 @@ export function create(node, options) {
   ondarkmode(window.matchMedia(query).matches)
   requestAnimationFrame(main)
 
-  window
-    .matchMedia(query)
-    .addEventListener('change', (event) => ondarkmode(event.matches))
+  window.matchMedia(query).addEventListener(
+    'change',
+    /**
+     * @returns {undefined}
+     *   Nothing.
+     */
+    function (event) {
+      ondarkmode(event.matches)
+    }
+  )
 
   return {change}
 
@@ -130,6 +140,9 @@ export function create(node, options) {
    * Change the geometry.
    *
    * @param {string} data
+   *   STL data.
+   * @returns {undefined}
+   *   Nothing.
    */
   function change(data) {
     const geometry = stlLoader.parse(data)
@@ -182,7 +195,11 @@ export function create(node, options) {
    * Move around.
    *
    * @param {number} angleX
+   *   Angle to move around the x-axis.
    * @param {number} angleY
+   *   Angle to move around the y-axis.
+   * @returns {undefined}
+   *   Nothing.
    */
   function move(angleX, angleY) {
     const axisY = camera.position.clone().cross(camera.up).normalize()
@@ -217,6 +234,9 @@ export function create(node, options) {
    * Handle a dark mode media query change.
    *
    * @param {boolean} darkMode
+   *   Whether dark mode is active.
+   * @returns {undefined}
+   *   Nothing.
    */
   function ondarkmode(darkMode) {
     gridMaterial.color = new Color(darkMode ? white : black)
@@ -229,6 +249,9 @@ export function create(node, options) {
    * Handle `mousedown` event, start of drag, by stopping spinning.
    *
    * @param {MouseEvent} event
+   *   Event.
+   * @returns {undefined}
+   *   Nothing.
    */
   function onmousedown(event) {
     event.preventDefault()
@@ -241,6 +264,9 @@ export function create(node, options) {
    * Handle `mousemove` event, representing a drag, by moving the camera.
    *
    * @param {MouseEvent} event
+   *   Event.
+   * @returns {undefined}
+   *   Nothing.
    */
   function onmousemove(event) {
     if (spin) return
@@ -263,6 +289,9 @@ export function create(node, options) {
    * Handle `wheel` event to zoom in and out.
    *
    * @param {WheelEvent} event
+   *   Event.
+   * @returns {undefined}
+   *   Nothing.
    */
   function onwheel(event) {
     event.stopPropagation()
@@ -278,6 +307,9 @@ export function create(node, options) {
    * Handle click on a button by toggling style.
    *
    * @param {MouseEvent} event
+   *   Event.
+   * @returns {undefined}
+   *   Nothing.
    */
   function onclick(event) {
     const target = /** @type {HTMLButtonElement} */ (event.target)

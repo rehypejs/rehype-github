@@ -1,10 +1,8 @@
 /**
- * @typedef {import('hast').Element} Element
- * @typedef {import('hast').Root} Root
- * @typedef {import('hast-util-find-and-replace').RegExpMatchObject} RegExpMatchObject
- * @typedef {import('hast-util-find-and-replace').ReplaceFunction} ReplaceFunction
- * @typedef {import('hast-util-is-element').Test} Test
- * @typedef {import('gemoji').Gemoji} Gemoji
+ * @import {RegExpMatchObject, ReplaceFunction} from 'hast-util-find-and-replace'
+ * @import {Test} from 'hast-util-is-element'
+ * @import {Element, Root} from 'hast'
+ * @import {Gemoji} from 'gemoji'
  */
 
 /**
@@ -39,23 +37,23 @@ import {findAndReplace} from 'hast-util-find-and-replace'
 const emptyOptions = {}
 
 const base = 'https://github.githubassets.com/images/icons/emoji/'
+/** @type {Array<string>} */
+const emojis = []
 
-const emojiRegex = new RegExp(
-  '(' +
-    listOfGemoji
-      // Some emoji contain a VS 16 in their string representation.
-      // We’ll use that later, but we’ll also search for versions without them.
-      .map((d) => escapeStringRegexp(d.emoji.replace(/\uFE0F$/, '')))
-      // Sort longest first, which means that emoji that are fine on their own (such
-      // as man) which can also combine to make more extensive emoji (such as man
-      // with orange hair), comes with combinations first, allowing them to match.
-      .sort((a, b) => b.length - a.length)
-      .join('|') +
-    // Optionally followed by VS 16.
-    ')(?:\\uFE0F)?',
-  'g'
-)
+for (const gemoji of listOfGemoji) {
+  // Some emoji contain a VS 16 in their string representation.
+  // We’ll use that later,
+  // but we’ll also search for versions without them.
+  emojis.push(escapeStringRegexp(gemoji.emoji.replace(/\uFE0F$/, '')))
+}
 
+// Sort longest first, which means that emoji that are fine on their own (such
+// as man) which can also combine to make more extensive emoji (such as man
+// with orange hair), comes with combinations first, allowing them to match.
+emojis.sort(compareLength)
+
+// Optionally followed by VS 16.
+const emojiRegex = new RegExp('(' + emojis.join('|') + ')(?:\\uFE0F)?', 'g')
 const gemojiGroup = '\\+1|[-\\w]+'
 const gemojiOkRegex = new RegExp('^(' + gemojiGroup + ')$')
 const gemojiRegex = new RegExp(':(' + gemojiGroup + '):', 'g')
@@ -77,6 +75,7 @@ export function defaultBuild(info, value) {
       type: 'element',
       tagName: 'img',
       properties: {
+        // To do: sort.
         className: ['emoji'],
         title: value,
         alt: value,
@@ -89,35 +88,7 @@ export function defaultBuild(info, value) {
     }
   }
 
-  // .
-  // Replace emoji/gemoji.
-  /** @type {Array<string>} */
-  // const codePoints = []
-
-  // for (const cpString of info.emoji) {
-  //   const codePoint = cpString.codePointAt(0)
-  //   /* c8 ignore next */
-  //   if (codePoint === undefined) throw new Error('Cannot happen')
-  //   codePoints.push(codePoint.toString(16).padStart(4, '0'))
-  // }
-  // See: <https://github.com/github/gemoji/blob/55bb37a/lib/emoji/character.rb#L84>
-  // . const hexName = codePoints.join('-').replace(/-(fe0f|200d)\b/g, '')
-
   return value.charAt(0) === ':' ? info.emoji : value
-  // Return {
-  //   type: 'element',
-  //   tagName: 'g-emoji',
-  //   properties: {
-  //     className: ['g-emoji'],
-  //     alias: info.names[0],
-  //     'fallback-src': base + 'unicode/' + hexName + '.png'
-  //   },
-  //   children: [
-  //     // Use the literal match the way it was written (with or without VS 16) if
-  //     // it is an emoji.
-  //     {type: 'text', value: value.charAt(0) === ':' ? info.emoji : value}
-  //   ]
-  // }
 }
 
 /**
@@ -195,25 +166,36 @@ export default function rehypeGithubEmoji(options) {
     )
   }
 
-  // .
   /**
-   * @type {ReplaceFunction}
    * @param {string} $0
+   *   Full match.
    * @param {string} $1
+   *   Emoji.
    * @param {RegExpMatchObject} match
+   *   Match.
+   * @returns {ReturnType<ReplaceFunction>}
+   *   Result.
+   * @satisfies {ReplaceFunction}
    */
   function replaceEmoji($0, $1, match) {
     const before = match.input.codePointAt(match.index - 1)
     const after = match.input.codePointAt(match.index + $0.length)
 
-    // Not preceded by ZWJ, not followed by VS 15 or ZWJ.
+    // Not preceded by ZWJ,
+    // not followed by VS 15 or ZWJ.
     if (before === 0x20_0d || after === 0x20_0d || after === 0xfe_0e) {
       return false
     }
 
-    const info = listOfGemoji.find(
-      (d) => d.emoji === $1 || d.emoji === $1 + '\uFE0F'
-    )
+    /** @type {Gemoji | undefined} */
+    let info
+
+    for (const gemoji of listOfGemoji) {
+      if (gemoji.emoji === $1 || gemoji.emoji === $1 + '\uFE0F') {
+        info = gemoji
+        break
+      }
+    }
 
     /* c8 ignore next */
     if (!info) throw new Error('Cannot happen')
@@ -222,15 +204,37 @@ export default function rehypeGithubEmoji(options) {
   }
 
   /**
-   * @type {ReplaceFunction}
    * @param {string} $0
+   *   Full match.
    * @param {string} $1
+   *   Emoji.
+   * @returns {ReturnType<ReplaceFunction>}
+   *   Result.
+   * @satisfies {ReplaceFunction}
    */
   function replaceGemoji($0, $1) {
-    const info = custom.includes($1)
-      ? $1
-      : listOfGemoji.find((d) => d.names.includes($1))
+    if (custom.includes($1)) {
+      return build($1, $0)
+    }
 
-    return info ? build(info, $0) : false
+    for (const gemoji of listOfGemoji) {
+      if (gemoji.names.includes($1)) {
+        return build(gemoji, $0)
+      }
+    }
+
+    return false
   }
+}
+
+/**
+ * @param {string} a
+ *   Left value.
+ * @param {string} b
+ *   Right value.
+ * @returns {number}
+ *   Score.
+ */
+function compareLength(a, b) {
+  return b.length - a.length
 }

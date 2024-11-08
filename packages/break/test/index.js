@@ -11,114 +11,112 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import {unified} from 'unified'
 
-test('remarkGithubBreak', async () => {
-  assert.deepEqual(
-    Object.keys(await import('remark-github-break')).sort(),
-    ['default'],
-    'should expose the public api'
-  )
-  assert.equal(
-    String(
-      await unified()
-        .use(remarkParse)
-        .use(remarkGithubBreak)
-        .use(remarkRehype)
-        .use(rehypeStringify)
-        .process('a\nb.')
-    ),
-    '<p>a<br>\nb.</p>',
-    'should transform a break'
-  )
+test('remarkGithubBreak', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('remark-github-break')).sort(), [
+      'default'
+    ])
+  })
+
+  await t.test('should transform a break', async function () {
+    assert.equal(
+      String(
+        await unified()
+          .use(remarkParse)
+          .use(remarkGithubBreak)
+          .use(remarkRehype)
+          .use(rehypeStringify)
+          .process('a\nb.')
+      ),
+      '<p>a<br>\nb.</p>'
+    )
+  })
 })
 
-test('fixtures', async function () {
+test('fixtures', async function (t) {
   const base = new URL('fixtures/', import.meta.url)
 
-  await createGfmFixtures(base, {
-    controlPictures: true
-  })
+  await createGfmFixtures(base, {controlPictures: true})
 
   const files = await fs.readdir(base)
   const extension = '.md'
-  let index = -1
 
-  while (++index < files.length) {
-    const d = files[index]
-
-    if (!d.endsWith(extension)) {
-      continue
-    }
+  for (const d of files) {
+    if (!d.endsWith(extension)) continue
 
     const name = d.slice(0, -extension.length)
-    const input = String(await fs.readFile(new URL(name + '.md', base)))
-    let expected = String(await fs.readFile(new URL(name + '.html', base)))
 
-    const processor = unified()
-      .use(remarkParse)
-      .use(remarkGfm)
-      .use(name.endsWith('.comment') ? [remarkGithubBreak] : [])
-      .use(remarkRehype, {allowDangerousHtml: true})
-      .use(rehypeRaw)
-      .use(rehypeStringify)
+    await t.test(name, async function () {
+      const input = String(await fs.readFile(new URL(name + '.md', base)))
+      let expected = String(await fs.readFile(new URL(name + '.html', base)))
 
-    let actual = String(await processor.process(controlPictures(input)))
+      const processor = unified()
+        .use(remarkParse)
+        .use(remarkGfm)
+        .use(name.endsWith('.comment') ? [remarkGithubBreak] : [])
+        .use(remarkRehype, {allowDangerousHtml: true})
+        .use(rehypeRaw)
+        .use(rehypeStringify)
 
-    if (actual && !/\n$/.test(actual)) {
-      actual += '\n'
-    }
+      let actual = String(await processor.process(controlPictures(input)))
 
-    actual = actual
-      // GitHub performs line ending expansion into breaks when parsing,
-      // and does not consider character references.
-      // We could do this, if we operated in the parser.
-      // To do: consider `micromark-extension-github-break`?
-      .replace(/(<p>Character)<br>(\nreference break\.<\/p>)/, '$1$2')
-      // GitHub removes line endings in `alt` on image it seems?
-      // To do: investigate.
-      // CommonMark doesn’t seem to do that.
-      .replace(/(alt="im)\n(age")/, '$1 $2')
-      // GitHub drops HTML comments.
-      .replace(/<!--[\s\S]*?-->/g, '')
-      // Elements that GH drops the tags of.
-      .replace(/<\/?article>/g, '')
-      // GitHub uses weird code.
-      // To do: `create-github-fixtures` should support this.
-      .replace(
-        /<pre><code class="language-markdown">a\nb\.\n<\/code><\/pre>/g,
-        '<div class="highlight highlight-text-md"><pre>a\nb.</pre></div>'
-      )
-      // Elements that GitHub cleans (To do: implemment tagfilter somewhere?)
-      .replace(/<(\/?script>)/g, '&#x3C;$1')
-      // To do: `remark-rehype` should change the order.
-      .replace(/checked disabled/g, 'disabled checked')
-      .replace(
-        /class="sr-only" id="footnote-label"/g,
-        'id="footnote-label" class="sr-only"'
-      )
-      // To do: `remark-rehype` should implement new labels.
-      .replace(
-        /class="data-footnote-backref" aria-label="Back to content"/g,
-        'aria-label="Back to reference 1" class="data-footnote-backref"'
-      )
-      // To do: `create-github-fixtures` should remove this on `ol`s too.
-      .replace(/ class="contains-task-list"/g, '')
-      // To do: `create-github-fixtures` should support this.
-      .replace(/ class="task-list-item"/g, '')
+      if (actual && !/\n$/.test(actual)) {
+        actual += '\n'
+      }
 
-    expected = expected
-      // GitHub performs line ending expansion into breaks when parsing,
-      // and does not consider character references.
-      // We could do this, if we operated in the parser.
-      // To do: consider `micromark-extension-github-break`?
-      .replace(/(<br>\n) {2}(reference (after|both)\.)/g, '$1$2')
-      // To do: add to `create-gfm-fixtures`.
-      // GH adds `notranslate`, this should be (optionally) removed by `crate-gfm-fixtures`.
-      .replace(/ class="notranslate"/g, '')
-      // To do: `create-github-fixtures` should remove this on `ol`s too.
-      .replace(/ class="contains-task-list"/g, '')
-      // To do: `create-github-fixtures` should support this.
-      .replace(/ class="task-list-item"/g, '')
+      actual = actual
+        // GitHub performs line ending expansion into breaks when parsing,
+        // and does not consider character references.
+        // We could do this, if we operated in the parser.
+        // To do: consider `micromark-extension-github-break`?
+        .replace(/(<p>Character)<br>(\nreference break\.<\/p>)/, '$1$2')
+        // GitHub removes line endings in `alt` on image it seems?
+        // To do: investigate.
+        // CommonMark doesn’t seem to do that.
+        .replace(/(alt="im)\n(age")/, '$1 $2')
+        // GitHub drops HTML comments.
+        .replace(/<!--[\s\S]*?-->/g, '')
+        // Elements that GH drops the tags of.
+        .replace(/<\/?article>/g, '')
+        // GitHub uses weird code.
+        // To do: `create-github-fixtures` should support this.
+        .replace(
+          /<pre><code class="language-markdown">a\nb\.\n<\/code><\/pre>/g,
+          '<div class="highlight highlight-text-md"><pre>a\nb.</pre></div>'
+        )
+        // Elements that GitHub cleans (To do: implemment tagfilter somewhere?)
+        .replace(/<(\/?script>)/g, '&#x3C;$1')
+        // To do: `remark-rehype` should change the order.
+        .replace(/checked disabled/g, 'disabled checked')
+        .replace(
+          /class="sr-only" id="footnote-label"/g,
+          'id="footnote-label" class="sr-only"'
+        )
+        // To do: `remark-rehype` should implement new labels.
+        .replace(
+          /class="data-footnote-backref" aria-label="Back to content"/g,
+          'aria-label="Back to reference 1" class="data-footnote-backref"'
+        )
+        // To do: `create-github-fixtures` should remove this on `ol`s too.
+        .replace(/ class="contains-task-list"/g, '')
+        // To do: `create-github-fixtures` should support this.
+        .replace(/ class="task-list-item"/g, '')
 
-    assert.equal(actual, expected, name)
+      expected = expected
+        // GitHub performs line ending expansion into breaks when parsing,
+        // and does not consider character references.
+        // We could do this, if we operated in the parser.
+        // To do: consider `micromark-extension-github-break`?
+        .replace(/(<br>\n) {2}(reference (after|both)\.)/g, '$1$2')
+        // To do: add to `create-gfm-fixtures`.
+        // GH adds `notranslate`, this should be (optionally) removed by `crate-gfm-fixtures`.
+        .replace(/ class="notranslate"/g, '')
+        // To do: `create-github-fixtures` should remove this on `ol`s too.
+        .replace(/ class="contains-task-list"/g, '')
+        // To do: `create-github-fixtures` should support this.
+        .replace(/ class="task-list-item"/g, '')
+
+      assert.equal(actual, expected)
+    })
   }
 })

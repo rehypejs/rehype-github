@@ -1,20 +1,18 @@
 <!doctype html>
 <html lang=en>
 <meta charset=utf8>
-<meta content=width=device-width,initial-scale=1 name=viewport>
+<meta content=initial-scale=1,width=device-width name=viewport>
 <title>example</title>
-<link rel=stylesheet href=https://esm.sh/github-markdown-css@5/github-markdown.css>
+<link href=https://esm.sh/github-markdown-css@5/github-markdown.css rel=stylesheet>
 <style>
   body {
-    margin: 0;
-
-    /* Dark mode */
-    --color-danger-subtle: rgba(248,81,73,0.1);
+    --color-accent-muted: rgba(56,139,253,0.4);
+    --color-accent-subtle: rgba(56,139,253,0.1);
     --color-danger-muted: rgba(248,81,73,0.4);
+    --color-danger-subtle: rgba(248,81,73,0.1);
     --color-fg-default: #e6edf3;
 
-    --color-accent-subtle: rgba(56,139,253,0.1);
-    --color-accent-muted: rgba(56,139,253,0.4);
+    margin: 0;
   }
 
   .flash {
@@ -24,8 +22,8 @@
     border-style: solid;
     border-width: 1px;
     color: var(--color-fg-default);
-    padding: 20px 16px;
     margin: 16px 0;
+    padding: 20px 16px;
     position: relative;
   }
 
@@ -41,9 +39,9 @@
 
   .markdown-body {
     box-sizing: border-box;
-    min-width: 200px;
-    max-width: 980px;
     margin: 0 auto;
+    max-width: 980px;
+    min-width: 200px;
     padding: 45px;
   }
 
@@ -54,13 +52,13 @@
   }
 
   .render-viewer {
-    border-radius: 3px;
-    background-color: transparent;
-    display: block;
-    width: 100%;
     aspect-ratio: 8 / 5;
+    background-color: transparent;
+    border-radius: 3px;
     border: 0;
+    display: block;
     margin: calc(1em + 1ex) 0;
+    width: 100%;
   }
 </style>
 <div class=markdown-body>
@@ -629,7 +627,7 @@
    endfacet
 endsolid
 </code></pre>
-<!-- From: https://people.sc.fsu.edu/~jburkardt/data/stla/stla.html -->
+<!-- From: <https://people.sc.fsu.edu/~jburkardt/data/stla/stla.html> -->
 <pre><code class=language-stl>solid MYSOLID
   facet normal  -0.470578     -0.335539      0.816070
     outer loop
@@ -9363,4 +9361,4 @@ endsolid
 endsolid MYSOLID
 </code></pre>
 </div>
-<script type=module src=outside.min.js></script>
+<script src=outside.min.js type=module></script>

@@ -222,16 +222,16 @@ a {
 
 .octicon {
   display: inline-block;
+  fill: currentColor;
   overflow: visible;
   vertical-align: text-bottom;
-  fill: currentColor;
 }
 
 .anchor {
   float: left;
+  line-height: 1;
   padding-right: 4px;
   margin-left: -20px;
-  line-height: 1;
 }
 
 :is(h1, h2, h3, h4, h5, h6) .octicon-link {

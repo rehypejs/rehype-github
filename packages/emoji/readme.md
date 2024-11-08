@@ -215,23 +215,25 @@ You can find such an implementation currently at
 
 ## CSS
 
+<!-- To do: `g-emoji` are no longer made. -->
+
 The following CSS is needed to make emoji markup look like GitHub.
 
 ```css
 g-emoji {
   display: inline-block;
-  min-width: 1ch;
   font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   font-size: 1em;
   font-style: normal;
   font-weight: 400;
   line-height: 1;
+  min-width: 1ch;
   vertical-align: -0.075em;
 }
 
 .emoji {
-  box-sizing: content-box;
   background-color: transparent;
+  box-sizing: content-box;
   vertical-align: text-top;
 }
 ```

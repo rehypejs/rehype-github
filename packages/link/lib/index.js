@@ -1,5 +1,5 @@
 /**
- * @typedef {import('hast').Root} Root
+ * @import {Root} from 'hast'
  */
 
 /**
@@ -51,7 +51,6 @@ export default function rehypeGithubLink(options) {
       const exception = new Error(
         'Expected valid hostname for URL, not `' + internal + '`'
       )
-      // @ts-expect-error: not in TS yet.
       exception.cause = error
       throw exception
     }
@@ -78,7 +77,6 @@ export default function rehypeGithubLink(options) {
       if (
         node.type === 'element' &&
         node.tagName === 'a' &&
-        node.properties &&
         parent &&
         typeof index === 'number'
       ) {
@@ -101,10 +99,15 @@ export default function rehypeGithubLink(options) {
         if (url) {
           const hostname = url.hostname
 
-          known =
-            // For `mailto:` and such.
-            !hostname ||
-            internals.some((d) => hostname === d || hostname.endsWith('.' + d))
+          // For `mailto:` and such.
+          known = !hostname
+
+          for (const internal of internals) {
+            if (hostname === internal || hostname.endsWith('.' + internal)) {
+              known = true
+              break
+            }
+          }
         }
 
         if (known) {

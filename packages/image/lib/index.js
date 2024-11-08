@@ -1,8 +1,8 @@
 /**
- * @typedef {import('hast').Element} Element
- * @typedef {import('hast').Root} Root
- * @typedef {import('unified').TransformCallback} TransformCallback
- * @typedef {import('vfile').VFile} VFile
+ * @import {Element, Root} from 'hast'
+ * @import {TransformCallback} from 'unified'
+ * @import {BuildVisitor} from 'unist-util-visit-parents'
+ * @import {VFile} from 'vfile'
  */
 
 /**
@@ -105,7 +105,7 @@ export default function rehypeGithubImage(options) {
    *   Nothing.
    */
   return function (tree, _, next) {
-    /** @type {Array<Promise<void>>} */
+    /** @type {Array<Promise<undefined>>} */
     const promises = []
 
     visitParents(tree, 'element', onelement)
@@ -113,12 +113,21 @@ export default function rehypeGithubImage(options) {
     // If a sync algorithm was used, stay sync.
     if (promises.length === 0) {
       next()
-      /* c8 ignore next 3 -- the DOM version cannot be tested in Node 18 and lower. */
+      /* c8 ignore next 5 -- the DOM version cannot be tested in Node 18 and lower. */
     } else {
-      Promise.all(promises).then(() => next(), next)
+      Promise.all(promises).then(
+        /**
+         * @returns {undefined}
+         *   Nothing.
+         */
+        function () {
+          next()
+        },
+        next
+      )
     }
 
-    /** @type {import('unist-util-visit-parents').BuildVisitor<Root, 'element'>} */
+    /** @type {BuildVisitor<Root, 'element'>} */
     function onelement(node, parents) {
       if (
         node.type === 'element' &&
@@ -140,6 +149,7 @@ export default function rehypeGithubImage(options) {
             type: 'element',
             tagName: 'a',
             properties: {
+              // To do: sort.
               target: blank ? '_blank' : undefined,
               rel: proxy ? undefined : [...rel],
               href: ''
@@ -177,9 +187,17 @@ export default function rehypeGithubImage(options) {
         /* c8 ignore next 6 -- the DOM version cannot be tested in Node 18 and lower. */
         if (typeof source === 'object') {
           promises.push(
-            source.then((source) => {
-              set(sources, source)
-            })
+            source.then(
+              /**
+               * @param {string} source
+               *   Source.
+               * @returns {undefined}
+               *   Nothing.
+               */
+              function (source) {
+                set(sources, source)
+              }
+            )
           )
         } else {
           set(sources, source)
@@ -191,7 +209,11 @@ export default function rehypeGithubImage(options) {
 
 /**
  * @param {Array<Element>} nodes
+ *   Nodes to set the source on.
  * @param {string | undefined} source
+ *   Source to set.
+ * @returns {undefined}
+ *   Nothing.
  */
 function set(nodes, source) {
   for (const node of nodes) {
@@ -213,11 +235,12 @@ function set(nodes, source) {
  *   Whether to generate a URL to a proxy.
  * @param {Array<string>} internal
  *   Hostnames to mark as internal.
- * @returns {[] | [Promise<string> | string, true?]}
+ * @returns {[source: Promise<string> | string, external?: true] | []}
+ *   Cleaned source tuple.
  */
 function sanitizeSource(value, toProxyUrl, internal) {
   // Ignore when `src` is not defined.
-  if (value === undefined || value === null) {
+  if (value === null || value === undefined) {
     return emptySource
   }
 
@@ -256,8 +279,10 @@ function sanitizeSource(value, toProxyUrl, internal) {
  * Whether the image is already interactive: as in, it is inside a
  * link.
  *
- * @param {Array<Root | Element>} nodes
+ * @param {Array<Element | Root>} nodes
+ *   Nodes to check.
  * @returns {boolean}
+ *   Whether the image is interactive.
  */
 function interactive(nodes) {
   let index = nodes.length
@@ -275,6 +300,9 @@ function interactive(nodes) {
 
 /**
  * @param {string} value
+ *   Value to check.
+ * @returns {undefined}
+ *   Nothing.
  */
 function assertHostname(value) {
   try {
@@ -288,7 +316,6 @@ function assertHostname(value) {
     const exception = new Error(
       'Expected valid hostname for URL, not `' + value + '`'
     )
-    // @ts-expect-error: not in TS yet.
     exception.cause = error
     throw exception
   }

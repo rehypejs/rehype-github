@@ -72,12 +72,12 @@ Say our file `viewscreen-geojson.html` looks as follows:
 ```html
 <!doctype html>
 <html lang=en>
-<meta content=width=device-width,initial-scale=1 name=viewport>
+<meta content=initial-scale=1,width=device-width name=viewport>
 <meta charset=utf8>
 <title>viewscreen: geojson</title>
-<link rel=stylesheet href=https://esm.sh/leaflet@1.9/dist/leaflet.css>
-<link rel=stylesheet href=https://esm.sh/leaflet.markercluster@1.5/dist/MarkerCluster.css>
-<link rel=stylesheet href=https://esm.sh/leaflet.markercluster@1.5/dist/MarkerCluster.Default.css>
+<link href=https://esm.sh/leaflet@1.9/dist/leaflet.css rel=stylesheet>
+<link href=https://esm.sh/leaflet.markercluster@1.5/dist/MarkerCluster.css rel=stylesheet>
+<link href=https://esm.sh/leaflet.markercluster@1.5/dist/MarkerCluster.Default.css rel=stylesheet>
 <style>/* … */</style>
 <script type=module>
   import {viewscreenGeojson} from 'https://esm.sh/viewscreen-geojson@0?bundle'
@@ -89,13 +89,13 @@ Say our file `viewscreen-geojson.html` looks as follows:
 
   const viewer = viewscreenGeojson(document.body, {
     onReject(value) {
-      parent.postMessage({type: 'reject', id, value})
+      parent.postMessage({id, type: 'reject', value})
     },
     onSizeSuggestion(width, height) {
-      parent.postMessage({type: 'resize', id, value: {width, height}})
+      parent.postMessage({id, type: 'resize', value: {height, width}})
     },
     onResolve() {
-      parent.postMessage({type: 'resolve', id})
+      parent.postMessage({id, type: 'resolve'})
     }
   })
 
@@ -113,9 +113,9 @@ Say our file `viewscreen-geojson.html` looks as follows:
 <!doctype html>
 <html lang=en>
 <meta charset=utf8>
-<meta content=width=device-width,initial-scale=1 name=viewport>
+<meta content=initial-scale=1,width=device-width name=viewport>
 <title>example</title>
-<link rel=stylesheet href=https://esm.sh/github-markdown-css@5/github-markdown.css>
+<link href=https://esm.sh/github-markdown-css@5/github-markdown.css rel=stylesheet>
 <style>/* … */</style>
 <div class=markdown-body>
 <pre><code class=language-geojson>{
@@ -126,8 +126,6 @@ Say our file `viewscreen-geojson.html` looks as follows:
 </code></pre>
 </div>
 <script type=module>
-  const hasOwn = {}.hasOwnProperty
-
   const types = {
     geojson: '/viewscreen-geojson.html',
     topojson: '/viewscreen-geojson.html'
@@ -173,11 +171,19 @@ Say our file `viewscreen-geojson.html` looks as follows:
   const prefix = 'language-'
 
   for (const node of nodes) {
-    const className = Array.from(node.classList).find((d) => d.startsWith(prefix))
-    if (!className) continue
-    const name = className.slice(prefix.length)
+    /** @type {string | undefined} */
+    let name
 
-    const specifier = hasOwn.call(types, name) ? types[name] : undefined
+    for (const className of node.classList) {
+      if (className.startsWith(prefix)) {
+        name = className.slice(prefix.length)
+        break
+      }
+    }
+
+    if (!name) continue
+
+    const specifier = Object.hasOwn(types, name) ? types[name] : undefined
 
     if (!specifier) continue
 
@@ -250,7 +256,7 @@ Render a map in `node`.
 
 Object with the following fields:
 
-* `change` (`(value: string) => Promise<void>`)
+* `change` (`(value: string) => Promise<undefined>`)
   — change the diagram
 
 ### `OnSizeSuggestion`
@@ -267,7 +273,7 @@ Callback called when there’s a new size suggestion for the viewscreen
 
 ###### Returns
 
-Nothing (`void`).
+Nothing (`undefined`).
 
 ### `OnReject`
 
@@ -280,7 +286,7 @@ Callback called when rejecting (TypeScript type).
 
 ###### Returns
 
-Nothing (`void`).
+Nothing (`undefined`).
 
 ### `OnResolve`
 
@@ -292,7 +298,7 @@ None.
 
 ###### Returns
 
-Nothing (`void`).
+Nothing (`undefined`).
 
 ### `Options`
 
@@ -327,9 +333,9 @@ The CSS you could use:
 
 ```css
 :root {
+  color-scheme: light;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans',
     Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
-  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -348,8 +354,8 @@ The CSS you could use:
 }
 
 body {
-  margin: 0;
   aspect-ratio: 8 / 5;
+  margin: 0;
 }
 ```
 

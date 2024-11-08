@@ -2,4 +2,4 @@
  * @typedef {import('./lib/index.js').Options} Options
  */
 
-export {default, defaultInclude} from './lib/index.js'
+export {defaultInclude, default} from './lib/index.js'

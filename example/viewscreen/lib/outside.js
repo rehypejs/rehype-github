@@ -1,11 +1,8 @@
 /* eslint-env browser */
 
 /**
- * @typedef {import('./shared.js').ToViewscreenMessage} ToViewscreenMessage
- * @typedef {import('./shared.js').FromViewscreenMessage} FromViewscreenMessage
+ * @import {FromViewscreenMessage, ToViewscreenMessage} from './shared.js'
  */
-
-const hasOwn = {}.hasOwnProperty
 
 /** @type {Record<string, string>} */
 const types = {
@@ -27,9 +24,11 @@ window.addEventListener(
    * Handle a message from any viewscreen iframe.
    *
    * @param {MessageEvent<FromViewscreenMessage>} event
+   *   Event.
+   * @returns {undefined}
+   *   Nothing.
    */
   function (event) {
-    // eslint-disable-next-line unicorn/prefer-switch
     if (event.data.type === 'resize') {
       // We use unique names, but not bad to handle arrays.
       const nodes = document.getElementsByName(event.data.id)
@@ -65,11 +64,19 @@ const nodes = Array.from(document.body.querySelectorAll('code'))
 const prefix = 'language-'
 
 for (const node of nodes) {
-  const className = Array.from(node.classList).find((d) => d.startsWith(prefix))
-  if (!className) continue
-  const name = className.slice(prefix.length)
+  /** @type {string | undefined} */
+  let name
 
-  const specifier = hasOwn.call(types, name) ? types[name] : undefined
+  for (const className of node.classList) {
+    if (className.startsWith(prefix)) {
+      name = className.slice(prefix.length)
+      break
+    }
+  }
+
+  if (!name) continue
+
+  const specifier = Object.hasOwn(types, name) ? types[name] : undefined
 
   if (!specifier) continue
 
@@ -92,14 +99,21 @@ for (const node of nodes) {
   // Hide for now.
   iframe.setAttribute('style', 'opacity:0')
 
-  iframe.addEventListener('load', function () {
-    const otherWindow = iframe.contentWindow
-    if (!otherWindow) throw new Error('Expected `contentWindow`')
-    /** @type {ToViewscreenMessage} */
-    const message = {type: 'content', id, value}
-    iframe.setAttribute('style', '')
-    otherWindow.postMessage(message)
-  })
+  iframe.addEventListener(
+    'load',
+    /**
+     * @returns {undefined}
+     *   Nothing.
+     */
+    function () {
+      const otherWindow = iframe.contentWindow
+      if (!otherWindow) throw new Error('Expected `contentWindow`')
+      /** @type {ToViewscreenMessage} */
+      const message = {id, type: 'content', value}
+      iframe.setAttribute('style', '')
+      otherWindow.postMessage(message)
+    }
+  )
 
   const scope =
     node.parentElement && node.parentElement.nodeName === 'PRE'

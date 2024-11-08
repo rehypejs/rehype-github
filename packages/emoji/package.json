@@ -60,6 +60,7 @@
     ],
     "prettier": true,
     "rules": {
+      "logical-assignment-operators": "off",
       "unicorn/prefer-string-replace-all": "off"
     }
   }

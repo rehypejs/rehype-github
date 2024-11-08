@@ -1,7 +1,6 @@
 /**
- * @typedef {import('mdast').PhrasingContent} PhrasingContent
- * @typedef {import('mdast').Root} Root
- * @typedef {import('mdast-util-find-and-replace').ReplaceFunction} ReplaceFunction
+ * @import {ReplaceFunction} from 'mdast-util-find-and-replace'
+ * @import {PhrasingContent, Root} from 'mdast'
  */
 
 import {findAndReplace} from 'mdast-util-find-and-replace'
@@ -30,6 +29,7 @@ export default function remarkGithubBreaks() {
  * Replace line endings.
  *
  * @returns {Array<PhrasingContent>}
+ *   Break.
  * @satisfies {ReplaceFunction}
  */
 function replace() {

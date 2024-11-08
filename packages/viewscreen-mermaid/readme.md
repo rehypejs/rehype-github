@@ -84,7 +84,7 @@ Say our file `viewscreen-mermaid.html` looks as follows:
 
   const viewer = create(document.body, {
     onSizeSuggestion(width, height) {
-      parent.postMessage({type: 'resize', id, value: {width, height}})
+      parent.postMessage({id, type: 'resize', value: {height, width}})
     }
   })
 
@@ -112,8 +112,6 @@ A--&gt;B;
 </code></pre>
 </div>
 <script type=module>
-  const hasOwn = {}.hasOwnProperty
-
   const types = {mermaid: '/viewscreen-mermaid.html'}
 
   /**
@@ -134,11 +132,19 @@ A--&gt;B;
   const prefix = 'language-'
 
   for (const node of nodes) {
-    const className = Array.from(node.classList).find((d) => d.startsWith(prefix))
-    if (!className) continue
-    const name = className.slice(prefix.length)
+    /** @type {string | undefined} */
+    let name
 
-    const specifier = hasOwn.call(types, name) ? types[name] : undefined
+    for (const className of node.classList) {
+      if (className.startsWith(prefix)) {
+        name = className.slice(prefix.length)
+        break
+      }
+    }
+
+    if (!name) continue
+
+    const specifier = Object.hasOwn(types, name) ? types[name] : undefined
 
     if (!specifier) continue
 
@@ -157,7 +163,7 @@ A--&gt;B;
     iframe.addEventListener('load', function () {
       const otherWindow = iframe.contentWindow
       if (!otherWindow) throw new Error('Expected `contentWindow`')
-      const message = {type: 'content', id, value}
+      const message = {id, type: 'content', value}
       iframe.setAttribute('style', '')
       otherWindow.postMessage(message)
     })
@@ -195,7 +201,7 @@ Render a mermaid graph in `node`.
 
 Object with the following fields:
 
-* `change` (`(value: string) => Promise<void>`)
+* `change` (`(value: string) => Promise<undefined>`)
   — change the diagram
 
 ### `OnSizeSuggestion`
@@ -212,7 +218,7 @@ Callback called when there’s a new size suggestion for the viewscreen
 
 ###### Returns
 
-Nothing (`void`).
+Nothing (`undefined`).
 
 ### `Options`
 
@@ -260,10 +266,6 @@ The CSS you could use:
 
 ```css
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans',
-    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
-  color-scheme: light;
-
   --color-accent-fg: #0969da;
   --color-btn-active-bg: hsl(220, 14%, 93%);
   --color-btn-active-border: rgba(31, 35, 40, 0.15);
@@ -275,12 +277,13 @@ The CSS you could use:
   --color-btn-shadow: 0 1px 0 rgba(31, 35, 40, 0.04);
   --color-btn-text: #24292f;
   --color-primer-fg-disabled: #8c959f;
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans',
+    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    color-scheme: dark;
-
     --color-accent-fg: #2f81f7;
     --color-btn-active-bg: hsl(212, 12%, 18%);
     --color-btn-active-border: #6e7681;
@@ -292,6 +295,7 @@ The CSS you could use:
     --color-btn-shadow: 0 0 transparent;
     --color-btn-text: #c9d1d9;
     --color-primer-fg-disabled: #484f58;
+    color-scheme: dark;
   }
 }
 
@@ -304,32 +308,30 @@ body {
 }
 
 button {
-  position: relative;
+  appearance: none;
+  background-color: var(--color-btn-bg);
+  border-radius: 6px;
+  border: 1px solid var(--color-btn-border);
+  box-shadow: var(--color-btn-shadow), var(--color-btn-inset-shadow);
+  color: var(--color-btn-text);
+  cursor: pointer;
   display: inline-block;
-  padding: 5px 7px;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  user-select: none;
-  border: 1px solid;
-  border-radius: 6px;
-  appearance: none;
-
-  color: var(--color-btn-text);
-  background-color: var(--color-btn-bg);
-  border-color: var(--color-btn-border);
-  box-shadow: var(--color-btn-shadow), var(--color-btn-inset-shadow);
+  padding: 5px 7px;
+  position: relative;
   transition: 80ms cubic-bezier(0.33, 1, 0.68, 1);
   transition-property: color, background-color, box-shadow, border-color;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
 button:disabled {
-  color: var(--color-primer-fg-disabled);
   background-color: var(--color-btn-bg);
   border-color: var(--color-btn-border);
+  color: var(--color-primer-fg-disabled);
 }
 
 button:hover {
@@ -339,9 +341,9 @@ button:hover {
 }
 
 button:focus {
+  box-shadow: none;
   outline: 2px solid var(--color-accent-fg);
   outline-offset: -2px;
-  box-shadow: none;
 }
 
 button:active {
@@ -355,19 +357,19 @@ button:active {
 }
 
 .octicon {
-  margin-right: 4px;
   fill: currentColor; /* Inherit from (disabled) buttons. */
+  margin-right: 4px;
   vertical-align: text-bottom;
 }
 
 .panel {
-  position: absolute;
-  z-index: 1;
   bottom: 0.5ex;
-  right: 0.5ex;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
   gap: 0.5ex;
+  grid-template-columns: 1fr 1fr 1fr;
+  position: absolute;
+  right: 0.5ex;
+  z-index: 1;
 }
 
 .up { grid-column: 2; grid-row: 1; }

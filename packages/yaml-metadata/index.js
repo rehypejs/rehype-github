@@ -6,7 +6,7 @@
  */
 
 export {
-  default,
   defaultCreateErrorMessage,
-  defaultParseOptions
+  defaultParseOptions,
+  default
 } from './lib/index.js'

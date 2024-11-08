@@ -1,7 +1,10 @@
 /* eslint-env browser */
 
 /**
- * @typedef {import('@primer/octicons').IconName} IconName
+ * @import {IconName} from '@primer/octicons'
+ * @import {Selection} from 'd3-selection'
+ * @import {Transition} from 'd3-transition'
+ * @import {D3ZoomEvent, ZoomBehavior} from 'd3-zoom'
  */
 
 /**
@@ -11,7 +14,7 @@
  *   Current width.
  * @param {number} height
  *   Preferred height for `width`.
- * @returns {void}
+ * @returns {undefined}
  *   Nothing.
  *
  * @typedef State
@@ -37,11 +40,11 @@
  *   Control panel.
  * @property {HTMLElement} zoomArea
  *   Zoom area.
- * @property {import('d3-selection').Selection<HTMLDivElement, unknown, null, undefined>} zoomAreaSelection
+ * @property {Selection<HTMLDivElement, unknown, null, undefined>} zoomAreaSelection
  *   D3 selection of zoom area.
  * @property {HTMLElement} zoomedArea
  *   Zoomed area.
- * @property {import('d3-zoom').ZoomBehavior<HTMLDivElement, unknown>} zoomBehavior
+ * @property {ZoomBehavior<HTMLDivElement, unknown>} zoomBehavior
  *   D3 zoom behavior.
  *
  * @typedef Button
@@ -57,7 +60,7 @@
  *   Do something.
  * @param {Context} context
  *   Context.
- * @returns {void}
+ * @returns {undefined}
  *   Nothing.
  *
  * @typedef UpdateValueOptions
@@ -75,7 +78,7 @@
 import octicons from '@primer/octicons'
 import {select} from 'd3-selection'
 import {transition} from 'd3-transition'
-import {zoom, ZoomTransform} from 'd3-zoom'
+import {ZoomTransform, zoom} from 'd3-zoom'
 import DOMPurify from 'dompurify'
 import mermaid from 'mermaid'
 
@@ -121,13 +124,14 @@ const ADD_TAGS = [
 
 /**
  * @param {string} value
+ *   Value to sanitize.
  * @returns {DocumentFragment}
+ *   Sanitized value.
  */
 function sanitizeSvg(value) {
   // To do: better sanitizer.
   return DOMPurify.sanitize(value, {
-    RETURN_DOM_FRAGMENT: true,
-    USE_PROFILES: {svg: true},
+    ADD_ATTR: ['transform-origin'],
     // Basically:
     // addToSet(ALLOWED_TAGS, TAGS.svg);
     // https://github.com/cure53/DOMPurify/blob/a3c39078170548966651e23378b514f82a91a930/src/tags.js#L124
@@ -136,7 +140,8 @@ function sanitizeSvg(value) {
     // addToSet(ALLOWED_ATTR, ATTRS.xml);
     // https://github.com/cure53/DOMPurify/blob/a3c39078170548966651e23378b514f82a91a930/src/attrs.js#L356
     ADD_TAGS,
-    ADD_ATTR: ['transform-origin']
+    RETURN_DOM_FRAGMENT: true,
+    USE_PROFILES: {svg: true}
   })
 }
 
@@ -146,13 +151,13 @@ function sanitizeSvg(value) {
  * @type {Array<Button>}
  */
 const buttons = [
-  {className: 'zoom-in', icon: 'zoom-in', action: zoomIn},
-  {className: 'zoom-out', icon: 'zoom-out', action: zoomOut},
-  {className: 'reset', icon: 'sync', action: reset},
-  {className: 'up', icon: 'chevron-up', action: up},
-  {className: 'down', icon: 'chevron-down', action: down},
-  {className: 'left', icon: 'chevron-left', action: left},
-  {className: 'right', icon: 'chevron-right', action: right}
+  {action: zoomIn, className: 'zoom-in', icon: 'zoom-in'},
+  {action: zoomOut, className: 'zoom-out', icon: 'zoom-out'},
+  {action: reset, className: 'reset', icon: 'sync'},
+  {action: up, className: 'up', icon: 'chevron-up'},
+  {action: down, className: 'down', icon: 'chevron-down'},
+  {action: left, className: 'left', icon: 'chevron-left'},
+  {action: right, className: 'right', icon: 'chevron-right'}
 ]
 
 /**
@@ -172,13 +177,13 @@ export function create(node, options) {
 
   /** @type {State} */
   const state = {
+    darkMode: window.matchMedia(query).matches,
+    scaleExtent: [1 / 2, 4],
     translateExtent: [
       [Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY],
       [Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY]
     ],
-    scaleExtent: [1 / 2, 4],
-    value: undefined,
-    darkMode: window.matchMedia(query).matches
+    value: undefined
   }
 
   const zoomArea = document.createElement('div')
@@ -188,14 +193,14 @@ export function create(node, options) {
     diagram: undefined,
     node,
     panel: document.createElement('div'),
-    zoomArea,
     zoomAreaSelection: select(zoomArea),
-    zoomedArea: document.createElement('div'),
+    zoomArea,
     // @ts-expect-error: we’ll attach an `HTMLElement` later, not an `Element.
     zoomBehavior: zoom()
       // We’ll set `translateExtent` when we know sizes.
       .scaleExtent(state.scaleExtent)
-      .on('zoom', onzoom)
+      .on('zoom', onzoom),
+    zoomedArea: document.createElement('div')
   }
 
   context.panel.classList.add('panel')
@@ -230,7 +235,7 @@ export function create(node, options) {
    *
    * @param {string} value
    *   New diagram
-   * @returns {Promise<void>}
+   * @returns {Promise<undefined>}
    *   Promise that resolves with nothing and never rejects.
    */
   async function change(value) {
@@ -243,6 +248,9 @@ export function create(node, options) {
    * Handle a dark mode media query change.
    *
    * @param {MediaQueryListEvent} event
+   *   Event.
+   * @returns {Promise<undefined>}
+   *   Promise that resolves with nothing.
    */
   async function ondarkmode(event) {
     state.darkMode = event.matches
@@ -257,6 +265,9 @@ export function create(node, options) {
    * Also supports being called with `[]` for `entries` to force this behavior.
    *
    * @param {Array<ResizeObserverEntry>} entries
+   *   Entries.
+   * @returns {undefined}
+   *   Nothing.
    */
   function onresize(entries) {
     const entry = entries[0]
@@ -283,7 +294,10 @@ export function create(node, options) {
   /**
    * Handle a d3 zoom event.
    *
-   * @param {import('d3-zoom').D3ZoomEvent<HTMLElement, unknown>} event
+   * @param {D3ZoomEvent<HTMLElement, unknown>} event
+   *   Event.
+   * @returns {undefined}
+   *   Nothing.
    */
   function onzoom(event) {
     const t = event.transform
@@ -310,6 +324,8 @@ export function create(node, options) {
    *   Name.
    * @param {boolean} value
    *   Whether this action is enabled.
+   * @returns {undefined}
+   *   Nothing.
    */
   function enabled(name, value) {
     const node = context.panel.querySelector('.' + name)
@@ -323,9 +339,13 @@ export function create(node, options) {
  * Render with mermaid.
  *
  * @param {Context} context
+ *   Context.
  * @param {State} state
+ *   State.
  * @param {UpdateValueOptions | null | undefined} [options]
- * @returns {Promise<void>}
+ *   Configuration (optional).
+ * @returns {Promise<undefined>}
+ *   Promise that resolves to nothing.
  */
 async function updateValue(context, state, options) {
   const config = options || {}
@@ -354,17 +374,20 @@ async function updateValue(context, state, options) {
  * Reset mermaid options.
  *
  * @param {State} state
+ *   State.
+ * @returns {undefined}
+ *   Nothing.
  */
 function updateDarkmode(state) {
   mermaid.initialize({
-    startOnLoad: false,
-    // Stop user configs in the mermaid files from overriding these keys
-    secure: ['secure', 'securityLevel', 'startOnLoad', 'maxTextSize'],
-    // Escape tags and disable click events within the diagram
-    securityLevel: 'strict',
     flowchart: {diagramPadding: 48},
     gantt: {useWidth: 1200},
     pie: {useWidth: 1200},
+    startOnLoad: false,
+    // Escape tags and disable click events within the diagram
+    securityLevel: 'strict',
+    // Stop user configs in the mermaid files from overriding these keys
+    secure: ['secure', 'securityLevel', 'startOnLoad', 'maxTextSize'],
     sequence: {diagramMarginY: 40},
     theme: state.darkMode ? 'dark' : 'default'
   })
@@ -410,7 +433,9 @@ function right(context) {
 
 /**
  * @param {Context} context
- * @returns {import('d3-transition').Transition<HTMLDivElement, unknown, null, undefined>}
+ *   Context.
+ * @returns {Transition<HTMLDivElement, unknown, null, undefined>}
+ *   Transition.
  */
 function createTransition(context) {
   return context.zoomAreaSelection.transition(transition().duration(100))

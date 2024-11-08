@@ -52,10 +52,10 @@ combinations of `dir` attributes.
 <meta charset=utf8>
 <title>Example</title>
 <style>
-  body { font-family: system-ui; max-width: 40em; margin: 0 auto }
+  body { font-family: system-ui; margin: 0 auto; max-width: 40em }
   div, p { border: 1ex solid tomato; margin: 1ex; padding: 1ex; position: relative }
   p { padding: 1ex 12ex }
-  :is(div, p)::after { content: "no dir"; position: absolute; top: 0; right: 0; background-color: tomato; padding: 1ex; }
+  :is(div, p)::after { background-color: tomato; content: "no dir"; padding: 1ex; position: absolute; right: 0; top: 0 }
   :is(div, p)[dir]::after { content: "[dir=" attr(dir) "]" }
 </style>
 <div>
@@ -75,7 +75,7 @@ combinations of `dir` attributes.
   <p>Good day</p>
 </div>
 <div>
-  <p lang=yi dir="auto">א גוטן טאג</p>
+  <p dir="auto" lang=yi>א גוטן טאג</p>
   <p dir="auto">Good day</p>
 </div>
 ```

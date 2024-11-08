@@ -31,7 +31,7 @@ export function camo(path, secret) {
   const cryptoKeyPromise = crypto.subtle.importKey(
     'raw',
     encoder.encode(secret),
-    {name: 'HMAC', hash: 'sha-1'},
+    {hash: 'sha-1', name: 'HMAC'},
     false,
     ['sign']
   )

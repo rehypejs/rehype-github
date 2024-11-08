@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang=en>
-<meta content=width=device-width,initial-scale=1 name=viewport>
+<meta content=initial-scale=1,width=device-width name=viewport>
 <meta charset=utf8>
 <title>viewscreen: geojson</title>
-<link rel=stylesheet href=https://esm.sh/leaflet@1.9/dist/leaflet.css>
-<link rel=stylesheet href=https://esm.sh/leaflet.markercluster@1.5/dist/MarkerCluster.css>
-<link rel=stylesheet href=https://esm.sh/leaflet.markercluster@1.5/dist/MarkerCluster.Default.css>
+<link href=https://esm.sh/leaflet@1.9/dist/leaflet.css rel=stylesheet>
+<link href=https://esm.sh/leaflet.markercluster@1.5/dist/MarkerCluster.css rel=stylesheet>
+<link href=https://esm.sh/leaflet.markercluster@1.5/dist/MarkerCluster.Default.css rel=stylesheet>
 <style>
   :root {
+    color-scheme: light;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans',
       Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
-    color-scheme: light;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -29,8 +29,8 @@
   }
 
   body {
-    margin: 0;
     aspect-ratio: 8 / 5;
+    margin: 0;
   }
 </style>
 <script type=module>
@@ -43,13 +43,13 @@
 
   const viewer = viewscreenGeojson(document.body, {
     onReject(value) {
-      parent.postMessage({type: 'reject', id, value})
+      parent.postMessage({id, type: 'reject', value})
     },
     onSizeSuggestion(width, height) {
-      parent.postMessage({type: 'resize', id, value: {width, height}})
+      parent.postMessage({id, type: 'resize', value: {height, width}})
     },
     onResolve() {
-      parent.postMessage({type: 'resolve', id})
+      parent.postMessage({id, type: 'resolve'})
     }
   })
 

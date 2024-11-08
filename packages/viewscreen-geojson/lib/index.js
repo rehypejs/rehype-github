@@ -1,9 +1,9 @@
 /* eslint-env browser */
 
 /**
- * @typedef {import('geojson').Geometry} Geometry
- * @typedef {import('geojson').GeoJSON} GeoJson
- * @typedef {import('topojson-specification').Topology} Topology
+ * @import {Feature, GeoJSON as GeoJson, Geometry} from 'geojson'
+ * @import {GeoJSON as LeafletGeoJson} from 'leaflet'
+ * @import {Topology} from 'topojson-specification'
  */
 
 /**
@@ -11,12 +11,13 @@
  *   Callback called when rejecting.
  * @param {string} value
  *   Reason.
- * @returns {void}
+ * @returns {undefined}
  *   Nothing.
  *
  * @callback OnResolve
  *   Callback called when resolving.
- * @returns {void}
+ * @returns {undefined}
+ *   Nothing.
  *
  * @callback OnSizeSuggestion
  *   Callback called when there’s a new size suggestion for the viewscreen.
@@ -24,7 +25,8 @@
  *   Current width.
  * @param {number} height
  *   Preferred height for `width`.
- * @returns {void}
+ * @returns {undefined}
+ *   Nothing.
  *
  * @typedef Options
  *   Configuration.
@@ -37,9 +39,9 @@
  */
 
 import L from 'leaflet'
-import {feature} from 'topojson-client'
 // eslint-disable-next-line import/no-unassigned-import
 import 'leaflet.markercluster'
+import {feature} from 'topojson-client'
 
 /**
  * Render a map in `node`.
@@ -64,12 +66,12 @@ export function create(node, options) {
   const tileLayer = L.tileLayer(
     'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
     {
-      maxZoom: 19,
       attribution:
-        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19
     }
   )
-  /** @type {import('leaflet').GeoJSON<Record<string, unknown>, Geometry>} */
+  /** @type {LeafletGeoJson<Record<string, unknown>, Geometry>} */
   const geoJsonLayer = L.geoJSON(undefined, {
     onEachFeature(feature, layer) {
       const description = createFeatureDescription(feature)
@@ -87,6 +89,9 @@ export function create(node, options) {
    * Change the topology.
    *
    * @param {string} data
+   *   Data to change.
+   * @returns {undefined}
+   *   Nothing.
    */
   function change(data) {
     // To do: handle changes?
@@ -132,6 +137,9 @@ export function create(node, options) {
    * Also supports being called with `[]` for `entries` to force this behavior.
    *
    * @param {Array<ResizeObserverEntry>} entries
+   *   Resize observer entries.
+   * @returns {undefined}
+   *   Nothing.
    */
   function onresize(entries) {
     const entry = entries[0]
@@ -156,8 +164,10 @@ tr.append(td)
  * Assumes values are strings, at some point we could support arrays and
  * objects and whatnot.
  *
- * @param {import('geojson').Feature<Geometry, Record<string, unknown>>} feature
+ * @param {Feature<Geometry, Record<string, unknown>>} feature
+ *   Feature to create a description for.
  * @returns {string}
+ *   Description.
  */
 function createFeatureDescription(feature) {
   let buf = ''

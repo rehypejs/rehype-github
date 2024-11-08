@@ -46,6 +46,9 @@
   },
   "type": "module",
   "xo": {
-    "prettier": true
+    "prettier": true,
+    "rules": {
+      "unicorn/prefer-switch": "off"
+    }
   }
 }

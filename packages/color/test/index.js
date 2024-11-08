@@ -10,132 +10,141 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import {unified} from 'unified'
 
-test('rehypeGithubColor', async () => {
-  assert.deepEqual(
-    Object.keys(await import('rehype-github-color')).sort(),
-    ['default', 'defaultBuild', 'defaultExpression'],
-    'should expose the public api'
+test('rehypeGithubColor', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('rehype-github-color')).sort(), [
+      'default',
+      'defaultBuild',
+      'defaultExpression'
+    ])
+  })
+
+  await t.test('should transform a 6-digit hex color', async function () {
+    assert.equal(
+      String(
+        await unified()
+          .use(rehypeParse, {fragment: true})
+          .use(rehypeGithubColor)
+          .use(rehypeStringify)
+          .process('<code>#00eaff</code>')
+      ),
+      '<code>#00eaff<span class="ml-1 d-inline-block border circle color-border-subtle" style="background-color: #00eaff; height: 8px; width: 8px;"></span></code>'
+    )
+  })
+
+  await t.test('should support `expression`', async function () {
+    assert.equal(
+      String(
+        await unified()
+          .use(rehypeParse, {fragment: true})
+          .use(rehypeGithubColor, {
+            expression: /^#(?:[\da-f]{3}|[\da-f]{6})$/i
+          })
+          .use(rehypeStringify)
+          .process('<code>#123</code>')
+      ),
+      '<code>#123<span class="ml-1 d-inline-block border circle color-border-subtle" style="background-color: #123; height: 8px; width: 8px;"></span></code>'
+    )
+  })
+
+  await t.test("should support `behavior: 'replace'`", async function () {
+    assert.equal(
+      String(
+        await unified()
+          .use(rehypeParse, {fragment: true})
+          .use(rehypeGithubColor, {
+            behavior: 'replace'
+          })
+          .use(rehypeStringify)
+          .process('<code>#123123</code>')
+      ),
+      '<span class="ml-1 d-inline-block border circle color-border-subtle" style="background-color: #123123; height: 8px; width: 8px;"></span>'
+    )
+  })
+
+  await t.test(
+    'should support `build` yielding an array (with `append`)',
+    async function () {
+      assert.equal(
+        String(
+          await unified()
+            .use(rehypeParse, {fragment: true})
+            .use(rehypeGithubColor, {
+              build() {
+                return [
+                  {type: 'text', value: ' '},
+                  {type: 'element', tagName: 'i', properties: {}, children: []}
+                ]
+              }
+            })
+            .use(rehypeStringify)
+            .process('<code>#123123</code>')
+        ),
+        '<code>#123123 <i></i></code>'
+      )
+    }
   )
 
-  assert.equal(
-    String(
-      await unified()
-        .use(rehypeParse, {fragment: true})
-        .use(rehypeGithubColor)
-        .use(rehypeStringify)
-        .process('<code>#00eaff</code>')
-    ),
-    '<code>#00eaff<span class="ml-1 d-inline-block border circle color-border-subtle" style="background-color: #00eaff; height: 8px; width: 8px;"></span></code>',
-    'should transform a 6-digit hex color'
-  )
-
-  assert.equal(
-    String(
-      await unified()
-        .use(rehypeParse, {fragment: true})
-        .use(rehypeGithubColor, {
-          expression: /^#(?:[\da-f]{3}|[\da-f]{6})$/i
-        })
-        .use(rehypeStringify)
-        .process('<code>#123</code>')
-    ),
-    '<code>#123<span class="ml-1 d-inline-block border circle color-border-subtle" style="background-color: #123; height: 8px; width: 8px;"></span></code>',
-    'should support `expression`'
-  )
-
-  assert.equal(
-    String(
-      await unified()
-        .use(rehypeParse, {fragment: true})
-        .use(rehypeGithubColor, {
-          behavior: 'replace'
-        })
-        .use(rehypeStringify)
-        .process('<code>#123123</code>')
-    ),
-    '<span class="ml-1 d-inline-block border circle color-border-subtle" style="background-color: #123123; height: 8px; width: 8px;"></span>',
-    "should support `behavior: 'replace'`"
-  )
-
-  assert.equal(
-    String(
-      await unified()
-        .use(rehypeParse, {fragment: true})
-        .use(rehypeGithubColor, {
-          build() {
-            return [
-              {type: 'text', value: ' '},
-              {type: 'element', tagName: 'i', properties: {}, children: []}
-            ]
-          }
-        })
-        .use(rehypeStringify)
-        .process('<code>#123123</code>')
-    ),
-    '<code>#123123 <i></i></code>',
-    'should support `build` yielding an array (with `append`)'
-  )
-
-  assert.equal(
-    String(
-      await unified()
-        .use(rehypeParse, {fragment: true})
-        .use(rehypeGithubColor, {
-          behavior: 'replace',
-          build(value) {
-            return [
-              {type: 'text', value},
-              {type: 'element', tagName: 'i', properties: {}, children: []}
-            ]
-          }
-        })
-        .use(rehypeStringify)
-        .process('<code>#123123</code>')
-    ),
-    '#123123<i></i>',
-    'should support `build` yielding an array (with `replace`)'
+  await t.test(
+    'should support `build` yielding an array (with `replace`)',
+    async function () {
+      assert.equal(
+        String(
+          await unified()
+            .use(rehypeParse, {fragment: true})
+            .use(rehypeGithubColor, {
+              behavior: 'replace',
+              build(value) {
+                return [
+                  {type: 'text', value},
+                  {type: 'element', tagName: 'i', properties: {}, children: []}
+                ]
+              }
+            })
+            .use(rehypeStringify)
+            .process('<code>#123123</code>')
+        ),
+        '#123123<i></i>'
+      )
+    }
   )
 })
 
-test('fixtures', async function () {
+test('fixtures', async function (t) {
   const base = new URL('fixtures/', import.meta.url)
 
-  await createGfmFixtures(base, {
-    toHtml: {closeSelfClosing: true}
-  })
+  await createGfmFixtures(base, {toHtml: {closeSelfClosing: true}})
 
   const files = await fs.readdir(base)
   const extension = '.md'
-  let index = -1
 
-  while (++index < files.length) {
-    const d = files[index]
-
-    if (!d.endsWith(extension)) {
-      continue
-    }
+  for (const d of files) {
+    if (!d.endsWith(extension)) continue
 
     const name = d.slice(0, -extension.length)
-    const input = await fs.readFile(new URL(name + '.md', base))
-    let expected = String(await fs.readFile(new URL(name + '.html', base)))
 
-    const processor = unified()
-      .use(remarkParse)
-      .use(remarkRehype, {allowDangerousHtml: true})
-      .use(rehypeRaw)
-      .use(name.endsWith('.comment') ? [rehypeGithubColor] : [])
-      .use(rehypeStringify)
+    await t.test(name, async function () {
+      const input = await fs.readFile(new URL(name + '.md', base))
+      let expected = String(await fs.readFile(new URL(name + '.html', base)))
 
-    let actual = String(await processor.process(input))
+      const processor = unified()
+        .use(remarkParse)
+        .use(remarkRehype, {allowDangerousHtml: true})
+        .use(rehypeRaw)
+        .use(name.endsWith('.comment') ? [rehypeGithubColor] : [])
+        .use(rehypeStringify)
 
-    if (actual && !/\n$/.test(actual)) {
-      actual += '\n'
-    }
+      let actual = String(await processor.process(input))
 
-    // To do: add to `create-gfm-fixtures`.
-    // GH adds `notranslate`, this should be (optionally) removed by `crate-gfm-fixtures`.
-    expected = expected.replace(/ class="notranslate"/g, '')
+      if (actual && !/\n$/.test(actual)) {
+        actual += '\n'
+      }
 
-    assert.equal(actual, expected, name)
+      // To do: add to `create-gfm-fixtures`.
+      // GH adds `notranslate`, this should be (optionally) removed by `crate-gfm-fixtures`.
+      expected = expected.replace(/ class="notranslate"/g, '')
+
+      assert.equal(actual, expected)
+    })
   }
 })

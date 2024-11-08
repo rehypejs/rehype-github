@@ -1,8 +1,5 @@
 /**
- * @typedef {import('hast').Element} Element
- * @typedef {import('hast').ElementContent} ElementContent
- * @typedef {import('hast').Root} Root
- *
+ * @import {ElementContent, Element, Root} from 'hast'
  * @import {VisitorResult} from 'unist-util-visit'
  */
 
@@ -26,9 +23,9 @@
  *   The default behavior is to enhance `h1`, `h2`, `h3`, `h4`, `h5`, and `h6`.
  */
 
-import {visit, SKIP} from 'unist-util-visit'
-import {toString} from 'hast-util-to-string'
 import GithubSlugger from 'github-slugger'
+import {toString} from 'hast-util-to-string'
+import {SKIP, visit} from 'unist-util-visit'
 
 /** @type {Options} */
 const emptyOptions = {}
@@ -70,6 +67,7 @@ export function defaultBuild(id, node) {
       {
         type: 'element',
         tagName: 'a',
+        // To do: sort properties.
         properties: {
           id,
           className: ['anchor'],
@@ -138,6 +136,7 @@ export default function rehypeGithubHeading(options) {
       'element',
       /**
        * @returns {VisitorResult | undefined}
+       *   Skip or index.
        */
       function (node, index, parent) {
         if (typeof index === 'number' && parent) {

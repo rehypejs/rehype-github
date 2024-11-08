@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang=en>
-<meta content=width=device-width,initial-scale=1 name=viewport>
+<meta content=initial-scale=1,width=device-width name=viewport>
 <meta charset=utf8>
 <title>viewscreen: mermaid</title>
 <style>
   :root {
+    color-scheme: light;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans',
       Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
-    color-scheme: light;
 
     --color-accent-fg: #0969da;
     --color-btn-active-bg: hsl(220, 14%, 93%);
@@ -49,32 +49,30 @@
   }
 
   button {
-    position: relative;
+    appearance: none;
+    background-color: var(--color-btn-bg);
+    border-radius: 6px;
+    border: 1px solid var(--color-btn-border);
+    box-shadow: var(--color-btn-shadow), var(--color-btn-inset-shadow);
+    color: var(--color-btn-text);
+    cursor: pointer;
     display: inline-block;
-    padding: 5px 7px;
     font-size: 14px;
     font-weight: 500;
     line-height: 20px;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    user-select: none;
-    border: 1px solid;
-    border-radius: 6px;
-    appearance: none;
-
-    color: var(--color-btn-text);
-    background-color: var(--color-btn-bg);
-    border-color: var(--color-btn-border);
-    box-shadow: var(--color-btn-shadow), var(--color-btn-inset-shadow);
+    padding: 5px 7px;
+    position: relative;
     transition: 80ms cubic-bezier(0.33, 1, 0.68, 1);
     transition-property: color, background-color, box-shadow, border-color;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
   }
 
   button:disabled {
-    color: var(--color-primer-fg-disabled);
     background-color: var(--color-btn-bg);
     border-color: var(--color-btn-border);
+    color: var(--color-primer-fg-disabled);
   }
 
   button:hover {
@@ -84,9 +82,9 @@
   }
 
   button:focus {
+    box-shadow: none;
     outline: 2px solid var(--color-accent-fg);
     outline-offset: -2px;
-    box-shadow: none;
   }
 
   button:active {
@@ -100,19 +98,19 @@
   }
 
   .octicon {
-    margin-right: 4px;
     fill: currentColor; /* Inherit from (disabled) buttons. */
+    margin-right: 4px;
     vertical-align: text-bottom;
   }
 
   .panel {
-    position: absolute;
-    z-index: 1;
     bottom: 0.5ex;
-    right: 0.5ex;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
     gap: 0.5ex;
+    grid-template-columns: 1fr 1fr 1fr;
+    position: absolute;
+    right: 0.5ex;
+    z-index: 1;
   }
 
   .up { grid-column: 2; grid-row: 1; }
@@ -133,7 +131,7 @@
 
   const viewer = viewscreenMermaid(document.body, {
     onSizeSuggestion(width, height) {
-      parent.postMessage({type: 'resize', id, value: {width, height}})
+      parent.postMessage({id, type: 'resize', value: {height, width}})
     }
   })
 

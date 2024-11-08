@@ -1,5 +1,5 @@
 /**
- * @typedef {import('geojson').GeoJSON} GeoJson
+ * @import {GeoJSON as GeoJson} from 'geojson'
  */
 
 import assert from 'node:assert/strict'
@@ -29,29 +29,26 @@ const {viewscreenGeojson} = await import('viewscreen-geojson')
 
 /** @type {GeoJson} */
 const geojsonExample = {
-  type: 'Feature',
   geometry: {type: 'Point', coordinates: [125.6, 10.1]},
-  properties: {name: 'Dinagat Islands'}
+  properties: {name: 'Dinagat Islands'},
+  type: 'Feature'
 }
 
 test('viewscreenGeojson', async function (t) {
-  assert.deepEqual(
-    Object.keys(await import('viewscreen-geojson')).sort(),
-    ['viewscreenGeojson'],
-    'should expose the public api'
-  )
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('viewscreen-geojson')).sort(), [
+      'viewscreenGeojson'
+    ])
+  })
 
   // To do: for some reason leaflet, in JSDOM, crashes on Topojson.
-  await t.test('topojson', {skip: true}, () => {
+  await t.test('topojson', {skip: true}, function () {
     const node = document.createElement('div')
     const {change} = viewscreenGeojson(node)
     assert.match(node.innerHTML, /Leaflet/, 'should generate markup')
 
     change(
       JSON.stringify({
-        type: 'Topology',
-        bbox: [0, 0, 10, 10],
-        objects: {polygon: {type: 'Polygon', arcs: [[0]]}},
         arcs: [
           [
             [0, 0],
@@ -60,7 +57,10 @@ test('viewscreenGeojson', async function (t) {
             [10, 0],
             [0, 0]
           ]
-        ]
+        ],
+        bbox: [0, 0, 10, 10],
+        objects: {polygon: {arcs: [[0]], type: 'Polygon'}},
+        type: 'Topology'
       })
     )
     assert.match(
@@ -70,7 +70,7 @@ test('viewscreenGeojson', async function (t) {
     )
   })
 
-  await t.test('geojson', () => {
+  await t.test('geojson', function () {
     const node = document.createElement('div')
     const {change} = viewscreenGeojson(node)
     assert.match(node.innerHTML, /Leaflet/, 'should generate markup')
@@ -83,7 +83,7 @@ test('viewscreenGeojson', async function (t) {
     )
   })
 
-  await t.test('options.onResolve', () => {
+  await t.test('options.onResolve', function () {
     const node = document.createElement('div')
     let called = false
     const {change} = viewscreenGeojson(node, {
@@ -96,7 +96,7 @@ test('viewscreenGeojson', async function (t) {
     assert.ok(called, 'should call `onResolve` when done')
   })
 
-  await t.test('onReject', () => {
+  await t.test('onReject', function () {
     const node = document.createElement('div')
     let message = ''
     const {change} = viewscreenGeojson(node, {
@@ -110,7 +110,7 @@ test('viewscreenGeojson', async function (t) {
     assert.ok(message !== '', 'should call `onReject` with an error')
   })
 
-  await t.test('error w/o onReject', () => {
+  await t.test('error w/o onReject', function () {
     const node = document.createElement('div')
     const {change} = viewscreenGeojson(node)
 
@@ -121,7 +121,7 @@ test('viewscreenGeojson', async function (t) {
     )
   })
 
-  await t.test('options.onSizeSuggestion', () => {
+  await t.test('options.onSizeSuggestion', function () {
     const node = document.createElement('div')
     node.setAttribute('style', 'width:100px')
     let size = [-1, -1]

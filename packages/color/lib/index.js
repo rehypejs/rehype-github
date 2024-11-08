@@ -1,6 +1,5 @@
 /**
- * @typedef {import('hast').ElementContent} ElementContent
- * @typedef {import('hast').Root} Root
+ * @import {ElementContent, Root} from 'hast'
  */
 
 /**
@@ -26,8 +25,8 @@
  *   Match colors.
  */
 
-import {visit} from 'unist-util-visit'
 import {toString} from 'hast-util-to-string'
+import {visit} from 'unist-util-visit'
 
 /** @type {Options} */
 const emptyOptions = {}
@@ -63,6 +62,7 @@ export function defaultBuild(value) {
     tagName: 'span',
     properties: {
       className: [
+        // To do: sort.
         'ml-1',
         'd-inline-block',
         'border',
@@ -109,12 +109,7 @@ export default function rehypeGithubColor(options) {
    */
   return function (tree) {
     visit(tree, 'element', function (node, index, parent) {
-      if (
-        node.tagName === 'code' &&
-        node.properties &&
-        typeof index === 'number' &&
-        parent
-      ) {
+      if (node.tagName === 'code' && typeof index === 'number' && parent) {
         const value = toString(node)
 
         if (expression.test(value)) {
