@@ -1,20 +1,27 @@
 jobs:
-  main:
-    name: ${{matrix.node}}
+  full:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{matrix.node}}
+          node-version: node
       - run: npm install
       - run: npm test
       - uses: codecov/codecov-action@v4
-    strategy:
-      matrix:
-        node:
-          - lts/hydrogen
-          - node
+  small:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/hydrogen
+      - run: npm install
+      - run: npm run test-api
 name: main
 on:
   - pull_request
