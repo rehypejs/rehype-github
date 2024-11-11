@@ -4,6 +4,7 @@
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
+  "dependencies#": "to do: once in a while, update `leaflet`",
   "dependencies": {
     "@types/geojson": "^7946.0.10",
     "@types/leaflet": "~1.9.0",
