@@ -55,7 +55,6 @@ import {feature} from 'topojson-client'
  */
 export function create(node, options) {
   // Not available in JSDOM.
-  /* c8 ignore next 3 */
   const observer =
     'ResizeObserver' in window ? new ResizeObserver(onresize) : undefined
   if (observer) observer.observe(node)
@@ -114,7 +113,6 @@ export function create(node, options) {
     clusterGroup.removeLayer(geoJsonLayer)
 
     // `topojson`.
-    /* c8 ignore next 5 */
     if (json.type === 'Topology') {
       for (const value of Object.values(json.objects)) {
         geoJsonLayer.addData(feature(json, value))
@@ -143,7 +141,6 @@ export function create(node, options) {
    */
   function onresize(entries) {
     const entry = entries[0]
-    /* c8 ignore next -- `ResizeObserver` is not supported in JSDOM. */
     const rect = entry ? entry.contentRect : node.getBoundingClientRect()
     if (options && options.onSizeSuggestion) {
       return options.onSizeSuggestion(rect.width, rect.height)

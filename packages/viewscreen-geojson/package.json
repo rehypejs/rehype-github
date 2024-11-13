@@ -40,8 +40,7 @@
   "private": true,
   "repository": "rehypejs/rehype-github",
   "scripts": {
-    "test-api": "node --conditions development test/index.js",
-    "test-coverage": "c8 --100 --reporter lcov -- npm run test-api"
+    "test-api": "node --conditions development test/index.js"
   },
   "sideEffects": false,
   "typeCoverage": {

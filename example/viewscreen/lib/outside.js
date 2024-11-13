@@ -89,7 +89,7 @@ for (const node of nodes) {
   iframe.classList.add('render-viewer')
   iframe.setAttribute('role', 'presentation')
   iframe.setAttribute('name', id)
-  iframe.setAttribute('src', String(url))
+  iframe.setAttribute('src', url.href)
   // To do: this is said to be dangerous:
   // <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe>
   // iframe.setAttribute(

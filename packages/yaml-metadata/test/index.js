@@ -202,9 +202,9 @@ test('fixtures', async function (t) {
 
     await t.test(name, async function () {
       const input = controlPictures(
-        String(await fs.readFile(new URL(name + '.md', base)))
+        await fs.readFile(new URL(name + '.md', base), 'utf8')
       )
-      let expected = String(await fs.readFile(new URL(name + '.html', base)))
+      let expected = await fs.readFile(new URL(name + '.html', base), 'utf8')
 
       const processor = unified()
         .use(remarkParse)

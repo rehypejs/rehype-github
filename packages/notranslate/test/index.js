@@ -62,8 +62,8 @@ test('fixtures', async function (t) {
     const name = d.slice(0, -extension.length)
 
     await t.test(name, async function () {
-      const input = await fs.readFile(new URL(name + '.md', base))
-      let expected = String(await fs.readFile(new URL(name + '.html', base)))
+      const input = await fs.readFile(new URL(name + '.md', base), 'utf8')
+      let expected = await fs.readFile(new URL(name + '.html', base), 'utf8')
 
       const processor = unified()
         .use(remarkParse)
