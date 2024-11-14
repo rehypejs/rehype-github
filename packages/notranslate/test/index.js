@@ -2,7 +2,6 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs/promises'
 import test from 'node:test'
 import {createGfmFixtures} from 'create-gfm-fixtures'
-import {gfmTagfilterFromMarkdown} from 'mdast-util-gfm-tagfilter'
 import rehypeGithubNoTranslate from 'rehype-github-notranslate'
 import rehypeParse from 'rehype-parse'
 import rehypeRaw from 'rehype-raw'
@@ -68,15 +67,9 @@ test('fixtures', async function (t) {
       const processor = unified()
         .use(remarkParse)
         .use(remarkGfm)
-        .use(function () {
-          const data = this.data()
-          const fromMarkdownExtensions =
-            data.fromMarkdownExtensions || (data.fromMarkdownExtensions = [])
-          fromMarkdownExtensions.push(gfmTagfilterFromMarkdown())
-        })
         .use(name.endsWith('.comment') ? [remarkGithubBreak] : [])
         .use(remarkRehype, {allowDangerousHtml: true})
-        .use(rehypeRaw)
+        .use(rehypeRaw, {tagfilter: true})
         .use(name.endsWith('.comment') ? [rehypeGithubNoTranslate] : [])
         .use(rehypeStringify)
 

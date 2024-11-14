@@ -79,7 +79,6 @@
     "packages/heading/",
     "packages/image/",
     "packages/link/",
-    "packages/mdast-util-gfm-tagfilter/",
     "packages/notranslate/",
     "packages/viewscreen-geojson/",
     "packages/viewscreen-mermaid/",

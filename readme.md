@@ -43,8 +43,6 @@ You can use these tools when you need to:
 
 Currently, install and use each package manually.
 
-<!-- To do: `mdast-util-gfm-tagfilter` -->
-
 ## Packages
 
 * [`remark-github-break`](packages/break/)
