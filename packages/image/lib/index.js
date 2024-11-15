@@ -52,6 +52,8 @@ import {visitParents} from 'unist-util-visit-parents'
  */
 const magicDefaultHostname = 'example.com'
 
+const lineEnding = /\r?\n/g
+
 /** @type {Options} */
 const emptyOptions = {}
 /** @type {[]} */
@@ -129,17 +131,23 @@ export default function rehypeGithubImage(options) {
 
     /** @type {BuildVisitor<Root, 'element'>} */
     function onelement(node, parents) {
-      if (
-        node.type === 'element' &&
-        node.tagName === 'img' &&
-        node.properties
-      ) {
+      if (node.type === 'element' && node.tagName === 'img') {
         let fragment = node
         const sources = [fragment]
         const raw = node.properties.src
         const [source, proxy] = sanitizeSource(raw, toProxyUrl, internal)
 
         if (proxy) node.properties.dataCanonicalSrc = raw
+
+        // GitHub removes line endings in `alt` on images.
+        // CommonMark doesn’t seem to do that.
+        if (node.properties.alt !== null && node.properties.alt !== undefined) {
+          node.properties.alt = String(node.properties.alt).replace(
+            lineEnding,
+            ' '
+          )
+        }
+
         node.properties.src = ''
         node.properties.style = 'max-width: 100%;'
 

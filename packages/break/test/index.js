@@ -70,9 +70,7 @@ test('fixtures', async function (t) {
         // We could do this, if we operated in the parser.
         // To do: consider `micromark-extension-github-break`?
         .replace(/(<p>Character)<br>(\nreference break\.<\/p>)/, '$1$2')
-        // GitHub removes line endings in `alt` on image it seems?
-        // To do: investigate.
-        // CommonMark doesn’t seem to do that.
+        // See `rehype-github-image` — GH removes line endings in `alt` on image.
         .replace(/(alt="im)\n(age")/, '$1 $2')
         // GitHub drops HTML comments.
         .replace(/<!--[\s\S]*?-->/g, '')
