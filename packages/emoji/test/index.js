@@ -158,7 +158,7 @@ test('fixtures', async function (t) {
           )
           // Elements that GitHub drops entirely
           .replace(/<video>.*?<\/video>/g, '')
-          // Elements that GitHub cleans (To do: implemment tagfilter somewhere?)
+          // GH doesn’t transform gemoji -> emoji in things they “tagfilter”
           .replace(
             /(&#x3C;(?:iframe|noembed|noframes|plaintext|script|style|textarea|title|xmp)>)👍/g,
             '$1:+1:'

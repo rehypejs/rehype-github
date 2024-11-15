@@ -110,11 +110,6 @@ test('fixtures', async function (t) {
           )
           // Elements that GitHub drops entirely
           .replace(/<video>.*?<\/video>/g, '')
-          // Elements that GitHub cleans (To do: implemment tagfilter somewhere?)
-          .replace(
-            /<(\/?(?:iframe|noembed|noframes|plaintext|script|style|textarea|title|xmp)>)/g,
-            '&#x3C;$1'
-          )
       }
 
       assert.equal(actual, expected)
