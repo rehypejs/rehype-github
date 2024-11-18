@@ -10,7 +10,7 @@ jobs:
           node-version: node
       - run: npm install
       - run: npm test
-      - uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v5
   small:
     runs-on: ubuntu-latest
     steps:
