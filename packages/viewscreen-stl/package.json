@@ -5,7 +5,7 @@
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
   "dependencies": {
-    "@types/three": "^0.169.0",
+    "@types/three": "^0.170.0",
     "three": "^0.170.0"
   },
   "description": "viewscreen component for STL files (3D geometry)",
