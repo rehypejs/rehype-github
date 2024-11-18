@@ -1,0 +1,18 @@
+alpha <?x?> y
+
+bravo <?X?> y
+
+charlie <?x> y
+
+delta <x?> x
+
+echo <?x y?> z
+
+kilo <?x
+y?> z
+
+lima <?x
+?> y
+
+mike <?
+x?> y
