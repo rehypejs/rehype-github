@@ -112,6 +112,27 @@ test('fixtures', async function (t) {
         actual += '\n'
       }
 
+      if (name === 'attributes') {
+        actual = actual
+          // We drop disabled checkboxes.
+          .replace(/<input disabled type="checkbox">/g, '')
+          .replace(/<input type="checkbox" disabled>/g, '')
+          // They drop many classes.
+          .replace(
+            / class="(contains-task-list|data-footnote-backref|footnotes|language-(javascript|js|markdown)|sr-only|task-list-item)"/g,
+            ''
+          )
+          // They drop empty class.
+          .replace(/ class=""/g, '')
+
+        expected = expected
+          // We allow `data-footnotes`; they turn it into a footnote section.
+          .replace(
+            /<section data-footnotes="x" class="footnotes"><h2 id="footnote-label" class="sr-only">Footnotes<\/h2><\/section>/g,
+            '<section data-footnotes="x"></section>'
+          )
+      }
+
       if (name === 'cdata') {
         // GH mistakingly matches lowercase `cdata`.
         actual = actual.replace(/&#x3C;!\[cdata\[]]>/g, '')
