@@ -59,14 +59,14 @@ npm install rehype-github-link
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import rehypeGithubLink from 'https://esm.sh/rehype-github-link@0'
+import rehypeGithubLink from 'https://esm.sh/rehype-github-link@1'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import rehypeGithubLink from 'https://esm.sh/rehype-github-link@0?bundle'
+  import rehypeGithubLink from 'https://esm.sh/rehype-github-link@1?bundle'
 </script>
 ```
 
