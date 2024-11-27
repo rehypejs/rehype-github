@@ -61,7 +61,7 @@ In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {viewscreenStl} from 'https://esm.sh/viewscreen-stl@0?bundle'
+  import {viewscreenStl} from 'https://esm.sh/viewscreen-stl@1?bundle'
 </script>
 ```
 
@@ -77,7 +77,7 @@ Say our file `viewscreen-stl.html` looks as follows:
 <title>viewscreen: stl</title>
 <style>/* … */</style>
 <script type=module>
-  import {viewscreenStl} from 'https://esm.sh/viewscreen-stl@0?bundle'
+  import {viewscreenStl} from 'https://esm.sh/viewscreen-stl@1?bundle'
 
   const id = window.location.hash.slice(1)
   if (!id) throw new Error('Expected `id` in hash')
