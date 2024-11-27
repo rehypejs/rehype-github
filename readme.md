@@ -210,9 +210,14 @@ but this is not guaranteed.
 
 ## Security
 
-To do.
+Be wary of user input and use [`rehype-sanitize`][rehype-sanitize].
 
 ## Related
+
+* [`rehype-sanitize`][rehype-sanitize]
+  — sanitize HTML
+* [`rehype-starry-night`][rehype-starry-night]
+  — apply syntax highlighting to code with `starry-night`
 
 ## Contribute
 
