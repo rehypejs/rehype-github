@@ -21,7 +21,14 @@
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
-  "keywords": [],
+  "keywords": [
+    "color",
+    "github",
+    "hast",
+    "html",
+    "plugin",
+    "rehype"
+  ],
   "license": "MIT",
   "name": "rehype-github-color",
   "prettier": {

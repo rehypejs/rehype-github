@@ -20,7 +20,15 @@
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
-  "keywords": [],
+  "keywords": [
+    "github",
+    "hast",
+    "html",
+    "notranslate",
+    "plugin",
+    "rehype",
+    "translate"
+  ],
   "license": "MIT",
   "name": "rehype-github-notranslate",
   "prettier": {

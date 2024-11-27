@@ -20,7 +20,11 @@
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
-  "keywords": [],
+  "keywords": [
+    "github",
+    "stl",
+    "viewscreen"
+  ],
   "license": "MIT",
   "name": "viewscreen-stl",
   "prettier": {

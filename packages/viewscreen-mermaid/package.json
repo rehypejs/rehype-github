@@ -29,7 +29,11 @@
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
-  "keywords": [],
+  "keywords": [
+    "github",
+    "mermaid",
+    "viewscreen"
+  ],
   "license": "MIT",
   "name": "viewscreen-mermaid",
   "prettier": {

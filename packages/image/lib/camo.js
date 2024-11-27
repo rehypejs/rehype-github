@@ -8,7 +8,7 @@ const encoder = new TextEncoder()
  *
  * See for example:
  *
- * * <https://github.com/atmos/camo>
+ * * <https://github.com/rehypejs/camomile>
  * * <https://github.com/cactus/go-camo>
  *
  * @param {string} path

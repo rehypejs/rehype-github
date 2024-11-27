@@ -24,7 +24,14 @@
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
-  "keywords": [],
+  "keywords": [
+    "frontmatter",
+    "github",
+    "markdown",
+    "mdast",
+    "plugin",
+    "remark"
+  ],
   "license": "MIT",
   "name": "remark-github-yaml-metadata",
   "prettier": {

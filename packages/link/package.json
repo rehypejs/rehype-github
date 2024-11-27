@@ -1,40 +1,35 @@
 {
-  "name": "rehype-github-link",
-  "version": "0.0.0",
-  "private": true,
-  "description": "rehype plugin to enhance links",
-  "license": "MIT",
-  "keywords": [],
-  "repository": "rehypejs/rehype-github",
-  "bugs": "https://github.com/rehypejs/rehype-github/issues",
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/unified"
-  },
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "bugs": "https://github.com/rehypejs/rehype-github/issues",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
   ],
-  "sideEffects": false,
-  "type": "module",
-  "exports": {
-    "types": "./index.d.ts",
-    "default": "./index.js"
+  "dependencies": {
+    "@types/hast": "^3.0.0",
+    "unist-util-visit": "^5.0.0"
   },
+  "description": "rehype plugin to enhance links",
+  "exports": "./index.js",
   "files": [
     "index.d.ts.map",
     "index.d.ts",
     "index.js",
     "lib/"
   ],
-  "dependencies": {
-    "@types/hast": "^3.0.0",
-    "unist-util-visit": "^5.0.0"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
   },
-  "scripts": {
-    "test-api": "node --conditions development test/index.js",
-    "test-coverage": "c8 --100 --reporter lcov npm run test-api"
-  },
+  "keywords": [
+    "github",
+    "hast",
+    "html",
+    "link",
+    "plugin",
+    "rehype"
+  ],
+  "license": "MIT",
+  "name": "rehype-github-link",
   "prettier": {
     "bracketSpacing": false,
     "singleQuote": true,
@@ -43,6 +38,19 @@
     "trailingComma": "none",
     "useTabs": false
   },
+  "private": true,
+  "repository": "rehypejs/rehype-github",
+  "scripts": {
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --100 --reporter lcov -- npm run test-api"
+  },
+  "sideEffects": false,
+  "typeCoverage": {
+    "atLeast": 100,
+    "strict": true
+  },
+  "type": "module",
+  "version": "0.0.0",
   "xo": {
     "overrides": [
       {
@@ -50,21 +58,14 @@
           "**/test/**/*.js"
         ],
         "rules": {
-          "no-await-in-loop": 0
+          "no-await-in-loop": "off"
         }
       }
     ],
     "prettier": true,
-    "#": "`n` is wrong",
     "rules": {
-      "n/file-extension-in-import": "off",
       "unicorn/prefer-at": "off",
       "unicorn/prefer-string-replace-all": "off"
     }
-  },
-  "typeCoverage": {
-    "atLeast": 100,
-    "detail": true,
-    "strict": true
   }
 }

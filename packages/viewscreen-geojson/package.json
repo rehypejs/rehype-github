@@ -26,7 +26,12 @@
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
-  "keywords": [],
+  "keywords": [
+    "geojson",
+    "github",
+    "topojson",
+    "viewscreen"
+  ],
   "license": "MIT",
   "name": "viewscreen-geojson",
   "prettier": {

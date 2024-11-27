@@ -23,7 +23,16 @@
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
-  "keywords": [],
+  "keywords": [
+    "emoji",
+    "gemoji",
+    "github",
+    "hast",
+    "html",
+    "plugin",
+    "rehype",
+    "shortcode"
+  ],
   "license": "MIT",
   "name": "rehype-github-emoji",
   "prettier": {

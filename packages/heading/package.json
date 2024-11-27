@@ -22,7 +22,15 @@
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
-  "keywords": [],
+  "keywords": [
+    "github",
+    "hast",
+    "heading",
+    "html",
+    "permalink",
+    "plugin",
+    "rehype"
+  ],
   "license": "MIT",
   "name": "rehype-github-heading",
   "prettier": {

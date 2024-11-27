@@ -3,5 +3,5 @@
  * @typedef {import('./lib/index.js').ToProxyUrl} ToProxyUrl
  */
 
-export {camo} from './lib/camo.js'
+export {camo} from '#camo'
 export {default} from './lib/index.js'

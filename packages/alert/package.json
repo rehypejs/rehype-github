@@ -21,7 +21,15 @@
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
-  "keywords": [],
+  "keywords": [
+    "alert",
+    "github",
+    "hast",
+    "html",
+    "note",
+    "plugin",
+    "rehype"
+  ],
   "license": "MIT",
   "name": "rehype-github-alert",
   "prettier": {

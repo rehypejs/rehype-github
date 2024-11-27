@@ -20,7 +20,15 @@
     "type": "opencollective",
     "url": "https://opencollective.com/unified"
   },
-  "keywords": [],
+  "keywords": [
+    "break",
+    "github",
+    "hard",
+    "markdown",
+    "mdast",
+    "plugin",
+    "remark"
+  ],
   "license": "MIT",
   "name": "remark-github-break",
   "prettier": {
