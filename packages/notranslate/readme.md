@@ -63,14 +63,14 @@ npm install rehype-github-notranslate
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import rehypeGithubNoTranslate from 'https://esm.sh/rehype-github-notranslate@0'
+import rehypeGithubNoTranslate from 'https://esm.sh/rehype-github-notranslate@1'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import rehypeGithubNoTranslate from 'https://esm.sh/rehype-github-notranslate@0?bundle'
+  import rehypeGithubNoTranslate from 'https://esm.sh/rehype-github-notranslate@1?bundle'
 </script>
 ```
 
