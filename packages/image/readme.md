@@ -71,14 +71,14 @@ npm install rehype-github-image
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import rehypeGithubImage from 'https://esm.sh/rehype-github-image@0'
+import rehypeGithubImage from 'https://esm.sh/rehype-github-image@1'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import rehypeGithubImage from 'https://esm.sh/rehype-github-image@0?bundle'
+  import rehypeGithubImage from 'https://esm.sh/rehype-github-image@1?bundle'
 </script>
 ```
 
