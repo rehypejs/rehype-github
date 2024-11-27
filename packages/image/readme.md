@@ -45,21 +45,18 @@ which could become costly if you have tons of user content,
 but it prevents leaking the readers information to external servers,
 and it solves CORS errors.
 
-This plugin is part of a monorepo `rehype-github`.
+This plugin is part of a monorepo [`rehype-github`][monorepo].
 See its readme for more info.
 
 ## When should I use this?
 
 You can use this plugin when you want to match how github.com works or when you
 want to build similar pipelines that have user content.
-
-<!-- To do: `camomile`!! -->
-
 You should likely use this in combination with an image proxy,
 such as
-[`camo`][camo] (Node.js, untmaintained)
+[`camomile`][camomile] (Node.js)
 or
-[`go-camo`][go-camo] (Go, maintained).
+[`go-camo`][go-camo] (Go).
 
 ## Install
 
@@ -122,7 +119,7 @@ Create a `toProxyUrl` for a camo server.
 
 See for example:
 
-* [`camo`][camo]
+* [`camomile`][camomile]
 * [`go-camo`][go-camo]
 
 ###### Parameters
@@ -355,9 +352,11 @@ This project is not affiliated with **GitHub**.
 
 [typescript]: https://www.typescriptlang.org
 
+[monorepo]: https://github.com/rehypejs/rehype-github
+
 [rehype]: https://github.com/rehypjs/rehype
 
-[camo]: https://github.com/atmos/camo
+[camomile]: https://github.com/rehypejs/camomile
 
 [go-camo]: https://github.com/cactus/go-camo/tree/master
 

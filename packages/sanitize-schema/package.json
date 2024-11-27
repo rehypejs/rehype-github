@@ -32,6 +32,7 @@
     "trailingComma": "none",
     "useTabs": false
   },
+  "private#": "note: important to keep this private; changes should go into `hast-util-sanitize`; this is here as the test infrastructure is here",
   "private": true,
   "repository": "rehypejs/rehype-github",
   "scripts": {

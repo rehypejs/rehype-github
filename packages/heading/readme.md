@@ -47,7 +47,7 @@ potentially on hover.
 These links are markup specific to github.com that only work in files,
 not in comments.
 
-This plugin is part of a monorepo `rehype-github`.
+This plugin is part of a monorepo [`rehype-github`][monorepo].
 See its readme for more info.
 
 ## When should I use this?
@@ -142,7 +142,7 @@ Plugin to enhance headings.
 
 ### `Behavior`
 
-What to do with the new link to the existing heading (TypeScript type).
+Where to add the new link to the existing heading (TypeScript type).
 
 You can either prepend or append to the heading.
 
@@ -175,7 +175,7 @@ Configuration (TypeScript type).
 
 * `behavior` ([`Behavior`][api-behavior],
   default: `'prepend'`)
-  — what to do with the new link to the existing heading
+  — where to add the new link to the existing heading
 * `build` ([`Build`][api-build],
   default: [`defaultBuild`][api-default-build])
   — make rich content to link to a heading
@@ -282,9 +282,9 @@ and `unified` version 6+.
 
 ## Security
 
-<!-- To do: document how to solve DOM clobbering. -->
-
-This package is unsafe.
+This package is unsafe because of DOM clobbering.
+It can be made safe with [`rehype-sanitize`][rehype-sanitize].
+See its readme for more info.
 
 ## Related
 
@@ -356,9 +356,13 @@ This project is not affiliated with **GitHub**.
 
 [typescript]: https://www.typescriptlang.org
 
+[monorepo]: https://github.com/rehypejs/rehype-github
+
 [rehype]: https://github.com/rehypjs/rehype
 
 [element]: https://github.com/syntax-tree/hast#element
+
+[rehype-sanitize]: https://github.com/rehypejs/rehype-sanitize#example-headings-dom-clobbering
 
 [github-docs]: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#section-links
 

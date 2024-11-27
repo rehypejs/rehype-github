@@ -71,8 +71,6 @@ export function defaultBuild(id, node) {
         properties: {
           id,
           className: ['anchor'],
-          // To do: i18n.
-          // Note `'\t'` -> `''`.
           ariaLabel: 'Permalink: ' + text,
           href: '#' + id
         },

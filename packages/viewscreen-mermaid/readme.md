@@ -42,7 +42,7 @@ This behavior is specific to github.com that works in comments and files.
 Using `<iframe>`s is a way to create components agnostic to a framework: you
 can use this with plain JavaScript or with React, for example.
 
-This library is part of a monorepo `rehype-github`.
+This library is part of a monorepo [`rehype-github`][monorepo].
 See its readme for more info.
 
 ## When should I use this?
@@ -461,6 +461,8 @@ This project is not affiliated with **GitHub**.
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
 [typescript]: https://www.typescriptlang.org
+
+[monorepo]: https://github.com/rehypejs/rehype-github
 
 [api-viewscreen-mermaid]: #viewscreenmermaidnode-options
 

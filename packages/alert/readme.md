@@ -42,7 +42,7 @@ into `div`s with a particular class:
 >
 > This is a note!
 
-This plugin is part of a monorepo `rehype-github`.
+This plugin is part of a monorepo [`rehype-github`][monorepo].
 See its readme for more info.
 
 ## When should I use this?
@@ -66,14 +66,14 @@ npm install rehype-github-alert
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import rehypeGithubToDo from 'https://esm.sh/rehype-github-alert@0'
+import rehypeGithubAlert from 'https://esm.sh/rehype-github-alert@0'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import rehypeGithubNoToDo from 'https://esm.sh/rehype-github-alert@0?bundle'
+  import rehypeGithubAlert from 'https://esm.sh/rehype-github-alert@0?bundle'
 </script>
 ```
 
@@ -252,6 +252,8 @@ This project is not affiliated with **GitHub**.
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
 [typescript]: https://www.typescriptlang.org
+
+[monorepo]: https://github.com/rehypejs/rehype-github
 
 [github-markdown-css]: https://github.com/sindresorhus/github-markdown-css
 

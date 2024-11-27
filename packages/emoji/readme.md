@@ -45,7 +45,7 @@ By default it wraps them with a custom element,
 specific to GitHub,
 which you will want to change.
 
-This plugin is part of a monorepo `rehype-github`.
+This plugin is part of a monorepo [`rehype-github`][monorepo].
 See its readme for more info.
 
 ## When should I use this?
@@ -99,7 +99,7 @@ console.log(String(file))
 …now running `node example.js` yields:
 
 ```html
-<img class="emoji" title=":shipit:" alt=":shipit:" src="https://github.githubassets.com/images/icons/emoji/shipit.png" height="20" width="20" align="absmiddle"> <g-emoji class="g-emoji" alias="+1" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png">👍</g-emoji>
+<img class="emoji" title=":shipit:" alt=":shipit:" src="https://github.githubassets.com/images/icons/emoji/shipit.png" height="20" width="20" align="absmiddle"> 👍
 ```
 
 ## API
@@ -208,10 +208,11 @@ See [§ Writing on GitHub][github-docs] for more info.
 
 ## HTML
 
-The markup for known emoji on github.com is:
+The markup for known emoji on github.com used to be a `g-emoji` but is now
+just the unicide itself:
 
 ```html
-<g-emoji class="g-emoji" alias="+1" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png">👍</g-emoji>
+👍
 ```
 
 For custom emoji,
@@ -221,29 +222,15 @@ they generate:
 <img class="emoji" title=":shipit:" alt=":shipit:" src="https://github.githubassets.com/images/icons/emoji/shipit.png" height="20" width="20" align="absmiddle">
 ```
 
-You’d need an implementation for the custom element `g-emoji` to handle those
-fields.
-You can find such an implementation currently at
-[`@github/g-emoji-element`][g-emoji].
+You could generate a `g-emoji` and enhance custom element
+(such as with [`@github/g-emoji-element`][g-emoji])
+or you can generate anything you want.
 
 ## CSS
-
-<!-- To do: `g-emoji` are no longer made. -->
 
 The following CSS is needed to make emoji markup look like GitHub.
 
 ```css
-g-emoji {
-  display: inline-block;
-  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-size: 1em;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1;
-  min-width: 1ch;
-  vertical-align: -0.075em;
-}
-
 .emoji {
   background-color: transparent;
   box-sizing: content-box;
@@ -354,6 +341,8 @@ This project is not affiliated with **GitHub**.
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
 [typescript]: https://www.typescriptlang.org
+
+[monorepo]: https://github.com/rehypejs/rehype-github
 
 [rehype]: https://github.com/rehypjs/rehype
 

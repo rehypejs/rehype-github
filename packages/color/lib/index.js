@@ -4,7 +4,7 @@
 
 /**
  * @typedef {'append' | 'replace'} Behavior
- *   What to do with the result from the builder.
+ *   How to handle the result from the builder.
  *
  *   You can either append to the code element or replace it.
  *
@@ -18,7 +18,7 @@
  * @typedef Options
  *   Configuration.
  * @property {Behavior | null | undefined} [behavior]
- *   What to do with the existing code and the built content.
+ *   How to handle the result from the builder.
  * @property {Build | null | undefined} [build]
  *   Make rich content from a color.
  * @property {RegExp | null | undefined} [expression]

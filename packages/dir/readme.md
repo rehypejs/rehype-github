@@ -91,7 +91,7 @@ and the English paragraphs are left aligned.](example.png)
 
 </details>
 
-This plugin is part of a monorepo `rehype-github`.
+This plugin is part of a monorepo [`rehype-github`][monorepo].
 See its readme for more info.
 
 ## When should I use this?
@@ -302,6 +302,8 @@ This project is not affiliated with **GitHub**.
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
 [typescript]: https://www.typescriptlang.org
+
+[monorepo]: https://github.com/rehypejs/rehype-github
 
 [rehype]: https://github.com/rehypjs/rehype
 

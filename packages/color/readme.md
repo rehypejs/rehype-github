@@ -47,7 +47,7 @@ These “color chips” are markup specific to github.com that only work in
 comments,
 not in files.
 
-This plugin is part of a monorepo `rehype-github`.
+This plugin is part of a monorepo [`rehype-github`][monorepo].
 See its readme for more info.
 
 ## When should I use this?
@@ -148,7 +148,7 @@ Plugin to enhance code for colors.
 
 ### `Behavior`
 
-What to do with the result from the builder (TypeScript type).
+How to handle the result from the builder (TypeScript type).
 
 You can either append to the code element or replace it.
 
@@ -179,7 +179,7 @@ Configuration (TypeScript type).
 
 * `behavior` ([`Behavior`][api-behavior],
   default: `'append'`)
-  — what to do with the existing code and the built content
+  — how to handle the result from the builder
 * `build` ([`Build`][api-build],
   default: [`defaultBuild`][api-default-build])
   — make rich content from a color
@@ -361,6 +361,8 @@ This project is not affiliated with **GitHub**.
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
 [typescript]: https://www.typescriptlang.org
+
+[monorepo]: https://github.com/rehypejs/rehype-github
 
 [rehype]: https://github.com/rehypjs/rehype
 

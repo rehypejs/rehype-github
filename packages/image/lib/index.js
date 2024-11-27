@@ -140,7 +140,7 @@ export default function rehypeGithubImage(options) {
         if (proxy) node.properties.dataCanonicalSrc = raw
 
         // GitHub removes line endings in `alt` on images.
-        // CommonMark doesn’t seem to do that.
+        // CommonMark does not do that.
         if (node.properties.alt !== null && node.properties.alt !== undefined) {
           node.properties.alt = String(node.properties.alt).replace(
             lineEnding,

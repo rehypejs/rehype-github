@@ -13,6 +13,9 @@ assert(defaultSchema.tagNames)
  */
 export const sanitizeSchema = {
   ...defaultSchema,
+  // Note: any aaditions to `hast-util-sanitize` here should
+  // be added to `hast-util-sanitize`.
+  // This is here to improve the test situation.
   attributes: {
     ...defaultSchema.attributes,
     '*': ['disabled', 'type', ...defaultSchema.attributes['*']]

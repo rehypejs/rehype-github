@@ -44,7 +44,7 @@ This plugin shows metadata authored with YAML frontmatter to readers.
 This behavior is specific to github.com that only work in files,
 not in comments.
 
-This plugin is part of a monorepo `rehype-github`.
+This plugin is part of a monorepo [`rehype-github`][monorepo].
 See its readme for more info.
 
 ## When should I use this?
@@ -392,6 +392,8 @@ This project is not affiliated with **GitHub**.
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
 [typescript]: https://www.typescriptlang.org
+
+[monorepo]: https://github.com/rehypejs/rehype-github
 
 [hast-element]: https://github.com/syntax-tree/hast#element
 
