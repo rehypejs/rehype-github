@@ -68,14 +68,14 @@ npm install rehype-github-color
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import rehypeGithubColor from 'https://esm.sh/rehype-github-color@0'
+import rehypeGithubColor from 'https://esm.sh/rehype-github-color@1'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import rehypeGithubColor from 'https://esm.sh/rehype-github-color@0?bundle'
+  import rehypeGithubColor from 'https://esm.sh/rehype-github-color@1?bundle'
 </script>
 ```
 
