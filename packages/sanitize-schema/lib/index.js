@@ -9,7 +9,7 @@ assert(defaultSchema.attributes)
 assert(defaultSchema.tagNames)
 
 /**
- * @satisfies {Schema}
+ * @type {Schema}
  */
 export const sanitizeSchema = {
   ...defaultSchema,

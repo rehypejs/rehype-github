@@ -65,6 +65,7 @@ test('fixtures', async function (t) {
   }
 
   const attributes = [...all].sort().join(' ')
+  assert(sanitizeSchema.tagNames)
 
   for (const tagName of sanitizeSchema.tagNames) {
     await fs.writeFile(
