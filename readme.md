@@ -9,8 +9,8 @@
 **[rehype][]** plugins that match how GitHub transforms markdown on their site.
 
 > 👉 **Note**:
-> Not yet released,
-> currently being worked on.
+> work in progress.
+> some things are not yet finished.
 
 ## Contents
 
@@ -19,7 +19,8 @@
 * [Install](#install)
 * [Packages](#packages)
 * [Examples](#examples)
-  * [Example: To do](#example-to-do)
+  * [Example: comments](#example-comments)
+  * [Example: files](#example-files)
 * [Types](#types)
 * [Compatibility](#compatibility)
 * [Security](#security)
@@ -64,7 +65,8 @@ install and use each package manually.
 * [`rehype-github-heading`](packages/heading/)
   — enhance headings (**files**)
 * `rehype-github-highlight`
-  — perform syntax highlighting on code (**to do**)
+  — perform syntax highlighting on code (**to do**,
+  meanwhile use [`rehype-starry-night`][rehype-starry-night])
 * [`rehype-github-image`](packages/image/)
   — enhance images (**everywhere**)
 * [`rehype-github-link`](packages/link/)
@@ -76,7 +78,8 @@ install and use each package manually.
 * `rehype-github-reference`
   — enhance references (**to do**)
 * `rehype-github-sanitize`
-  — clean dangerous HTML (**to do**)
+  — clean dangerous HTML (**to do**,
+  meanwhile use [`rehype-sanitize`][rehype-sanitize])
 
 GitHub additionally includes client side code to enhance certain code blocks
 by evaluating their contents.
@@ -93,11 +96,10 @@ See [`example/viewscreen/`](example/viewscreen/) on how to use them together.
 
 To do:
 
-* Change some things in `hast-util-to-mdast` to match current things
-  that GitHub does there
-* Investigate task lists
-* Investigate port of treelights
-* Investigate linking to labels,
+* investigate task lists
+* investigate mathjax
+* investigate port of treelights
+* investigate linking to labels,
   issues,
   pulls,
   files,
@@ -105,7 +107,93 @@ To do:
 
 ## Examples
 
-### Example: To do
+### Example: comments
+
+A pipeline that gets close to how GitHub transforms comments:
+
+```js
+import rehypeGithubAlert from 'rehype-github-alert'
+import rehypeGithubColor from 'rehype-github-color'
+import rehypeGithubDir from 'rehype-github-dir'
+import rehypeGithubEmoji from 'rehype-github-emoji'
+import rehypeGithubImage from 'rehype-github-image'
+import rehypeGithubLink from 'rehype-github-link'
+import rehypeGithubNoTranslate from 'rehype-github-notranslate'
+import rehypeRaw from 'rehype-raw'
+import rehypeSanitize from 'rehype-sanitize'
+import rehypeStringify from 'rehype-stringify'
+import remarkGithubBreak from 'remark-github-break'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import {unified} from 'unified'
+
+const file = await unified()
+  .use(remarkParse)
+  .use(remarkGithubBreak)
+  .use(remarkRehype, {allowDangerousHtml: true})
+  .use(rehypeRaw)
+  .use(rehypeGithubAlert)
+  .use(rehypeGithubColor)
+  .use(rehypeGithubDir)
+  .use(rehypeGithubEmoji)
+  .use(rehypeGithubImage)
+  .use(rehypeGithubLink)
+  .use(rehypeGithubNoTranslate)
+  .use(rehypeSanitize)
+  .use(rehypeStringify)
+  .process('hi!')
+
+console.log(String(file))
+```
+
+Yields:
+
+```html
+<p dir="auto">hi!</p>
+```
+
+### Example: files
+
+A pipeline that gets close to how GitHub transforms files:
+
+```js
+import rehypeGithubAlert from 'rehype-github-alert'
+import rehypeGithubDir from 'rehype-github-dir'
+import rehypeGithubEmoji from 'rehype-github-emoji'
+import rehypeGithubHeading from 'rehype-github-heading'
+import rehypeGithubImage from 'rehype-github-image'
+import rehypeGithubLink from 'rehype-github-link'
+import rehypeRaw from 'rehype-raw'
+import rehypeSanitize from 'rehype-sanitize'
+import rehypeStringify from 'rehype-stringify'
+import remarkGithubYamlMetadata from 'remark-github-yaml-metadata'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import {unified} from 'unified'
+
+const file = await unified()
+  .use(remarkParse)
+  .use(remarkGithubYamlMetadata)
+  .use(remarkRehype, {allowDangerousHtml: true})
+  .use(rehypeRaw)
+  .use(rehypeGithubAlert)
+  .use(rehypeGithubDir)
+  .use(rehypeGithubEmoji)
+  .use(rehypeGithubHeading)
+  .use(rehypeGithubImage)
+  .use(rehypeGithubLink)
+  .use(rehypeSanitize)
+  .use(rehypeStringify)
+  .process('hi!')
+
+console.log(String(file))
+```
+
+Yields:
+
+```html
+<p dir="auto">hi!</p>
+```
 
 ## Types
 
@@ -178,5 +266,9 @@ This project is not affiliated with **GitHub**.
 [support]: https://github.com/rehypejs/.github/blob/main/support.md
 
 [coc]: https://github.com/rehypejs/.github/blob/main/code-of-conduct.md
+
+[rehype-sanitize]: https://github.com/rehypejs/rehype-sanitize
+
+[rehype-starry-night]: https://github.com/rehypejs/rehype-starry-night
 
 [rehype]: https://github.com/rehypejs/rehype
