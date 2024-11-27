@@ -39,11 +39,13 @@
 ## What is this?
 
 This plugin enhances headings by adding links from headings back to themselves.
-By default it appends markup for an anchor tag with a link icon that, with some
-CSS, can be displayed next to the heading, potentially on hover.
+By default it appends markup for an anchor tag with a link icon that,
+with some CSS,
+can be displayed next to the heading,
+potentially on hover.
 
-These links are markup specific to github.com that only work in files, not in
-comments.
+These links are markup specific to github.com that only work in files,
+not in comments.
 
 This plugin is part of a monorepo `rehype-github`.
 See its readme for more info.
@@ -57,7 +59,8 @@ want users to be able to link to particular sections.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 16.0+), install with [npm][]:
+In Node.js (version 16+),
+install with [npm][]:
 
 ```sh
 npm install rehype-github-heading
@@ -133,7 +136,8 @@ Plugin to enhance headings.
 
 ###### Parameters
 
-* `options` ([`Options`][api-options], optional)
+* `options` ([`Options`][api-options],
+  optional)
   — configuration
 
 ### `Behavior`
@@ -169,14 +173,16 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-* `behavior` ([`Behavior`][api-behavior], default: `'prepend'`)
+* `behavior` ([`Behavior`][api-behavior],
+  default: `'prepend'`)
   — what to do with the new link to the existing heading
-* `build` ([`Build`][api-build], default: [`defaultBuild`][api-default-build])
+* `build` ([`Build`][api-build],
+  default: [`defaultBuild`][api-default-build])
   — make rich content to link to a heading
-* `include` (`Array<string>`, default:
-  [`defaultInclude`][api-default-include])
-  — elements to link; the default behavior is to enhance `h1`, `h2`, `h3`,
-  `h4`, `h5`, and `h6`
+* `include` (`Array<string>`,
+  default: [`defaultInclude`][api-default-include])
+  — elements to link;
+  the default behavior is to enhance `h1`, `h2`, `h3`, `h4`, `h5`, and `h6`
 
 ## Bugs
 
@@ -187,10 +193,14 @@ use a cursor.
 ## Authoring
 
 Just be careful that GitHub generates links to headings based on the text of
-the heading, and to make them unique, appends counters to duplicates.
-These counters are in the order the document was written, which means that
-if an author swaps sections around, the links will be swapped too.
-To solve this, it is recommended to use headings with unique text.
+the heading,
+and to make them unique,
+appends counters to duplicates.
+These counters are in the order the document was written,
+which means that if an author swaps sections around,
+the links will be swapped too.
+To solve this,
+it is recommended to use headings with unique text.
 
 See [§ Writing on GitHub][github-docs] for more info.
 
@@ -253,17 +263,22 @@ No syntax is applicable.
 
 This package is fully typed with [TypeScript][].
 It exports the additional types [`Behavior`][api-behavior],
-[`Build`][api-build], and [`Options`][api-options].
+[`Build`][api-build],
+and [`Options`][api-options].
 
 ## Compatibility
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+As of now,
+that is Node.js 16+.
+Our projects sometimes work with older versions,
+but this is not guaranteed.
 
-This plugin works with `rehype-parse` version 3+, `rehype-stringify` version
-3+, `rehype` version 5+, and `unified` version 6+.
+This plugin works with `rehype-parse` version 3+,
+`rehype-stringify` version 3+,
+`rehype` version 5+,
+and `unified` version 6+.
 
 ## Security
 
@@ -283,8 +298,9 @@ started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
-By interacting with this repository, organization, or community you agree to
-abide by its terms.
+By interacting with this repository,
+organization,
+or community you agree to abide by its terms.
 
 ## Notice
 

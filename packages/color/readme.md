@@ -39,11 +39,13 @@
 ## What is this?
 
 This plugin enhances code that contains a color (such as `#00eaff`).
-By default it appends markup for a little bullet that, with some CSS, can be
-displayed as a preview of colors.
+By default it appends markup for a little bullet that,
+with some CSS,
+can be displayed as a preview of colors.
 
 These “color chips” are markup specific to github.com that only work in
-comments, not in files.
+comments,
+not in files.
 
 This plugin is part of a monorepo `rehype-github`.
 See its readme for more info.
@@ -56,7 +58,8 @@ want to build similar pipelines that enhance color.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 16.0+), install with [npm][]:
+In Node.js (version 16+),
+install with [npm][]:
 
 ```sh
 npm install rehype-github-color
@@ -127,8 +130,10 @@ The markup for a color chip that is appended to the code by github.com
 
 The default expression that GitHub uses to match colors (`RegExp`).
 
-Supports some formats of hex (`#00eaff`), RGB (`rgb(1, 2, 3)`), RGBA
-(`rgba(1, 2, 3, 0.4)`), and HSL (`hsl(0, 1%, 2%)`) colors.
+Supports some formats of hex (`#00eaff`),
+RGB (`rgb(1, 2, 3)`),
+RGBA (`rgba(1, 2, 3, 0.4)`),
+and HSL (`hsl(0, 1%, 2%)`) colors.
 
 See [§ Syntax][syntax] for more info.
 
@@ -172,12 +177,14 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-* `behavior` ([`Behavior`][api-behavior], default: `'append'`)
+* `behavior` ([`Behavior`][api-behavior],
+  default: `'append'`)
   — what to do with the existing code and the built content
-* `build` ([`Build`][api-build], default: [`defaultBuild`][api-default-build])
+* `build` ([`Build`][api-build],
+  default: [`defaultBuild`][api-default-build])
   — make rich content from a color
-* `expression` (`RegExp`, default:
-  [`defaultExpression`][api-default-expression])
+* `expression` (`RegExp`,
+  default: [`defaultExpression`][api-default-expression])
   — match colors
 
 ## Bugs
@@ -237,7 +244,9 @@ The following CSS is needed to make color chips look like GitHub.
 
 ## Syntax
 
-Color chips form with, roughly, the following BNF:
+Color chips form with,
+roughly,
+the following BNF:
 
 ```bnf
 color ::= color_hex | color_rgb | color_rgba | color_hsl
@@ -260,17 +269,22 @@ digit_hex_upper ::= 'A' | 'B' | 'C' | 'D' | 'E' | 'F'
 
 This package is fully typed with [TypeScript][].
 It exports the additional types [`Behavior`][api-behavior],
-[`Build`][api-build], and [`Options`][api-options].
+[`Build`][api-build],
+and [`Options`][api-options].
 
 ## Compatibility
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+As of now,
+that is Node.js 16+.
+Our projects sometimes work with older versions,
+but this is not guaranteed.
 
-This plugin works with `rehype-parse` version 3+, `rehype-stringify` version
-3+, `rehype` version 5+, and `unified` version 6+.
+This plugin works with `rehype-parse` version 3+,
+`rehype-stringify` version 3+,
+`rehype` version 5+,
+and `unified` version 6+.
 
 ## Security
 
@@ -290,8 +304,9 @@ started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
-By interacting with this repository, organization, or community you agree to
-abide by its terms.
+By interacting with this repository,
+organization,
+or community you agree to abide by its terms.
 
 ## Notice
 

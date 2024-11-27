@@ -36,8 +36,8 @@
 This plugin turns normal line endings (soft breaks) into `<br>` elements
 (hard breaks).
 
-This behavior is specific to github.com that only work in comments, not in
-files.
+This behavior is specific to github.com that only work in comments,
+not in files.
 
 This plugin is part of a monorepo `rehype-github`.
 See its readme for more info.
@@ -48,10 +48,12 @@ You can use this plugin when you want to match how github.com works or when you
 want to build similar pipelines.
 
 This plugin is useful if you want to display user content closer to how it was
-authored, because when a user includes a line ending, it’ll show as such.
+authored,
+because when a user includes a line ending,
+it’ll show as such.
 This is *not* semantic according to HTML and not compliant to markdown.
-Markdown already has two ways to include hard breaks, namely trailing spaces and
-escapes (note that `␠` represents a normal space):
+Markdown already has two ways to include hard breaks,
+namely trailing spaces and escapes (note that `␠` represents a normal space):
 
 ```markdown
 lorem␠␠
@@ -62,13 +64,14 @@ ipsum
 ```
 
 Both will turn into `<br>`s.
-If you control who authors content or can document how markdown works, it’s
-recommended to use escapes instead.
+If you control who authors content or can document how markdown works,
+it’s recommended to use escapes instead.
 
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 16.0+), install with [npm][]:
+In Node.js (version 16+),
+install with [npm][]:
 
 ```sh
 npm install remark-github-break
@@ -128,10 +131,12 @@ Plugin to turn normal line endings into hard breaks.
 
 ## Bugs
 
-GitHub performs this behavior in their parser (`cmark-gfm`), operating on the
-markdown, similar to how GFM is implemented as syntax extensions.
+GitHub performs this behavior in their parser (`cmark-gfm`),
+operating on the markdown,
+similar to how GFM is implemented as syntax extensions.
 That means that breaks only work in paragraphs and headings when authored
-with markdown, not with HTML.
+with markdown,
+not with HTML.
 
 This behavior being not semantic according to HTML can also be considered a
 bug.
@@ -169,8 +174,10 @@ It exports no additional types.
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+As of now,
+that is Node.js 16+.
+Our projects sometimes work with older versions,
+but this is not guaranteed.
 
 This plugin works with `unified` version 6+ and `remark` version 7+.
 
@@ -192,8 +199,9 @@ started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
-By interacting with this repository, organization, or community you agree to
-abide by its terms.
+By interacting with this repository,
+organization,
+or community you agree to abide by its terms.
 
 ## Notice
 

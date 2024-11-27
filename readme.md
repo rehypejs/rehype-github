@@ -8,7 +8,9 @@
 
 **[rehype][]** plugins that match how GitHub transforms markdown on their site.
 
-> 👉 **Note**: Not yet released, currently being worked on.
+> 👉 **Note**:
+> Not yet released,
+> currently being worked on.
 
 ## Contents
 
@@ -29,8 +31,9 @@
 ## What is this?
 
 This project is a monorepo that contains many packages that can be used
-together or on their own, with defaults to match GitHub or with configuration
-to match your site, to process user content for safe use on the web.
+together or on their own,
+with defaults to match GitHub or with configuration to match your site,
+to process user content for safe use on the web.
 
 ## When should I use this?
 
@@ -41,7 +44,8 @@ You can use these tools when you need to:
 
 ## Install
 
-Currently, install and use each package manually.
+Currently,
+install and use each package manually.
 
 ## Packages
 
@@ -91,7 +95,11 @@ To do:
   that GitHub does there
 * Investigate task lists
 * Investigate port of treelights
-* Investigate linking to labels, issues, pulls, files, lines in files,
+* Investigate linking to labels,
+  issues,
+  pulls,
+  files,
+  lines in files
 
 ## Examples
 
@@ -105,8 +113,10 @@ These packages are fully typed with [TypeScript][].
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+As of now,
+that is Node.js 16+.
+Our projects sometimes work with older versions,
+but this is not guaranteed.
 
 ## Security
 
@@ -121,8 +131,9 @@ ways to get started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
-By interacting with this repository, organization, or community you agree to
-abide by its terms.
+By interacting with this repository,
+organization,
+or community you agree to abide by its terms.
 
 ## Notice
 

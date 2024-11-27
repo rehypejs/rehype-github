@@ -36,12 +36,14 @@
 
 ## What is this?
 
-This plugin enhances images by dropping them if they are invalid, creating
-links around them, and optionally passing images through an image proxy.
+This plugin enhances images by dropping them if they are invalid,
+creating links around them,
+and optionally passing images through an image proxy.
 
-An image proxy requires a dedicated server, which could become costly if you
-have tons of user content, but it prevents leaking the readers information
-to external servers, and it solves CORS errors.
+An image proxy requires a dedicated server,
+which could become costly if you have tons of user content,
+but it prevents leaking the readers information to external servers,
+and it solves CORS errors.
 
 This plugin is part of a monorepo `rehype-github`.
 See its readme for more info.
@@ -51,13 +53,19 @@ See its readme for more info.
 You can use this plugin when you want to match how github.com works or when you
 want to build similar pipelines that have user content.
 
-You should likely use this in combination with an image proxy, such as
-[`camo`][camo] (Node, untmaintained) or [`go-camo`][go-camo] (Go, maintained).
+<!-- To do: `camomile`!! -->
+
+You should likely use this in combination with an image proxy,
+such as
+[`camo`][camo] (Node.js, untmaintained)
+or
+[`go-camo`][go-camo] (Go, maintained).
 
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 16.0+), install with [npm][]:
+In Node.js (version 16+),
+install with [npm][]:
 
 ```sh
 npm install rehype-github-image
@@ -119,9 +127,11 @@ See for example:
 
 ###### Parameters
 
-* `path` (`string`, **required**)
+* `path` (`string`,
+  **required**)
   — where the camo server runs (such as `https://camo.githubusercontent.com`)
-* `secret` (`string`, **required**)
+* `secret` (`string`,
+  **required**)
   — shared secret with your camo server (such as `myVerySecretSecret`)
 
 ###### Returns
@@ -135,7 +145,8 @@ Plugin to enhance images.
 
 ###### Parameters
 
-* `options` ([`Options`][api-options], optional)
+* `options`
+  ([`Options`][api-options], optional)
   — configuration
 
 ### `Options`
@@ -144,28 +155,36 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-* `toProxyUrl` ([`ToProxyUrl`][api-to-proxy-url], optional)
+* `toProxyUrl`
+  ([`ToProxyUrl`][api-to-proxy-url], optional)
   — change external URLs to go through an image proxy
-* `internal` (`Array<string>` or `string`, optional)
-  — hostname or hostnames to not mark as external; URLs to these hostnames
-  will not be passed through the image proxy
-* `rel` (`Array<string>` or `string`, default: `['noopener', 'noreferrer']`)
-  — relationship(s) of your site to external content, used in `rel` on `a`s
-  wrapping the images; no `rel` field is set on URLs that go to your image
-  proxy
-* `targetBlank` (`boolean`, default: `true`)
+* `internal`
+  (`Array<string>` or `string`, optional)
+  — hostname or hostnames to not mark as external;
+  URLs to these hostnames will not be passed through the image proxy
+* `rel`
+  (`Array<string>` or `string`, default: `['noopener', 'noreferrer']`)
+  — relationship(s) of your site to external content,
+  used in `rel` on `a`s wrapping the images;
+  no `rel` field is set on URLs that go to your image proxy
+* `targetBlank`
+  (`boolean`, default: `true`)
   — whether to open images in a new window
 
 ###### Notes
 
-These options are safe by default, but you should change them.
+These options are safe by default,
+but you should change them.
 You should likely include `'nofollow'` and `'ugc'` in `rel`.
-If you have `targetBlank: true` (default), make sure to include
-`'noopener'` and `'noreferrer'` (default).
+If you have `targetBlank: true` (default),
+make sure to include `'noopener'` and `'noreferrer'` (default).
 
-> 👉 **Note**: to summarize, with `targetBlank: false`, use
-> `rel: ['nofollow', 'ugc']`.
-> With `targetBlank: true` (default), use
+> 👉 **Note**:
+> to summarize,
+> with `targetBlank: false`,
+> use `rel: ['nofollow', 'ugc']`.
+> With `targetBlank: true` (default),
+> use
 > `rel: ['nofollow', 'noopener', 'noreferrer', 'ugc']`.
 
 ### `ToProxyUrl`
@@ -183,8 +202,8 @@ URL to proxy (`Promise<string>` or `string`).
 
 ## Bugs
 
-There are no bugs with how GitHub does this, but they drop the `target` and use
-`['nofollow', 'ugc']` in the `rel`.
+There are no bugs with how GitHub does this,
+but they drop the `target` and use `['nofollow', 'ugc']` in the `rel`.
 
 ## Authoring
 
@@ -198,19 +217,22 @@ The markup that github.com uses for invalid URLs is:
 <img src="" alt="" style="max-width: 100%;">
 ```
 
-For valid URLs, they keep the value in `src`:
+For valid URLs,
+they keep the value in `src`:
 
 ```html
 <img src="../image.jpg" alt="" style="max-width: 100%;">
 ```
 
-If the image is not in an `a` element, they add one:
+If the image is not in an `a` element,
+they add one:
 
 ```html
 <a target="_blank" rel="noopener noreferrer" href="image.jpg"><img src="image.jpg" alt="alt" style="max-width: 100%;"></a>
 ```
 
-If the image goes to some domain, that isn’t `http://github.com` (or `https:`),
+If the image goes to some domain,
+that isn’t `http://github.com` (or `https:`),
 they pass the image through a camo image proxy:
 
 ```html
@@ -223,9 +245,11 @@ These urls have the following format:
 <base>/<digest>/<hex>
 ```
 
-…where `hex` is the hex encoded original URL, `digest` is the hex encoded HMAC
-digest generated with a shared secret key and the original URL, and `base` is
-the path where camo is running (such as `https://camo.githubusercontent.com`).
+…where `hex` is the hex encoded original URL,
+`digest` is the hex encoded HMAC digest generated with a shared secret key and
+the original URL,
+and `base` is the path where camo is running
+(such as `https://camo.githubusercontent.com`).
 
 ## CSS
 
@@ -245,11 +269,15 @@ It exports the additional type [`Options`][api-options] and
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+As of now,
+that is Node.js 16+.
+Our projects sometimes work with older versions,
+but this is not guaranteed.
 
-This plugin works with `rehype-parse` version 3+, `rehype-stringify` version
-3+, `rehype` version 5+, and `unified` version 6+.
+This plugin works with `rehype-parse` version 3+,
+`rehype-stringify` version 3+,
+`rehype` version 5+,
+and `unified` version 6+.
 
 ## Security
 
@@ -269,8 +297,9 @@ started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
-By interacting with this repository, organization, or community you agree to
-abide by its terms.
+By interacting with this repository,
+organization,
+or community you agree to abide by its terms.
 
 ## Notice
 

@@ -38,13 +38,14 @@
 This plugin improves support for bidirectional text in user content.
 It adds [`dir=auto`][mdn-dir] to several elements such as `p` and `h1`.
 Doing so lets each element infer its directionality.
-Without it, the entire content would be one directionality.
+Without it,
+the entire content would be one directionality.
 
 <details><summary>What? Why!</summary>
 
 Take the following HTML and try it in your browser.
-It contains examples of paragraphs in Yiddish and in English, with different
-combinations of `dir` attributes.
+It contains examples of paragraphs in Yiddish and in English,
+with different combinations of `dir` attributes.
 
 ```html
 <!doctype html>
@@ -82,10 +83,11 @@ combinations of `dir` attributes.
 
 Yields:
 
-![Screenshot of above HTML rendered in a browser, which shows that using dir
-on wrapping elements does not improve the situation, but dir=auto on each
-element does, because then the Yiddish paragraphs are right aligned, and the
-English paragraphs are left aligned.](example.png)
+![Screenshot of above HTML rendered in a browser,
+which shows that using dir on wrapping elements does not improve the situation,
+but dir=auto on each element does,
+because then the Yiddish paragraphs are right aligned,
+and the English paragraphs are left aligned.](example.png)
 
 </details>
 
@@ -96,13 +98,14 @@ See its readme for more info.
 
 You can use this plugin when you want to match how github.com works or when you
 want to build similar pipelines that lets users write in a different
-directionality than your own website, or to use different directionalities in
-their content.
+directionality than your own website,
+or to use different directionalities in their content.
 
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 16.0+), install with [npm][]:
+In Node.js (version 16+),
+install with [npm][]:
 
 ```sh
 npm install rehype-github-dir
@@ -172,10 +175,11 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-* `include` (`Array<string>`, default:
-  [`defaultInclude`][api-default-include])
-  — elements to enhance; the default behavior is to add `dir` to `div`, `h1`,
-  `h2`, `h3`, `h4`, `h5`, `h6`, `ol`, `p`, and `ul`
+* `include` (`Array<string>`,
+  default: [`defaultInclude`][api-default-include])
+  — elements to enhance;
+  the default behavior is to add `dir` to `div`, `h1`, `h2`, `h3`, `h4`, `h5`,
+  `h6`, `ol`, `p`, and `ul`
 
 ## Bugs
 
@@ -184,8 +188,10 @@ See [`community/community#8115`][8115] for more info.
 
 ## Authoring
 
-Just be careful that the behavior on GitHub is, through HTML itself, dependent
-on the *first* character that is strongly right-to-left or left-to-right.
+Just be careful that the behavior on GitHub is,
+through HTML itself,
+dependent on the *first* character that is strongly right-to-left or
+left-to-right.
 Not based on a “predominatly used” heuristic.
 
 ## HTML
@@ -213,11 +219,15 @@ It exports the additional type [`Options`][api-options].
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+As of now,
+that is Node.js 16+.
+Our projects sometimes work with older versions,
+but this is not guaranteed.
 
-This plugin works with `rehype-parse` version 3+, `rehype-stringify` version
-3+, `rehype` version 5+, and `unified` version 6+.
+This plugin works with `rehype-parse` version 3+,
+`rehype-stringify` version 3+,
+`rehype` version 5+,
+and `unified` version 6+.
 
 ## Security
 
@@ -235,8 +245,9 @@ started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
-By interacting with this repository, organization, or community you agree to
-abide by its terms.
+By interacting with this repository,
+organization,
+or community you agree to abide by its terms.
 
 ## Notice
 

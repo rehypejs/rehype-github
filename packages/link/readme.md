@@ -49,7 +49,8 @@ want to build similar pipelines that have user content.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 16.0+), install with [npm][]:
+In Node.js (version 16+),
+install with [npm][]:
 
 ```sh
 npm install rehype-github-link
@@ -106,7 +107,8 @@ Plugin to enhance links.
 
 ###### Parameters
 
-* `options` ([`Options`][api-options], optional)
+* `options`
+  ([`Options`][api-options], optional)
   — configuration
 
 ### `Options`
@@ -115,16 +117,19 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-* `internal` (`Array<string>` or `string`, default: `'github.com'`)
+* `internal`
+  (`Array<string>` or `string`, default: `'github.com'`)
   — hostname or hostnames to not mark as external
-* `rel` (`Array<string>` or `string`, default: `'nofollow'`)
-  — relationship(s) of your site to external content, used in `rel`; You
-  should probably set `['nofollow', 'ugc']`
+* `rel`
+  (`Array<string>` or `string`, default: `'nofollow'`)
+  — relationship(s) of your site to external content,
+  used in `rel`;
+  you should probably set `['nofollow', 'ugc']`
 
 ## Bugs
 
-There are no bugs with how GitHub does this, but they could use
-`['nofollow', 'ugc']` instead.
+There are no bugs with how GitHub does this,
+but they could use `['nofollow', 'ugc']` instead.
 
 ## Authoring
 
@@ -155,11 +160,15 @@ It exports the additional type [`Options`][api-options].
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+As of now,
+that is Node.js 16+.
+Our projects sometimes work with older versions,
+but this is not guaranteed.
 
-This plugin works with `rehype-parse` version 3+, `rehype-stringify` version
-3+, `rehype` version 5+, and `unified` version 6+.
+This plugin works with `rehype-parse` version 3+,
+`rehype-stringify` version 3+,
+`rehype` version 5+,
+and `unified` version 6+.
 
 ## Security
 
@@ -179,8 +188,9 @@ started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
-By interacting with this repository, organization, or community you agree to
-abide by its terms.
+By interacting with this repository,
+organization,
+or community you agree to abide by its terms.
 
 ## Notice
 

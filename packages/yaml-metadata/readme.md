@@ -41,8 +41,8 @@
 
 This plugin shows metadata authored with YAML frontmatter to readers.
 
-This behavior is specific to github.com that only work in files, not in
-comments.
+This behavior is specific to github.com that only work in files,
+not in comments.
 
 This plugin is part of a monorepo `rehype-github`.
 See its readme for more info.
@@ -53,13 +53,16 @@ You can use this plugin when you want to match how github.com works or when you
 want to build similar pipelines.
 
 This plugin is useful if you want to display metadata when the markdown is
-rendered as a *preview* and not as a finished, production, page.
+rendered as a *preview* and not as a finished,
+production,
+page.
 If *you* don’t use the metadata but something else might.
 
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 16.0+), install with [npm][]:
+In Node.js (version 16+),
+install with [npm][]:
 
 ```sh
 npm install remark-github-yaml-metadata
@@ -119,7 +122,8 @@ The default export is
 
 ### `defaultCreateErrorMessage(info)`
 
-Create rich content to display an error message to the user, like GitHub does
+Create rich content to display an error message to the user,
+like GitHub does
 ([`CreateErrorMessage`][api-create-error-message]).
 
 ### `defaultParseOptions`
@@ -127,7 +131,8 @@ Create rich content to display an error message to the user, like GitHub does
 Options defining how to parse YAML like GitHub
 ([`ParseOptions`][api-parse-options]).
 
-GH mostly follows YAML 1.1, with some non-standard behavior.
+GH mostly follows YAML 1.1,
+with some non-standard behavior.
 
 ### `remarkGithubYamlMetadata(options?)`
 
@@ -156,8 +161,9 @@ One or more hast nodes ([`ElementContent`][hast-element] or
 
 Info on what went wrong (TypeScript type).
 
-> 👉 **Note**: `point` and `summary` are defined by default, but not when
-> turning `parseOptions.prettyErrors: false`.
+> 👉 **Note**:
+> `point` and `summary` are defined by default,
+> but not when turning `parseOptions.prettyErrors: false`.
 
 ###### Fields
 
@@ -174,24 +180,31 @@ Info on what went wrong (TypeScript type).
 
 Configuration (TypeScript type).
 
-> 👉 **Note**: it is recommended to turn `allowArrayAtRoot` and
-> `allowPrimitiveAtRoot` on, so that arrays and primitives can be shown
-> too.
-> You should also probably pass `parseOptions: {}`, as that uses
-> modern defaults of `yaml`: YAML 1.2 (which for example does not turn
-> `no` into `false`) and not allowing duplicate keys in objects.
+> 👉 **Note**:
+> it is recommended to turn `allowArrayAtRoot` and `allowPrimitiveAtRoot` on,
+> so that arrays and primitives can be shown too.
+> You should also probably pass `parseOptions: {}`,
+> as that uses modern defaults of `yaml`:
+> YAML 1.2
+> (which for example does not turn `no` into `false`)
+> and not allowing duplicate keys in objects.
 
 ###### Fields
 
-* `allowArrayAtRoot` (`boolean`, default: `false`)
+* `allowArrayAtRoot`
+  (`boolean`, default: `false`)
   — whether to allow arrays at the top of the YAML
-* `allowPrimitiveAtRoot` (`boolean`, default: `false`)
+* `allowPrimitiveAtRoot`
+  (`boolean`, default: `false`)
   — whether to allow primitives (and dates) at the top of the YAML
 * `createErrorMessage`
-  ([`CreateErrorMessage`][api-create-error-message], default:
+  ([`CreateErrorMessage`][api-create-error-message],
+  default:
   [`defaultCreateErrorMessage`][api-default-create-error-message])
   — options defining how to show YAML errors
-* `parseOptions` ([`ParseOptions`][api-parse-options], default:
+* `parseOptions`
+  ([`ParseOptions`][api-parse-options],
+  default:
   [`defaultParseOptions`][api-default-parse-options])
   — options defining how to parse YAML
 
@@ -210,11 +223,14 @@ type ParseOptions = import('yaml').ParseOptions &
 
 ## Bugs
 
-GitHub only allows top-level objects, not arrays or primitives.
-Instead, it parses that as if it was markdown.
+GitHub only allows top-level objects,
+not arrays or primitives.
+Instead,
+it parses that as if it was markdown.
 Which I believe to be unexpected and a bug.
 
-GitHub also mostly follows the rules of YAML 1.1, which treats `no` as `false`,
+GitHub also mostly follows the rules of YAML 1.1,
+which treats `no` as `false`,
 which I consider a bug.
 
 ## Authoring
@@ -225,8 +241,8 @@ for more info.
 
 ## HTML
 
-The markup for frontmatter is something like the following, for an object with
-one field:
+The markup for frontmatter is something like the following,
+for an object with one field:
 
 ```html
 <table>
@@ -286,15 +302,18 @@ This package is fully typed with [TypeScript][].
 It exports the additional types
 [`CreateErrorMessage`][api-create-error-message],
 [`ErrorInfo`][api-error-info],
-[`Options`][api-options], and
+[`Options`][api-options],
+and
 [`ParseOptions`][api-parse-options].
 
 ## Compatibility
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+As of now,
+that is Node.js 16+.
+Our projects sometimes work with older versions,
+but this is not guaranteed.
 
 This plugin works with `unified` version 6+ and `remark` version 7+.
 
@@ -316,8 +335,9 @@ started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
-By interacting with this repository, organization, or community you agree to
-abide by its terms.
+By interacting with this repository,
+organization,
+or community you agree to abide by its terms.
 
 ## Notice
 

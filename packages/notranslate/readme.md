@@ -39,8 +39,8 @@ This plugin enhances raw text by adding a mark to them that tells tools like
 Google Translate to not translate them.
 By default it adds `class="notranslate"` to `pre` and `code`.
 
-This behavior is specific to github.com that only work in comments, not in
-files.
+This behavior is specific to github.com that only work in comments,
+not in files.
 
 This plugin is part of a monorepo `rehype-github`.
 See its readme for more info.
@@ -53,7 +53,8 @@ want to build similar pipelines that have user content.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 16.0+), install with [npm][]:
+In Node.js (version 16+),
+install with [npm][]:
 
 ```sh
 npm install rehype-github-notranslate
@@ -114,7 +115,8 @@ Plugin to enhance raw text with `notranslate`.
 
 ###### Parameters
 
-* `options` ([`Options`][api-options], optional)
+* `options`
+  ([`Options`][api-options], optional)
   — configuration
 
 ### `Options`
@@ -123,18 +125,20 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-* `include` (`Array<string>`, default:
+* `include`
+  (`Array<string>`, default:
   [`defaultInclude`][api-default-include])
-  — elements to enhance; the default behavior is to add `notranslate` to
-  `code` and `pre`
+  — elements to enhance;
+  the default behavior is to add `notranslate` to `code` and `pre`
 
 ## Bugs
 
-There are no particular bugs with how this work, other than that they could do
-this on files too, and that they should perhaps use
-`['code', 'kbd', 'pre', 'tt']` instead.
-Furthermore, there are cases where you would want code to be translated, that
-automation can’t solve.
+There are no particular bugs with how this work,
+other than that they could do this on files too,
+and that they should perhaps use `['code', 'kbd', 'pre', 'tt']` instead.
+Furthermore,
+there are cases where you would want code to be translated,
+that automation can’t solve.
 
 ## Authoring
 
@@ -165,11 +169,15 @@ It exports the additional type [`Options`][api-options].
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+As of now,
+that is Node.js 16+.
+Our projects sometimes work with older versions,
+but this is not guaranteed.
 
-This plugin works with `rehype-parse` version 3+, `rehype-stringify` version
-3+, `rehype` version 5+, and `unified` version 6+.
+This plugin works with `rehype-parse` version 3+,
+`rehype-stringify` version 3+,
+`rehype` version 5+,
+and `unified` version 6+.
 
 ## Security
 
@@ -187,8 +195,9 @@ started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
-By interacting with this repository, organization, or community you agree to
-abide by its terms.
+By interacting with this repository,
+organization,
+or community you agree to abide by its terms.
 
 ## Notice
 

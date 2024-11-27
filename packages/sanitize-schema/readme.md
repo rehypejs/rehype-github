@@ -37,7 +37,8 @@
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 16.0+), install with [npm][]:
+In Node.js (version 16+),
+install with [npm][]:
 
 ```sh
 npm install rehype-github-sanitize-schema
@@ -77,11 +78,12 @@ The default export is
 
 ## Bugs
 
-There are no particular bugs with how this work, other than that they could do
-this on files too, and that they should perhaps use
-`['code', 'kbd', 'pre', 'tt']` instead.
-Furthermore, there are cases where you would want code to be translated, that
-automation can’t solve.
+There are no particular bugs with how this work,
+other than that they could do this on files too,
+and that they should perhaps use `['code', 'kbd', 'pre', 'tt']` instead.
+Furthermore,
+there are cases where you would want code to be translated,
+that automation can’t solve.
 
 ## Authoring
 
@@ -112,11 +114,15 @@ It exports the additional type to do.
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+As of now,
+that is Node.js 16+.
+Our projects sometimes work with older versions,
+but this is not guaranteed.
 
-This plugin works with `rehype-parse` version 3+, `rehype-stringify` version
-3+, `rehype` version 5+, and `unified` version 6+.
+This plugin works with `rehype-parse` version 3+,
+`rehype-stringify` version 3+,
+`rehype` version 5+,
+and `unified` version 6+.
 
 ## Security
 
@@ -134,8 +140,9 @@ started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
-By interacting with this repository, organization, or community you agree to
-abide by its terms.
+By interacting with this repository,
+organization,
+or community you agree to abide by its terms.
 
 ## Notice
 

@@ -38,10 +38,12 @@
 
 ## What is this?
 
-This plugin enhances unicode emoji (👍), gemoji shortcodes (`:+1:`), and custom
-gemoji (`:shipit:`, :shipit:).
-By default it wraps them with a custom element, specific to GitHub, which you
-will want to change.
+This plugin enhances unicode emoji (👍),
+gemoji shortcodes (`:+1:`),
+and custom gemoji (`:shipit:`, :shipit:).
+By default it wraps them with a custom element,
+specific to GitHub,
+which you will want to change.
 
 This plugin is part of a monorepo `rehype-github`.
 See its readme for more info.
@@ -54,7 +56,8 @@ want to build similar pipelines that enhance emoji.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 16.0+), install with [npm][]:
+In Node.js (version 16+),
+install with [npm][]:
 
 ```sh
 npm install rehype-github-emoji
@@ -103,7 +106,8 @@ console.log(String(file))
 
 This package exports the identifiers
 [`defaultBuild`][api-default-build],
-[`defaultCustom`][api-default-custom], and
+[`defaultCustom`][api-default-custom],
+and
 [`defaultIgnore`][api-default-ignore].
 The default export is
 [`rehypeGithubEmoji`][api-rehype-github-emoji].
@@ -115,7 +119,8 @@ The default builder to turn an emoji or gemoji into rich content.
 ###### Parameters
 
 * `info` ([`Gemoji`][api-gemoji] or `string`)
-  — info on the known emoji or gemoji, or the custom gemoji name
+  — info on the known emoji or gemoji,
+  or the custom gemoji name
 * `value` (`string`)
   — literal match the way it was written
 
@@ -147,13 +152,16 @@ Make rich content from an emoji or a gemoji (TypeScript type).
 ###### Parameters
 
 * `info` ([`Gemoji`][api-gemoji] or `string`)
-  — info on the known emoji or gemoji, or the custom gemoji name
+  — info on the known emoji or gemoji,
+  or the custom gemoji name
 * `value` (`string`)
   — literal match the way it was written
 
 ###### Returns
 
-Rich content ([`ElementContent`][element], `Array<ElementContent>`, `false`).
+Rich content ([`ElementContent`][element],
+`Array<ElementContent>`,
+`false`).
 
 ### `Gemoji`
 
@@ -178,19 +186,23 @@ Configuration (TypeScript type).
 
 ###### Fields
 
-* `build` ([`Build`][api-build], default: [`defaultBuild`][api-default-build])
+* `build` ([`Build`][api-build],
+  default: [`defaultBuild`][api-default-build])
   — make rich content from an emoji or a gemoji
-* `custom` (`Array<string>`, default: [`defaultCustom`][api-default-custom])
-  — custom gemoji names to enable without colons, such as `['shipit']`; the
-  default is to enable ±20 custom GitHub-specific shortcodes
-* `ignore` ([`Test`][test], default:
-  [`defaultIgnore`][api-default-ignore])
-  — custom test for elements to not enhance; the default is to ignore `pre`,
-  `code`, `tt`, and `g-emoji`
+* `custom` (`Array<string>`,
+  default: [`defaultCustom`][api-default-custom])
+  — custom gemoji names to enable without colons,
+  such as `['shipit']`;
+  the default is to enable ±20 custom GitHub-specific shortcodes
+* `ignore` ([`Test`][test],
+  default: [`defaultIgnore`][api-default-ignore])
+  — custom test for elements to not enhance;
+  the default is to ignore `pre`, `code`, `tt`, and `g-emoji`
 
 ## Authoring
 
-If you want the text representation of an emoji, add VS 15 (`\uFE0E`) after it.
+If you want the text representation of an emoji,
+add VS 15 (`\uFE0E`) after it.
 
 See [§ Writing on GitHub][github-docs] for more info.
 
@@ -202,7 +214,8 @@ The markup for known emoji on github.com is:
 <g-emoji class="g-emoji" alias="+1" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png">👍</g-emoji>
 ```
 
-For custom emoji, they generate:
+For custom emoji,
+they generate:
 
 ```html
 <img class="emoji" title=":shipit:" alt=":shipit:" src="https://github.githubassets.com/images/icons/emoji/shipit.png" height="20" width="20" align="absmiddle">
@@ -241,24 +254,30 @@ g-emoji {
 ## Syntax
 
 The syntax for emoji and gemoji cannot be captured in BNF.
-Or at least, it doesn’t get more readable than the source code.
+Or at least,
+it doesn’t get more readable than the source code.
 Check out `lib/index.js` for how things work!
 
 ## Types
 
 This package is fully typed with [TypeScript][].
-It exports the additional types [`Build`][api-build], [`Gemoji`][api-gemoji],
+It exports the additional types [`Build`][api-build],
+[`Gemoji`][api-gemoji],
 and [`Options`][api-options].
 
 ## Compatibility
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+As of now,
+that is Node.js 16+.
+Our projects sometimes work with older versions,
+but this is not guaranteed.
 
-This plugin works with `rehype-parse` version 3+, `rehype-stringify` version
-3+, `rehype` version 5+, and `unified` version 6+.
+This plugin works with `rehype-parse` version 3+,
+`rehype-stringify` version 3+,
+`rehype` version 5+,
+and `unified` version 6+.
 
 ## Security
 
@@ -278,8 +297,9 @@ started.
 See [`support.md`][support] for ways to get help.
 
 This project has a [code of conduct][coc].
-By interacting with this repository, organization, or community you agree to
-abide by its terms.
+By interacting with this repository,
+organization,
+or community you agree to abide by its terms.
 
 ## Notice
 
