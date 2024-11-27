@@ -42,7 +42,6 @@
     "trailingComma": "none",
     "useTabs": false
   },
-  "private": true,
   "repository": "rehypejs/rehype-github",
   "scripts": {
     "test-api": "node --conditions development test/index.js",
@@ -54,7 +53,7 @@
     "strict": true
   },
   "type": "module",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "xo": {
     "overrides": [
       {

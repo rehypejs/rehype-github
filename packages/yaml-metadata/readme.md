@@ -71,14 +71,14 @@ npm install remark-github-yaml-metadata
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import remarkGithubYamlMetadata from 'https://esm.sh/remark-github-yaml-metadata@0'
+import remarkGithubYamlMetadata from 'https://esm.sh/remark-github-yaml-metadata@1'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import remarkGithubYamlMetadata from 'https://esm.sh/remark-github-yaml-metadata@0?bundle'
+  import remarkGithubYamlMetadata from 'https://esm.sh/remark-github-yaml-metadata@1?bundle'
 </script>
 ```
 
