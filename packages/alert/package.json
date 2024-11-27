@@ -1,0 +1,65 @@
+{
+  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
+  "bugs": "https://github.com/rehypejs/rehype-github/issues",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)"
+  ],
+  "dependencies": {
+    "@types/hast": "^3.0.0",
+    "hast-util-whitespace": "^3.0.0",
+    "unist-util-visit": "^5.0.0"
+  },
+  "description": "rehype plugin to enhance alerts",
+  "exports": "./index.js",
+  "files": [
+    "index.d.ts.map",
+    "index.d.ts",
+    "index.js",
+    "lib/"
+  ],
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/unified"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "name": "rehype-github-alert",
+  "prettier": {
+    "bracketSpacing": false,
+    "singleQuote": true,
+    "semi": false,
+    "tabWidth": 2,
+    "trailingComma": "none",
+    "useTabs": false
+  },
+  "private": true,
+  "repository": "rehypejs/rehype-github",
+  "scripts": {
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --100 --reporter lcov -- npm run test-api"
+  },
+  "sideEffects": false,
+  "typeCoverage": {
+    "atLeast": 100,
+    "strict": true
+  },
+  "type": "module",
+  "version": "0.0.0",
+  "xo": {
+    "overrides": [
+      {
+        "files": [
+          "**/test/**/*.js"
+        ],
+        "rules": {
+          "no-await-in-loop": "off"
+        }
+      }
+    ],
+    "prettier": true,
+    "rules": {
+      "complexity": "off",
+      "unicorn/prefer-string-replace-all": "off"
+    }
+  }
+}

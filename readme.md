@@ -53,6 +53,8 @@ install and use each package manually.
   — turn normal line endings into hard breaks (**comments**)
 * [`remark-github-yaml-metadata`](packages/yaml-metadata/)
   — show frontmatter as a table (**files**)
+* [`rehype-github-alert`](packages/alert/)
+  — enhance alerts (**everywhere**)
 * [`rehype-github-color`](packages/color/)
   — enhance code for colors (**comments**)
 * [`rehype-github-dir`](packages/dir/)

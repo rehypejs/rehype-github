@@ -58,6 +58,12 @@
       [
         "remark-lint-no-html",
         false
+      ],
+      [
+        "remark-lint-no-undefined-references",
+        {
+          "allowShortcutLink": true
+        }
       ]
     ]
   },
@@ -76,6 +82,7 @@
   "type": "module",
   "version": "0.0.0",
   "workspaces": [
+    "packages/alert/",
     "packages/break/",
     "packages/color/",
     "packages/dir/",
