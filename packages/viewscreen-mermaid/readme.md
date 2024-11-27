@@ -59,7 +59,7 @@ In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {viewscreenMermaid} from 'https://esm.sh/viewscreen-mermaid@0?bundle'
+  import {viewscreenMermaid} from 'https://esm.sh/viewscreen-mermaid@1?bundle'
 </script>
 ```
 
@@ -75,7 +75,7 @@ Say our file `viewscreen-mermaid.html` looks as follows:
 <title>viewscreen: mermaid</title>
 <style>/* … */</style>
 <script type=module>
-  import {viewscreenMermaid} from 'https://esm.sh/viewscreen-mermaid@0?bundle'
+  import {viewscreenMermaid} from 'https://esm.sh/viewscreen-mermaid@1?bundle'
 
   const id = window.location.hash.slice(1)
   if (!id) throw new Error('Expected `id` in hash')
