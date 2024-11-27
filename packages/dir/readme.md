@@ -114,14 +114,14 @@ npm install rehype-github-dir
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import rehypeGithubDir from 'https://esm.sh/rehype-github-dir@0'
+import rehypeGithubDir from 'https://esm.sh/rehype-github-dir@1'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import rehypeGithubDir from 'https://esm.sh/rehype-github-dir@0?bundle'
+  import rehypeGithubDir from 'https://esm.sh/rehype-github-dir@1?bundle'
 </script>
 ```
 
