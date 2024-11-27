@@ -66,14 +66,14 @@ npm install rehype-github-alert
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import rehypeGithubAlert from 'https://esm.sh/rehype-github-alert@0'
+import rehypeGithubAlert from 'https://esm.sh/rehype-github-alert@1'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import rehypeGithubAlert from 'https://esm.sh/rehype-github-alert@0?bundle'
+  import rehypeGithubAlert from 'https://esm.sh/rehype-github-alert@1?bundle'
 </script>
 ```
 
