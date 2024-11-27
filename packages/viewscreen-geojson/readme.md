@@ -61,7 +61,7 @@ In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {viewscreenGeojson} from 'https://esm.sh/viewscreen-geojson@0?bundle'
+  import {viewscreenGeojson} from 'https://esm.sh/viewscreen-geojson@1?bundle'
 </script>
 ```
 
@@ -80,7 +80,7 @@ Say our file `viewscreen-geojson.html` looks as follows:
 <link href=https://esm.sh/leaflet.markercluster@1.5/dist/MarkerCluster.Default.css rel=stylesheet>
 <style>/* … */</style>
 <script type=module>
-  import {viewscreenGeojson} from 'https://esm.sh/viewscreen-geojson@0?bundle'
+  import {viewscreenGeojson} from 'https://esm.sh/viewscreen-geojson@1?bundle'
 
   const id = window.location.hash.slice(1)
   if (!id) throw new Error('Expected `id` in hash')
