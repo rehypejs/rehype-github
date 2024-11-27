@@ -69,14 +69,14 @@ npm install rehype-github-heading
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import rehypeGithubHeading from 'https://esm.sh/rehype-github-heading@0'
+import rehypeGithubHeading from 'https://esm.sh/rehype-github-heading@1'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import rehypeGithubHeading from 'https://esm.sh/rehype-github-heading@0?bundle'
+  import rehypeGithubHeading from 'https://esm.sh/rehype-github-heading@1?bundle'
 </script>
 ```
 
