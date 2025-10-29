@@ -354,7 +354,7 @@ This project is not affiliated with **GitHub**.
 
 [monorepo]: https://github.com/rehypejs/rehype-github
 
-[rehype]: https://github.com/rehypjs/rehype
+[rehype]: https://github.com/rehypejs/rehype
 
 [camomile]: https://github.com/rehypejs/camomile
 
