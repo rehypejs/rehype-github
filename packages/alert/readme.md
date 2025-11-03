@@ -259,7 +259,7 @@ This project is not affiliated with **GitHub**.
 
 [rehype-github-alerts]: https://github.com/chrisweb/rehype-github-alerts
 
-[rehype]: https://github.com/rehypjs/rehype
+[rehype]: https://github.com/rehypejs/rehype
 
 [remark-directive]: https://github.com/remarkjs/remark-directive
 
